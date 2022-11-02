@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/login.dart';
+import 'package:flutter_application_1/components/sigin.dart';
 
 class formlog extends StatefulWidget {
   const formlog({super.key});
@@ -25,7 +26,7 @@ class _formlogState extends State<formlog> {
                         color: Color.fromARGB(208, 255, 255, 255),
                         border: Border.all(width: 0.5)),
                     child: Container(
-                      child: login_screen(),
+                      child: sigin_screen(),
                     )))));
 
     // This trailing comma makes auto-formatting nicer for build methods.
