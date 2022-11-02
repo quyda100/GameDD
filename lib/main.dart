@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
+import 'screens/setting.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +40,6 @@ class _HomePageState extends State<HomePage> {
     ]); // đặt màn hình ngang
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
-    return room_screen();
+    return setting();
   }
 }
