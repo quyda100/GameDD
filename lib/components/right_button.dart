@@ -8,12 +8,12 @@ class right_button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 15),
+      margin: EdgeInsets.only(left: 4.8),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width / 5.3,
+            width: MediaQuery.of(context).size.width / 5,
             child: ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
@@ -34,7 +34,7 @@ class right_button extends StatelessWidget {
                 )),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 5.3,
+            width: MediaQuery.of(context).size.width / 5,
             child: Padding(
               padding: EdgeInsets.only(top: 15),
               child: ElevatedButton(

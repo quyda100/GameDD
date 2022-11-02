@@ -6,7 +6,6 @@ import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
 import 'screens/history_screen.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -44,5 +43,7 @@ class _HomePageState extends State<HomePage> {
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
     return home();
+
+
   }
 }
