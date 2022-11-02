@@ -3,15 +3,20 @@ import '../components/header_bar.dart';
 import '../components/right_button.dart';
 import '../components/setting_screenshot.dart';
 
-class setting extends StatelessWidget {
+class setting extends StatefulWidget {
   const setting({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<setting> createState() => _settingState();
+}
+
+class _settingState extends State<setting> {
+  @override
+  double hieuung = 20;
+  double amluong = 20;
   Widget build(BuildContext context) {
-    double hieuung = 20;
-    double amluong = 20;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -33,18 +38,18 @@ class setting extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                       margin: EdgeInsets.only(left: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
-                      height: MediaQuery.of(context).size.height / 1.5,
+                      height: MediaQuery.of(context).size.height / 1.7,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
                           color: Colors.deepPurple.shade300.withOpacity(0.8),
-                          border: Border.all(width: 2)),
+                          border: Border.all(width: 0.1)),
                       child: Column(
                         children: [
                           Row(
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width / 2,
-                                margin: EdgeInsets.only(top: 5),
+                                margin: EdgeInsets.only(top: 5, left: 15),
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
@@ -80,6 +85,7 @@ class setting extends StatelessWidget {
                             ],
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Nhạc nền:',
@@ -89,15 +95,19 @@ class setting extends StatelessWidget {
                                 ),
                               ),
                               Slider(
-                                value: amluong,
-                                max: 100,
-                                divisions: 20,
-                                label: amluong.round().toString(),
-                                onChanged: ((value) => setS)
-                              )
+                                  value: amluong,
+                                  max: 100,
+                                  divisions: 20,
+                                  label: amluong.round().toString(),
+                                  onChanged: (double newvalue) {
+                                    setState(() {
+                                      amluong = newvalue;
+                                    });
+                                  })
                             ],
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Hiệu ứng:',
@@ -120,6 +130,7 @@ class setting extends StatelessWidget {
                             ],
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(10),
