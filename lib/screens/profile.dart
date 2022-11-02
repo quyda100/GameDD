@@ -3,11 +3,14 @@ import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
 
-class home extends StatelessWidget {
-  const home({
-    Key? key,
-  }) : super(key: key);
+class profile_screen extends StatefulWidget {
+  const profile_screen({super.key});
 
+  @override
+  State<profile_screen> createState() => _profile_screenState();
+}
+
+class _profile_screenState extends State<profile_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -3,11 +3,14 @@ import '../components/header_bar.dart';
 import '../components/right_button.dart';
 import '../components/setting_screenshot.dart';
 
-class room_screen extends StatelessWidget {
-  const room_screen({
-    Key? key,
-  }) : super(key: key);
+class room_screen extends StatefulWidget {
+  const room_screen({super.key});
 
+  @override
+  State<room_screen> createState() => _room_screenState();
+}
+
+class _room_screenState extends State<room_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
