@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'icon_button.dart';
 
-class header_bar extends StatelessWidget {
-  const header_bar({
-    Key? key,
-  }) : super(key: key);
+class header_bar extends StatefulWidget {
+  const header_bar({super.key});
 
+  @override
+  State<header_bar> createState() => _header_barState();
+}
+
+class _header_barState extends State<header_bar> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -32,13 +36,12 @@ class header_bar extends StatelessWidget {
                       color: Colors.blue),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Icon(
-                    Icons.diamond,
-                    color: Colors.cyan,
-                    size: 30,
-                  ),
-                ),
+                    padding: EdgeInsets.only(left: 15),
+                    child: Image.asset(
+                      'assets/icons/coin.png',
+                      width: 40,
+                      height: 40,
+                    )),
                 Text("1000"),
                 IconButton(
                   onPressed: () {},
