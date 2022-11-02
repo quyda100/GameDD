@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/screens/Dangnhap.dart';
+import 'screens/ingame_question.dart';
+import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
-import 'screens/setting.dart';
-
+import 'screens/history_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -40,6 +42,8 @@ class _HomePageState extends State<HomePage> {
     ]); // đặt màn hình ngang
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
-    return setting();
+    return home();
+
+
   }
 }
