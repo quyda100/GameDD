@@ -36,7 +36,7 @@ class _settingState extends State<setting> {
                     setting_screenshot(),
                     Container(
                       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      margin: EdgeInsets.only(left: 30),
+                      margin: EdgeInsets.only(left: 20),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.7,
                       decoration: BoxDecoration(
@@ -72,13 +72,12 @@ class _settingState extends State<setting> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
+                              Expanded(
                                 child: IconButton(
                                   onPressed: () => {},
                                   icon: Image.asset(
                                     'assets/icons/exit.png',
-                                    width: 30,
+                                    width: 25,
                                   ),
                                 ),
                               ),
