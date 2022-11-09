@@ -89,3 +89,32 @@ class _history_screenState extends State<history_screen> {
 }
 
 
+class history_item extends StatelessWidget {
+  const history_item({
+    Key? key,
+    required this.isWin,
+  }) : super(key: key);
+  final bool isWin;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: isWin ? Colors.green.shade500 : Colors.red.shade500,
+      ),
+      padding: EdgeInsets.all(15.0),
+      margin: EdgeInsets.fromLTRB(15, 8, 15, 3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            isWin ? "Thắng" : "Thua",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text("AdminABC", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("30/09/2022", style: TextStyle(fontWeight: FontWeight.bold))
+        ],
+      ),
+    );
+  }
+}
