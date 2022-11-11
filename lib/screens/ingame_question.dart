@@ -150,41 +150,4 @@ class _ingame_screenState extends State<ingame_screen> {
   }
 }
 
-class single_rank extends StatelessWidget {
-  const single_rank({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(8, 3, 8, 0),
-      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
-      decoration: BoxDecoration(
-        border: Border.all(width: 2),
-        borderRadius: BorderRadius.circular(18.0),
-        color: Color.fromARGB(255, 175, 99, 132),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          Text(
-            "1",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "AdminABC",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 30),
-            child: Text(
-              "15:00",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
