@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/Dangnhap.dart';
-import 'screens/ingame_question.dart';
+import 'package:flutter_application_1/screens/setting.dart';
+import 'screens/highscore.dart';
 import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
 import 'screens/history_screen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -43,7 +46,5 @@ class _HomePageState extends State<HomePage> {
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
     return home();
-
-
   }
 }
