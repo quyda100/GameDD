@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/login.dart';
+import 'package:flutter_application_1/components/CreateAccount.dart';
+import '../components/UpdatePasss.dart';
+import '../components/unRememberPass.dart';
 
 class formlog extends StatefulWidget {
   const formlog({super.key});
