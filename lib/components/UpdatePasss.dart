@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class login_screen extends StatelessWidget {
-  const login_screen({super.key});
+class UpdatePasss extends StatelessWidget {
+  const UpdatePasss({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,25 +14,26 @@ class login_screen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/logo.png',
-                width: MediaQuery.of(context).size.width / 3.4,
+                width: 210,
+              ),
+              Text(
+                'Đổi mật khẩu',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
               ),
             ],
           ),
         ),
         Container(
             width: MediaQuery.of(context).size.width / 2,
+            padding: EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                const Text(
-                  'Đăng Nhập',
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 30,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
                   child: TextField(
                     style: TextStyle(color: Colors.yellow),
                     decoration: InputDecoration(
@@ -42,68 +43,59 @@ class login_screen extends StatelessWidget {
                           color: Colors.yellow,
                         )),
                         border: OutlineInputBorder(),
-                        hintText: 'Tài khoản',
-                        hintStyle: TextStyle(
-                          color: Colors.black,
-                        )),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextField(
-                    style: TextStyle(color: Colors.yellow),
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          width: 1,
-                          color: Colors.yellow,
-                        )),
-                        border: OutlineInputBorder(),
-                        hintText: 'Mật khẩu',
+                        hintText: 'Mật khẩu cũ',
                         hintStyle: TextStyle(
                           color: Colors.black,
                         )),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(3.0),
+                  child: TextField(
+                    style: TextStyle(color: Colors.yellow),
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          width: 1,
+                          color: Colors.yellow,
+                        )),
+                        border: OutlineInputBorder(),
+                        hintText: 'Mât khẩu mới',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                        )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: TextField(
+                    style: TextStyle(color: Colors.yellow),
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          width: 1,
+                          color: Colors.yellow,
+                        )),
+                        border: OutlineInputBorder(),
+                        hintText: 'Nhập lại mât khẩu mới',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                        )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
                         onPressed: () => {},
-                        child: const Text(
-                          'Đăng nhập',
+                        child: Text(
+                          'Đổi mật khẩu',
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
-                        style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                Color.fromARGB(90, 12, 155, 38)),
-                            padding:
-                                MaterialStatePropertyAll(EdgeInsets.all(20))),
-                      ),
-                      TextButton(
-                        onPressed: () => {},
-                        child: const Text(
-                          'Quên Mật khẩu',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                Color.fromARGB(90, 12, 155, 38)),
-                            padding:
-                                MaterialStatePropertyAll(EdgeInsets.all(20))),
-                      ),
-                      TextButton(
-                        onPressed: () => {},
-                        child: const Text(
-                          'Đăng ký',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        style: const ButtonStyle(
+                        style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
                                 Color.fromARGB(90, 12, 155, 38)),
                             padding:
