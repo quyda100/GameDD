@@ -43,6 +43,6 @@ class _HomePageState extends State<HomePage> {
     ]); // đặt màn hình ngang
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
-    return formlog();
+    return ingame_screen();
   }
 }
