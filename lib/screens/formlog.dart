@@ -28,7 +28,7 @@ class _formlogState extends State<formlog> {
                         color: Color.fromARGB(208, 255, 255, 255),
                         border: Border.all(width: 0.5)),
                     child: Container(
-                      child: login_screen(),
+                      child: UpdatePasss(),
                     )))));
 
     // This trailing comma makes auto-formatting nicer for build methods.
