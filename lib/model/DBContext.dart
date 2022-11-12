@@ -24,6 +24,13 @@ class DBContext {
           coin: 1000,
           heart: 5,
           rank: "Bạc",
+          image: "Default"),
+      User(
+          id: 4,
+          username: "Nguyen33",
+          coin: 1000,
+          heart: 5,
+          rank: "Vàng",
           image: "Default")
     ];
     return users;
