@@ -23,40 +23,17 @@ class login_screen extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2,
               child: Column(
                 children: [
-                  const Text(
+                  Padding(padding: EdgeInsets.all(20)),
+                  Text(
                     'Đăng Nhập',
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.w600,
                       fontSize: 30,
                     ),
-                  )
-                ],
-              )),
-          Container(
-              width: MediaQuery.of(context).size.width / 2,
-              padding: EdgeInsets.only(top: 10),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: TextField(
-                      style: TextStyle(color: Colors.yellow),
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.yellow,
-                          )),
-                          border: OutlineInputBorder(),
-                          hintText: 'Email',
-                          hintStyle: TextStyle(
-                            color: Colors.black,
-                          )),
-                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       style: TextStyle(color: Colors.yellow),
                       decoration: InputDecoration(
@@ -73,7 +50,7 @@ class login_screen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       style: TextStyle(color: Colors.yellow),
                       decoration: InputDecoration(
@@ -90,31 +67,28 @@ class login_screen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: TextField(
-                      style: TextStyle(color: Colors.yellow),
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            width: 1,
-                            color: Colors.yellow,
-                          )),
-                          border: OutlineInputBorder(),
-                          hintText: 'Nhập lại mật khẩu',
-                          hintStyle: TextStyle(
-                            color: Colors.black,
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
                           onPressed: () => {},
                           child: Text(
-                            'Đăng Nhập',
+                            'Đăng nhập',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  Color.fromARGB(90, 12, 155, 38)),
+                              padding:
+                                  MaterialStatePropertyAll(EdgeInsets.all(20))),
+                        ),
+                        TextButton(
+                          onPressed: () => {},
+                          child: Text(
+                            'Quên Mật khẩu',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
