@@ -123,43 +123,7 @@ class _room_screenState extends State<room_screen> {
                                         ],
                                         borderRadius:
                                             BorderRadius.circular(10.0)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(50)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey,
-                                                  blurRadius: 15,
-                                                  offset: Offset(-5, 5),
-                                                )
-                                              ]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 8, 0, 8),
-                                            child: CircleAvatar(
-                                              backgroundImage: AssetImage(
-                                                  "assets/img/Default.png"),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Name: AdminAbc',
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 8, 0, 8),
-                                          child: Text('ID: 079079'),
-                                        ),
-                                        Text('Rank: Bac'),
-                                      ],
-                                    ),
+                                    child: User(),
                                   ),
                                 ),
                                 Expanded(
@@ -169,62 +133,26 @@ class _room_screenState extends State<room_screen> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    padding: EdgeInsets.fromLTRB(0, 2, 20, 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            width: 1, color: Colors.black),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color.fromARGB(
-                                                    255, 178, 177, 169)
-                                                .withOpacity(0.5),
+                                      padding:
+                                          EdgeInsets.fromLTRB(0, 2, 20, 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              width: 1, color: Colors.black),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color.fromARGB(
+                                                      255, 178, 177, 169)
+                                                  .withOpacity(0.5),
 
-                                            blurRadius: 8,
-                                            offset: Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(50)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey,
-                                                  blurRadius: 15,
-                                                  offset: Offset(-5, 5),
-                                                )
-                                              ]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 8, 0, 8),
-                                            child: CircleAvatar(
-                                              backgroundImage: AssetImage(
-                                                  "assets/img/Default.png"),
+                                              blurRadius: 8,
+                                              offset: Offset(0,
+                                                  3), // changes position of shadow
                                             ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Name: AdminAbc',
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 8, 0, 8),
-                                          child: Text('ID: 079079'),
-                                        ),
-                                        Text('Rank: Bac'),
-                                      ],
-                                    ),
-                                  ),
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: User()),
                                 )
                               ],
                             ),
@@ -245,6 +173,47 @@ class _room_screenState extends State<room_screen> {
               ],
             )),
       ),
+    );
+  }
+}
+
+class User extends StatelessWidget {
+  const User({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 15,
+                  offset: Offset(-5, 5),
+                )
+              ]),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+            child: CircleAvatar(
+              backgroundImage: AssetImage("assets/img/Default.png"),
+            ),
+          ),
+        ),
+        Text(
+          'Name: AdminAbc',
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+          child: Text('ID: 079079'),
+        ),
+        Text('Rank: Bac'),
+      ],
     );
   }
 }
