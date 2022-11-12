@@ -26,7 +26,7 @@ class home extends StatelessWidget {
                 setting_screenshot(),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(left: 30),
+                    margin: EdgeInsets.only(left: 10),
                     width: MediaQuery.of(context).size.width / 1.7,
                     height: MediaQuery.of(context).size.height / 1.5,
                     decoration: BoxDecoration(
