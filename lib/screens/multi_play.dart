@@ -59,99 +59,9 @@ class _multi_playState extends State<multi_play> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              minimumSize: Size(300, 50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "I don't know",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              minimumSize: Size(300, 50),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "I don't know",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  Answer(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 1),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                minimumSize: Size(300, 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "I don't know",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                minimumSize: Size(300, 50),
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "I don't know",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(top: 1), child: Answer()),
                 ],
               ),
             )
@@ -221,5 +131,58 @@ class _multi_playState extends State<multi_play> {
         ),
       ]),
     ));
+  }
+}
+
+class Answer extends StatelessWidget {
+  const Answer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                minimumSize: Size(300, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              onPressed: () {},
+              child: Text(
+                "I don't know",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                minimumSize: Size(300, 50),
+              ),
+              onPressed: () {},
+              child: Text(
+                "I don't know",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
