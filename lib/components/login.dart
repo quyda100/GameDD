@@ -6,30 +6,31 @@ class login_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Row(
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/logo.png',
-                width: MediaQuery.of(context).size.width / 3.4,
-              ),
-            ],
-          ),
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width / 2,
+        // ignore: prefer_const_literals_to_create_immutables
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
             child: Column(
               children: [
-                const Text(
-                  'Đăng Nhập',
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 30,
-                  ),
+                Image.asset(
+                  'assets/logo.png',
+                  width: MediaQuery.of(context).size.width / 3.4,
+                ),
+              ],
+            ),
+          ),
+          Container(
+              width: MediaQuery.of(context).size.width / 2,
+              child: Column(
+                children: [
+                  const Text(
+                    'Đăng Nhập',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30,
+                    ),
+                  )
                 ],
               )),
           Container(
