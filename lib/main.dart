@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/screens/formlog.dart';
-import 'screens/ingame_question.dart';
+import 'package:flutter_application_1/screens/setting.dart';
+import 'screens/highscore.dart';
 import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
 import 'screens/history_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -43,6 +44,6 @@ class _HomePageState extends State<HomePage> {
     ]); // đặt màn hình ngang
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
-    return formlog();
+    return home();
   }
 }
