@@ -31,7 +31,7 @@ class _room_screenState extends State<room_screen> {
                   children: [
                     setting_screenshot(),
                     Container(
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       margin: EdgeInsets.only(left: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.5,
@@ -60,17 +60,22 @@ class _room_screenState extends State<room_screen> {
                                     ),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            width: 2.0, color: Colors.black)),
+                                            width: 0.5, color: Colors.black),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
                                   ),
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 3,
                                     child: Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 8, 10, 5),
                                       child: TextField(
                                         decoration: InputDecoration(
                                           hintText: 'ID',
-                                          border: OutlineInputBorder(),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
                                           prefixIcon: Icon(Icons.search),
                                         ),
                                       ),
@@ -98,18 +103,17 @@ class _room_screenState extends State<room_screen> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  padding: EdgeInsets.fromLTRB(20, 2, 0, 10),
+                                  padding: EdgeInsets.fromLTRB(30, 2, 0, 10),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                          width: 1, color: Colors.black),
+                                          width: 0.5, color: Colors.black),
                                       boxShadow: [
                                         BoxShadow(
-                                          color:
-                                              Color.fromARGB(255, 178, 177, 169)
-                                                  .withOpacity(0.5),
+                                          color: Color.fromARGB(255, 12, 12, 12)
+                                              .withOpacity(0.5),
 
-                                          blurRadius: 8,
+                                          blurRadius: 7,
                                           offset: Offset(0,
                                               3), // changes position of shadow
                                         ),
@@ -122,12 +126,24 @@ class _room_screenState extends State<room_screen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 8, 0, 8),
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              "assets/img/Default.png"),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 15,
+                                                offset: Offset(-5, 5),
+                                              )
+                                            ]),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 8, 0, 8),
+                                          child: CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                "assets/img/Default.png"),
+                                          ),
                                         ),
                                       ),
                                       Text(
@@ -173,12 +189,24 @@ class _room_screenState extends State<room_screen> {
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 8, 0, 8),
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              "assets/img/Default.png"),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 15,
+                                                offset: Offset(-5, 5),
+                                              )
+                                            ]),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 8, 0, 8),
+                                          child: CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                "assets/img/Default.png"),
+                                          ),
                                         ),
                                       ),
                                       Text(

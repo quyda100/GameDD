@@ -150,6 +150,7 @@ class _ingame_screenState extends State<ingame_screen> {
   }
 }
 
+
 class single_rank extends StatelessWidget {
   const single_rank({
     Key? key,

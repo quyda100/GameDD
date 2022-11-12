@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/screens/Dangnhap.dart';
 import 'package:flutter_application_1/screens/setting.dart';
 import 'screens/highscore.dart';
 import 'screens/profile.dart';
