@@ -52,229 +52,10 @@ class _passState extends State<pass> {
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                      margin:
-                                          EdgeInsets.fromLTRB(10, 10, 15, 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 2),
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/icons/vong.png"),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/menu.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/donghocat.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/lich.png')),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.grey,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                      margin:
-                                          EdgeInsets.fromLTRB(10, 10, 15, 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 2),
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/icons/vong.png"),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/menu.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/donghocat.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/lich.png')),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.grey,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                      margin:
-                                          EdgeInsets.fromLTRB(10, 10, 15, 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 2),
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/icons/vong.png"),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/menu.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/donghocat.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/lich.png')),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.grey,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                      margin:
-                                          EdgeInsets.fromLTRB(10, 10, 15, 10),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                          color: Colors.white),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/icons/vong.png"),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/menu.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/donghocat.png')),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        'assets/icons/lich.png')),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.grey,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    Ai(),
+                                    Ai(),
+                                    Ai(),
+                                    Ai(),
                                   ],
                                 ),
                               ),
@@ -311,6 +92,65 @@ class _passState extends State<pass> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Ai extends StatelessWidget {
+  const Ai({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+      margin: EdgeInsets.fromLTRB(10, 10, 15, 10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 2),
+          borderRadius: BorderRadius.circular(18.0),
+          color: Colors.white),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Image.asset("assets/icons/vong.png"),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/icons/menu.png')),
+                IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/icons/donghocat.png')),
+                IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/icons/lich.png')),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
+              Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
+              Icon(
+                Icons.star,
+                color: Colors.grey,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
