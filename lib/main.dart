@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/screens/multi_play.dart';
 import 'package:flutter_application_1/screens/setting.dart';
 import 'screens/highscore.dart';
 import 'screens/profile.dart';
@@ -44,6 +45,6 @@ class _HomePageState extends State<HomePage> {
     ]); // đặt màn hình ngang
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.immersiveSticky); // Hide statusbar
-    return home();
+    return multi_play();
   }
 }
