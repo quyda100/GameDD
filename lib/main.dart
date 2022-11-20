@@ -7,7 +7,7 @@ import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
 import 'screens/history_screen.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'screens/formlog.dart';
 
 void main() {
   runApp(const MyApp());

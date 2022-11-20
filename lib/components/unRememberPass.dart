@@ -87,7 +87,7 @@ class unRememberPass extends StatelessWidget {
                       TextButton(
                         onPressed: () => {},
                         child: Text(
-                          'Đổi mật khẩu',
+                          'Lấy lại mật khẩu',
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
