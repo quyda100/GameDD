@@ -25,15 +25,18 @@ class _header_barState extends State<header_bar> {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset("assets/img/Default.png"),
+                  icon: Image.asset(
+                    "assets/img/Default.png",
+                    fit: BoxFit.cover,
+                  ),
                   iconSize: 45,
                 ),
                 Text(
                   "AdminABC",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.blue),
+                      fontSize: 18,
+                      color: Colors.yellow.shade600),
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: 15),
@@ -73,7 +76,7 @@ class _header_barState extends State<header_bar> {
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Image.asset('assets/icons/panel.png'),
+                icon: Image.asset('assets/icons/trophy.png'),
                 iconSize: 40,
               ),
               Padding(
