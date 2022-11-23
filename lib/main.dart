@@ -18,33 +18,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]); // đặt màn hình ngang
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: home(),
       debugShowCheckedModeBanner: false,
+      initialRoute: 'home',
+      routes: {
+        'home': (context) => home(),
+        'room': (context) => room_screen(),
+      },
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-  final String title;
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]); // đặt màn hình ngang
-    SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.immersiveSticky); // Hide statusbar
-    return home();
   }
 }
