@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/unRememberPass.dart';
+import 'package:flutter_application_1/screens/home.dart';
 
 class login_screen extends StatelessWidget {
   const login_screen({super.key});
@@ -8,7 +10,6 @@ class login_screen extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width / 0.8,
       child: (Row(
-
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             Container(
@@ -75,7 +76,13 @@ class login_screen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                            onPressed: () => {},
+                            onPressed: () => {
+                              Navigator.pop(context),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => home()))
+                            },
                             child: Text(
                               'Đăng nhập',
                               style: TextStyle(
@@ -89,7 +96,13 @@ class login_screen extends StatelessWidget {
                                     EdgeInsets.all(20))),
                           ),
                           TextButton(
-                            onPressed: () => {},
+                            onPressed: () => {
+                              Navigator.pop(context),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => unRememberPass()))
+                            },
                             child: Text(
                               'Quên Mật khẩu',
                               style: TextStyle(

@@ -20,7 +20,6 @@ class _formlogState extends State<formlog> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/bg.png"), fit: BoxFit.cover),
-                      
                 ),
                 child: Container(
                     margin: const EdgeInsets.all(30),
@@ -29,7 +28,7 @@ class _formlogState extends State<formlog> {
                         color: Color.fromARGB(208, 255, 255, 255),
                         border: Border.all(width: 0.5)),
                     child: Container(
-                      child: UpdatePasss(),
+                      child: login_screen(),
                     )))));
 
     // This trailing comma makes auto-formatting nicer for build methods.
