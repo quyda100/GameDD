@@ -17,7 +17,7 @@ class _passState extends State<pass> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+                image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

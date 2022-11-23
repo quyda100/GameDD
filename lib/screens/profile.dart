@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/history_screen.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
@@ -17,7 +18,7 @@ class _profile_screenState extends State<profile_screen> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+                image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +147,13 @@ class _profile_screenState extends State<profile_screen> {
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                history_screen()));
+                                  },
                                   icon: Icon(Icons.task_alt),
                                   label: Text("Lịch sử đấu",
                                       style: TextStyle(

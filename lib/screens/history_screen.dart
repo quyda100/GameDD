@@ -17,7 +17,7 @@ class _history_screenState extends State<history_screen> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+                image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
         padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,11 +41,12 @@ class _history_screenState extends State<history_screen> {
                           Row(
                             children: [
                               Expanded(
+                                flex: 5,
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 15, 8),
-                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                  margin: EdgeInsets.fromLTRB(40, 10, 15, 8),
+                                  padding: EdgeInsets.fromLTRB(10, 15, 0, 15),
                                   decoration: BoxDecoration(
-                                      color: Colors.blue,
+                                      //color: Colors.blue,
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
                                   child: Text(
@@ -57,10 +58,14 @@ class _history_screenState extends State<history_screen> {
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Image.asset('assets/icons/exit.png'),
-                                iconSize: 30,
+                              Expanded(
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); //(pop ve giao dien info)
+                                  },
+                                  icon: Image.asset('assets/icons/exit.png'),
+                                  iconSize: 30,
+                                ),
                               )
                             ],
                           ),
@@ -87,7 +92,6 @@ class _history_screenState extends State<history_screen> {
     );
   }
 }
-
 
 class history_item extends StatelessWidget {
   const history_item({
