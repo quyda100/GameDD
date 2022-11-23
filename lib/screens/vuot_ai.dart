@@ -17,8 +17,8 @@ class _VuotAiState extends State<VuotAi> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
-        padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+        padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,15 +26,16 @@ class _VuotAiState extends State<VuotAi> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                setting_screenshot(),
+                const setting_screenshot(),
                 Expanded(
                   child: Container(
-                      margin: EdgeInsets.only(left: 30, right: 30),
+                      margin: const EdgeInsets.only(left: 30, right: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.5,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.deepPurple.shade300.withOpacity(0.8),
+                          color: Color.fromARGB(255, 100, 184, 224)
+                              .withOpacity(0.8),
                           border: Border.all(width: 2)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -44,7 +45,7 @@ class _VuotAiState extends State<VuotAi> {
                               margin: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   border: Border.all(width: 2),
-                                  image: DecorationImage(
+                                  image: const DecorationImage(
                                     image: AssetImage("assets/bg.jpg"),
                                     fit: BoxFit.cover,
                                   )),
@@ -62,7 +63,7 @@ class _VuotAiState extends State<VuotAi> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             child: Column(
                               children: [
                                 SizedBox(
@@ -73,7 +74,7 @@ class _VuotAiState extends State<VuotAi> {
                                       backgroundColor:
                                           MaterialStateProperty.all(Colors.red),
                                     ),
-                                    child: Text("Chương trước"),
+                                    child: const Text("Chương trước"),
                                   ),
                                 ),
                                 SizedBox(
@@ -84,7 +85,7 @@ class _VuotAiState extends State<VuotAi> {
                                       backgroundColor:
                                           MaterialStateProperty.all(Colors.red),
                                     ),
-                                    child: Text("Chương kế"),
+                                    child: const Text("Chương kế"),
                                   ),
                                 ),
                                 SizedBox(
@@ -98,7 +99,7 @@ class _VuotAiState extends State<VuotAi> {
                                       backgroundColor:
                                           MaterialStateProperty.all(Colors.red),
                                     ),
-                                    child: Text("Quay lại"),
+                                    child: const Text("Quay lại"),
                                   ),
                                 ),
                               ],

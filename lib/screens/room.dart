@@ -39,8 +39,8 @@ class _room_screenState extends State<room_screen> {
                           height: MediaQuery.of(context).size.height / 1.5,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              color:
-                                  Colors.deepPurple.shade300.withOpacity(0.8),
+                              color: Color.fromARGB(255, 100, 184, 224)
+                                  .withOpacity(0.8),
                               border: Border.all(width: 2)),
                           child: Column(
                             children: [

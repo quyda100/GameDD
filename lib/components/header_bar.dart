@@ -17,10 +17,9 @@ class _header_barState extends State<header_bar> {
           flex: 2,
           child: Container(
             decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 255, 255, 0.5),
-                borderRadius: BorderRadius.circular(20.0)),
-            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            margin: EdgeInsets.only(bottom: 15, top: 10),
+                color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            margin: const EdgeInsets.only(bottom: 15, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -52,7 +51,7 @@ class _header_barState extends State<header_bar> {
                   icon: Image.asset('assets/icons/add.png'),
                   iconSize: 25,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Icon(
                     Icons.favorite,
@@ -92,6 +91,15 @@ class _header_barState extends State<header_bar> {
                 icon: Image.asset('assets/icons/shop.png'),
                 iconSize: 40,
               ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    'assets/logo.png',
+                  ),
+                ),
+              )
             ],
           ),
         )
