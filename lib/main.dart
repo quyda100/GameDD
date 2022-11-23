@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/screens/multi_play.dart';
-import 'package:flutter_application_1/screens/setting.dart';
+import 'screens/CreateAccount.dart';
+import 'screens/UpdatePasss.dart';
+import 'screens/login.dart';
+import 'screens/multi_play.dart';
+import 'screens/setting.dart';
+import 'screens/unRememberPass.dart';
 import 'screens/highscore.dart';
 import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
 import 'screens/history_screen.dart';
-import 'screens/formlog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,12 +31,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: home(),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: 'UpdatePasss',
       routes: {
+        'login': (context) => login_screen(),
         'home': (context) => home(),
         'room': (context) => room_screen(),
+        'unRemmemberPass': (context) => unRememberPass(),
+        'UpdatePasss': (context) => UpdatePasss(),
+        'CreateAccount': (context) => CreateAccount(),
       },
     );
   }
