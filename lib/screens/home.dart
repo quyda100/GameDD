@@ -42,7 +42,7 @@ class home extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         width: MediaQuery.of(context).size.width / 5,
                         height: MediaQuery.of(context).size.width / 3,
                         child: IconButton(
