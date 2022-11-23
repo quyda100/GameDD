@@ -26,41 +26,36 @@ class home extends StatelessWidget {
                 setting_screenshot(),
                 Expanded(
                     child: Container(
-                  margin: const EdgeInsets.fromLTRB(25, 5, 25, 0),
+                  margin: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                          height: MediaQuery.of(context).size.width / 3,
-                          child: IconButton(
-                            icon: Image.asset(
-                              "assets/img/choithu.png",
-                              scale: 2,
-                            ),
-                            onPressed: () {},
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 5,
+                        height: MediaQuery.of(context).size.width / 3,
+                        child: IconButton(
+                          icon: Image.asset(
+                            "assets/img/choithu.png",
+                            scale: 2,
                           ),
+                          onPressed: () {},
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                          height: MediaQuery.of(context).size.width / 3,
-                          child: IconButton(
-                            icon: Image.asset("assets/img/vuotai.png"),
-                            onPressed: () {},
-                          ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        width: MediaQuery.of(context).size.width / 5,
+                        height: MediaQuery.of(context).size.width / 3,
+                        child: IconButton(
+                          icon: Image.asset("assets/img/vuotai.png"),
+                          onPressed: () {},
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                          height: MediaQuery.of(context).size.width / 3,
-                          child: IconButton(
-                            icon: Image.asset("assets/img/xephang.png"),
-                            onPressed: () {},
-                          ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 5,
+                        height: MediaQuery.of(context).size.width / 3,
+                        child: IconButton(
+                          icon: Image.asset("assets/img/xephang.png"),
+                          onPressed: () {},
                         ),
                       )
                     ],

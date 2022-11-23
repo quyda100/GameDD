@@ -70,7 +70,7 @@ class _header_barState extends State<header_bar> {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width / 2.5,
+          width: MediaQuery.of(context).size.width / 3,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
