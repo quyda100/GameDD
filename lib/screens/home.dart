@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/setting.dart';
+import 'package:flutter_application_1/screens/vuot_ai.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
@@ -47,7 +48,12 @@ class home extends StatelessWidget {
                         height: MediaQuery.of(context).size.width / 3,
                         child: IconButton(
                           icon: Image.asset("assets/img/vuotai.png"),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VuotAi()));
+                          },
                         ),
                       ),
                       SizedBox(
@@ -55,7 +61,10 @@ class home extends StatelessWidget {
                         height: MediaQuery.of(context).size.width / 3,
                         child: IconButton(
                           icon: Image.asset("assets/img/xephang.png"),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, 'room');
+                          },
                         ),
                       )
                     ],
