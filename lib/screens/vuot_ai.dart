@@ -3,14 +3,14 @@ import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
 
-class pass extends StatefulWidget {
-  const pass({super.key});
+class VuotAi extends StatefulWidget {
+  const VuotAi({super.key});
 
   @override
-  State<pass> createState() => _passState();
+  State<VuotAi> createState() => _VuotAiState();
 }
 
-class _passState extends State<pass> {
+class _VuotAiState extends State<VuotAi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _passState extends State<pass> {
                 setting_screenshot(),
                 Expanded(
                   child: Container(
-                      margin: EdgeInsets.only(left: 30),
+                      margin: EdgeInsets.only(left: 30, right: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.5,
                       decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _passState extends State<pass> {
                               decoration: BoxDecoration(
                                   border: Border.all(width: 2),
                                   image: DecorationImage(
-                                    image: AssetImage("assets/bg.png"),
+                                    image: AssetImage("assets/bg.jpg"),
                                     fit: BoxFit.cover,
                                   )),
                               child: SingleChildScrollView(
@@ -65,21 +65,41 @@ class _passState extends State<pass> {
                             padding: EdgeInsets.all(8),
                             child: Column(
                               children: [
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.red),
+                                SizedBox(
+                                  width: 130,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(Colors.red),
+                                    ),
+                                    child: Text("Chương trước"),
                                   ),
-                                  child: Text("Chuong truoc"),
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.red),
+                                SizedBox(
+                                  width: 130,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(Colors.red),
+                                    ),
+                                    child: Text("Chương kế"),
                                   ),
-                                  child: Text("Chuong ke"),
+                                ),
+                                SizedBox(
+                                  width: 130,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pushNamed(context, 'home');
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(Colors.red),
+                                    ),
+                                    child: Text("Quay lại"),
+                                  ),
                                 ),
                               ],
                             ),
@@ -87,7 +107,6 @@ class _passState extends State<pass> {
                         ],
                       )),
                 ),
-                right_button()
               ],
             )
           ],

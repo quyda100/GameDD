@@ -14,6 +14,7 @@ class _header_barState extends State<header_bar> {
     return Row(
       children: [
         Expanded(
+          flex: 2,
           child: Container(
             decoration: BoxDecoration(
                 color: Color.fromRGBO(255, 255, 255, 0.5),
@@ -69,8 +70,7 @@ class _header_barState extends State<header_bar> {
             ),
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width / 2.5,
+        Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
