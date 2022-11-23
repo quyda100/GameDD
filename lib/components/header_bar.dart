@@ -14,6 +14,7 @@ class _header_barState extends State<header_bar> {
     return Row(
       children: [
         Expanded(
+          flex: 2,
           child: Container(
             decoration: BoxDecoration(
                 color: Color.fromRGBO(255, 255, 255, 0.5),
@@ -25,15 +26,18 @@ class _header_barState extends State<header_bar> {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset("assets/img/Default.png"),
+                  icon: Image.asset(
+                    "assets/img/Default.png",
+                    fit: BoxFit.cover,
+                  ),
                   iconSize: 45,
                 ),
                 Text(
                   "AdminABC",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.blue),
+                      fontSize: 18,
+                      color: Colors.yellow.shade600),
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: 15),
@@ -66,14 +70,13 @@ class _header_barState extends State<header_bar> {
             ),
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width / 2.5,
+        Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Image.asset('assets/icons/panel.png'),
+                icon: Image.asset('assets/icons/trophy.png'),
                 iconSize: 40,
               ),
               Padding(
