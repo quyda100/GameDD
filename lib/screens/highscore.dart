@@ -25,10 +25,10 @@ class _ingame_screenState extends State<ingame_screen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   width: MediaQuery.of(context).size.width / 1.5,
                   height: MediaQuery.of(context).size.height / 1.5,
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
                       color: Colors.deepPurple.shade300.withOpacity(0.8),
@@ -36,7 +36,7 @@ class _ingame_screenState extends State<ingame_screen> {
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: const EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                             border: Border.all(width: 1),
                             color: Colors.white,
@@ -150,7 +150,6 @@ class _ingame_screenState extends State<ingame_screen> {
   }
 }
 
-
 class single_rank extends StatelessWidget {
   const single_rank({
     Key? key,
@@ -159,12 +158,12 @@ class single_rank extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(8, 3, 8, 0),
-      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+      margin: const EdgeInsets.fromLTRB(8, 3, 8, 0),
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
       decoration: BoxDecoration(
         border: Border.all(width: 2),
         borderRadius: BorderRadius.circular(18.0),
-        color: Color.fromARGB(255, 175, 99, 132),
+        color: const Color.fromARGB(255, 175, 99, 132),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,7 +177,7 @@ class single_rank extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 30),
+            padding: EdgeInsets.only(right: 30),
             child: Text(
               "15:00",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),

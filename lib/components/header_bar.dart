@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/profile.dart';
 import 'icon_button.dart';
 
 class header_bar extends StatefulWidget {
@@ -14,24 +15,22 @@ class _header_barState extends State<header_bar> {
     return Row(
       children: [
         Expanded(
-          flex: 2,
+          flex: 0,
           child: Container(
             decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 255, 255, 0.5),
+                color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20.0)),
-            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            margin: EdgeInsets.only(bottom: 15, top: 10),
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            margin: const EdgeInsets.only(bottom: 15, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    "assets/img/Default.png",
-                    fit: BoxFit.cover,
-                  ),
-                  iconSize: 45,
-                ),
+                TextButton(
+                    onPressed: () {},
+                    child: const CircleAvatar(
+                      foregroundColor: Colors.transparent,
+                      foregroundImage: AssetImage("assets/img/Default.png"),
+                    )),
                 Text(
                   "AdminABC",
                   style: TextStyle(
@@ -50,9 +49,9 @@ class _header_barState extends State<header_bar> {
                 IconButton(
                   onPressed: () {},
                   icon: Image.asset('assets/icons/add.png'),
-                  iconSize: 25,
+                  iconSize: 15,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Icon(
                     Icons.favorite,
@@ -71,6 +70,10 @@ class _header_barState extends State<header_bar> {
           ),
         ),
         Expanded(
+          child: Container(),
+        ),
+        Expanded(
+          flex: 0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -92,6 +95,15 @@ class _header_barState extends State<header_bar> {
                 icon: Image.asset('assets/icons/shop.png'),
                 iconSize: 40,
               ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 20, 0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    'assets/logo.png',
+                  ),
+                ),
+              )
             ],
           ),
         )

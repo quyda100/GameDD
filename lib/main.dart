@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'UpdatePasss',
+      initialRoute: 'login',
       routes: {
         'login': (context) => login_screen(),
         'home': (context) => home(),

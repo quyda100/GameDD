@@ -29,7 +29,7 @@ class _history_screenState extends State<history_screen> {
                 setting_screenshot(),
                 Expanded(
                   child: Container(
-                      margin: EdgeInsets.only(left: 30),
+                      margin: const EdgeInsets.only(left: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.5,
                       decoration: BoxDecoration(
@@ -42,13 +42,15 @@ class _history_screenState extends State<history_screen> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 15, 8),
-                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 0, 15, 8),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 15, 0, 15),
                                   decoration: BoxDecoration(
                                       color: Colors.blue,
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
-                                  child: Text(
+                                  child: const Text(
                                     "Lịch sử xếp hạng",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -58,7 +60,9 @@ class _history_screenState extends State<history_screen> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 icon: Image.asset('assets/icons/exit.png'),
                                 iconSize: 30,
                               )
@@ -78,7 +82,6 @@ class _history_screenState extends State<history_screen> {
                         ],
                       )),
                 ),
-                right_button()
               ],
             )
           ],
@@ -87,7 +90,6 @@ class _history_screenState extends State<history_screen> {
     );
   }
 }
-
 
 class history_item extends StatelessWidget {
   const history_item({
