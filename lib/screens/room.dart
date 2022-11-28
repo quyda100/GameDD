@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/home.dart';
+import 'package:flutter_application_1/screens/multi_play.dart';
 import '../components/header_bar.dart';
 import '../components/right_button.dart';
 import '../components/setting_screenshot.dart';
@@ -100,9 +102,17 @@ class _room_screenState extends State<room_screen> {
                                         ),
                                       ),
                                       IconButton(
-                                          onPressed: () {},
-                                          icon: Image.asset(
-                                              'assets/icons/exit.png'))
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      home()));
+                                        },
+                                        icon: Image.asset(
+                                            'assets/icons/exit.png'),
+                                      )
                                     ]),
                               ),
                               Expanded(
@@ -168,7 +178,10 @@ class _room_screenState extends State<room_screen> {
                                 ),
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>multi_play()), (route) => false);
+                                },
                                 child: Text(
                                   'Bắt Đầu',
                                   style: TextStyle(fontSize: 15),

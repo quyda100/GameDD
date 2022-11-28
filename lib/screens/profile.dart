@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/history_screen.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
@@ -85,8 +86,11 @@ class _profile_screenState extends State<profile_screen> {
                               ),
                             ),
                             IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.close_rounded))
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Image.asset('assets/icons/exit.png'),
+                            )
                           ],
                         ),
                         Text(
@@ -122,7 +126,7 @@ class _profile_screenState extends State<profile_screen> {
                                 ],
                               ),
                               Column(
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.diamond,
                                     size: 60,
@@ -137,7 +141,7 @@ class _profile_screenState extends State<profile_screen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(40, 10, 40, 0),
+                          padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -146,9 +150,15 @@ class _profile_screenState extends State<profile_screen> {
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white)),
-                                  onPressed: () {},
-                                  icon: Icon(Icons.task_alt),
-                                  label: Text("Lịch sử đấu",
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                history_screen()));
+                                  },
+                                  icon: const Icon(Icons.task_alt),
+                                  label: const Text("Lịch sử đấu",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold))),
@@ -158,8 +168,8 @@ class _profile_screenState extends State<profile_screen> {
                                           MaterialStateProperty.all(
                                               Colors.white)),
                                   onPressed: () {},
-                                  icon: Icon(Icons.lock_person_rounded),
-                                  label: Text(
+                                  icon: const Icon(Icons.lock_person_rounded),
+                                  label: const Text(
                                     "Đổi mật khẩu",
                                     style: TextStyle(
                                         color: Colors.black,

@@ -60,7 +60,9 @@ class _history_screenState extends State<history_screen> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 icon: Image.asset('assets/icons/exit.png'),
                                 iconSize: 30,
                               )
