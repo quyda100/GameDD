@@ -6,7 +6,7 @@ import 'screens/UpdatePasss.dart';
 import 'screens/login.dart';
 import 'screens/unRememberPass.dart';
 import 'screens/home.dart';
-import 'screens/room.dart';
+import 'pop_up/room.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'login': (context) => login_screen(),
         'home': (context) => home(),

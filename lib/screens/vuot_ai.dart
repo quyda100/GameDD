@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/highscore.dart';
+import 'package:flutter_application_1/pop_up/highscore.dart';
 import 'package:flutter_application_1/screens/single_play.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
@@ -17,22 +17,16 @@ class _VuotAiState extends State<VuotAi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(0, 255, 193, 7),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
-        padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            header_bar(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const setting_screenshot(),
                 Expanded(
                   child: Container(
-                      margin: const EdgeInsets.only(left: 30, right: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
                       height: MediaQuery.of(context).size.height / 1.5,
                       decoration: BoxDecoration(
@@ -70,10 +64,6 @@ class _VuotAiState extends State<VuotAi> {
                                 child: IconButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => home()));
                                   },
                                   icon: Image.asset('assets/icons/exit.png'),
                                 ),
@@ -208,7 +198,19 @@ class Ai extends StatelessWidget {
                       onPressed: () {},
                       icon: Image.asset('assets/icons/donghocat.png')),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor:
+                                      Color.fromARGB(0, 246, 246, 246),
+                                  content: Container(
+                                    height: 280,
+                                    width: 580.0,
+                                    child: ingame_screen(),
+                                  ),
+                                ));
+                      },
                       icon: Image.asset('assets/icons/lich.png')),
                 ],
               ),

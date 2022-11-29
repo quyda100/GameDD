@@ -24,7 +24,7 @@ class _login_screenState extends State<login_screen> {
             child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/bg.png"), fit: BoxFit.cover),
+                      image: AssetImage("assets/bg.gif"), fit: BoxFit.cover),
                 ),
                 child: Container(
                     margin: const EdgeInsets.all(30),
