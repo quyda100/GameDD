@@ -16,27 +16,22 @@ class _profile_screenState extends State<profile_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(0, 255, 193, 7),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
-        padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Header(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                setting_screenshot(),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(left: 30, right: 20),
                     width: MediaQuery.of(context).size.width / 1.7,
                     height: MediaQuery.of(context).size.height / 1.5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
-                        color: Colors.deepPurple.shade300.withOpacity(0.8),
+                        color:
+                            Color.fromARGB(0, 149, 117, 205).withOpacity(0.8),
                         border: Border.all(width: 2)),
                     child: Column(
                       children: [
@@ -198,8 +193,6 @@ class Header extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20.0)),
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            margin: const EdgeInsets.only(bottom: 15, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

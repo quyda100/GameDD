@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pop_up/room.dart';
 
 import 'package:flutter_application_1/screens/vuot_ai.dart';
 import '../components/setting_screenshot.dart';
@@ -59,10 +60,17 @@ class home extends StatelessWidget {
                           child: IconButton(
                             icon: Image.asset("assets/img/vuotai.png"),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => VuotAi()));
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        backgroundColor:
+                                            Color.fromARGB(0, 246, 246, 246),
+                                        content: Container(
+                                          height: 280,
+                                          width: 700.0,
+                                          child: VuotAi(),
+                                        ),
+                                      ));
                             },
                           ),
                         ),
@@ -77,8 +85,17 @@ class home extends StatelessWidget {
                           child: IconButton(
                             icon: Image.asset("assets/img/xephang.png"),
                             onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pushNamed(context, 'room');
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        backgroundColor:
+                                            Color.fromARGB(0, 246, 246, 246),
+                                        content: Container(
+                                          height: 280,
+                                          width: 580.0,
+                                          child: room_screen(),
+                                        ),
+                                      ));
                             },
                           ),
                         ),
