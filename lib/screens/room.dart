@@ -22,7 +22,7 @@ class _room_screenState extends State<room_screen> {
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+                    image: AssetImage("assets/bg.gif"), fit: BoxFit.cover)),
             padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -180,7 +180,11 @@ class _room_screenState extends State<room_screen> {
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>multi_play()), (route) => false);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => multi_play()),
+                                      (route) => false);
                                 },
                                 child: Text(
                                   'Bắt Đầu',

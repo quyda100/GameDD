@@ -26,7 +26,7 @@ class _CreateAccountState extends State<CreateAccount> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.png"), fit: BoxFit.cover),
+                image: AssetImage("assets/bglog.png"), fit: BoxFit.cover),
           ),
           child: Container(
             margin: const EdgeInsets.all(30),
@@ -168,7 +168,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                             .createUserWithEmailAndPassword(
                                                 email: txtEmail.text,
                                                 password: txtPass.text);
-                                        if (newUser !=null) {
+                                        if (newUser != null) {
                                           final snackBar = SnackBar(
                                               content:
                                                   Text("Đăng Ký Thành Công"));

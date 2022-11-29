@@ -20,7 +20,9 @@ class _SinglePlayState extends State<SinglePlay> {
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+              image: AssetImage("assets/bg.gif"), fit: BoxFit.cover)),
+
+      // image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
       padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
       child: Column(children: [
         header_bar(),

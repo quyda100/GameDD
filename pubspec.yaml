@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^4.1.0
   http: ^0.13.5
   cloud_firestore: ^4.0.0
+  widget_and_text_animator: ^1.0.9
+  indexed: ^0.0.8
 
 dev_dependencies:
   flutter_native_splash: ^2.2.13

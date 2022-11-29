@@ -13,7 +13,7 @@ class UpdatePasss extends StatelessWidget {
             child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/bg.png"), fit: BoxFit.cover),
+                      image: AssetImage("assets/bglog.gif"), fit: BoxFit.cover),
                 ),
                 child: Container(
                   margin: const EdgeInsets.all(30),
