@@ -155,14 +155,14 @@ class _CreateAccountState extends State<CreateAccount> {
                               children: [
                                 TextButton(
                                   onPressed: () async {
-                                    if (txtPass.text != txtRePass.text &&
-                                        txtPass.text != null) {
-                                      final snackBar = SnackBar(
-                                          content: Text(
-                                              'Vui Lòng Kiểm Tra Lại Mật Khẩu'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    } else {
+                                    // if (txtPass.text != txtRePass.text ||
+                                    //     txtPass.text != null) {
+                                    //   final snackBar = SnackBar(
+                                    //       content: Text(
+                                    //           'Vui Lòng Kiểm Tra Lại Mật Khẩu'));
+                                    //   ScaffoldMessenger.of(context)
+                                    //       .showSnackBar(snackBar);
+                                    // } else {
                                       try {
                                         final newUser = _auth
                                             .createUserWithEmailAndPassword(
@@ -189,7 +189,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBar);
                                       }
-                                    }
+                                    //}
                                   },
                                   child: Text(
                                     'Đăng ký',

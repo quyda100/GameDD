@@ -142,13 +142,13 @@ class _login_screenState extends State<login_screen> {
                                                         'home',
                                                         (route) => false);
                                               });
-                                              // if (user == null) {
-                                              //   final snackBar = SnackBar(
-                                              //       content: Text(
-                                              //           'Đăng Nhập Không Thành Công'));
-                                              //   ScaffoldMessenger.of(context)
-                                              //       .showSnackBar(snackBar);
-                                              // }
+                                              if (user == null) {
+                                                final snackBar = SnackBar(
+                                                    content: Text(
+                                                        'Đăng Nhập Không Thành Công'));
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(snackBar);
+                                              }
                                             } catch (e) {
                                               final snackBar = SnackBar(
                                                   content:
