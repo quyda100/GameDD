@@ -26,7 +26,12 @@ class _header_barState extends State<header_bar> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => profile_screen()));
+                    },
                     child: const CircleAvatar(
                       foregroundColor: Colors.transparent,
                       foregroundImage: AssetImage("assets/img/Default.png"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/history_screen.dart';
+import 'package:flutter_application_1/screens/history_screen.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
@@ -19,18 +20,18 @@ class _profile_screenState extends State<profile_screen> {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
-        padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+        padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            header_bar(),
+            Header(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 setting_screenshot(),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(left: 30),
+                    margin: const EdgeInsets.only(left: 30, right: 20),
                     width: MediaQuery.of(context).size.width / 1.7,
                     height: MediaQuery.of(context).size.height / 1.5,
                     decoration: BoxDecoration(
@@ -41,13 +42,12 @@ class _profile_screenState extends State<profile_screen> {
                       children: [
                         Row(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                              child: Icon(
-                                Icons.account_circle_rounded,
-                                size: 50,
-                              ),
-                            ),
+                            const Padding(
+                                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('assets/img/Default.png'),
+                                )),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,15 +150,9 @@ class _profile_screenState extends State<profile_screen> {
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white)),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                history_screen()));
-                                  },
-                                  icon: const Icon(Icons.task_alt),
-                                  label: const Text("Lịch sử đấu",
+                                  onPressed: () {},
+                                  icon: Icon(Icons.task_alt),
+                                  label: Text("Lịch sử đấu",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold))),
@@ -182,12 +176,116 @@ class _profile_screenState extends State<profile_screen> {
                     ),
                   ),
                 ),
-                right_button()
               ],
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  const Header({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 0,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20.0)),
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            margin: const EdgeInsets.only(bottom: 15, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextButton(
+                    onPressed: () {},
+                    child: const CircleAvatar(
+                      foregroundColor: Colors.transparent,
+                      foregroundImage: AssetImage("assets/img/Default.png"),
+                    )),
+                Text(
+                  "AdminABC",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.yellow.shade600),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Image.asset(
+                      'assets/icons/coin.png',
+                      width: 40,
+                      height: 40,
+                    )),
+                Text("1000"),
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset('assets/icons/add.png'),
+                  iconSize: 15,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: 30,
+                  ),
+                ),
+                Text("4:02"),
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset('assets/icons/add.png'),
+                  iconSize: 25,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(),
+        ),
+        Expanded(
+          flex: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset('assets/icons/trophy.png'),
+                iconSize: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Image.asset('assets/icons/inventory.png'),
+                  iconSize: 40,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset('assets/icons/shop.png'),
+                iconSize: 40,
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 20, 0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    'assets/logo.png',
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

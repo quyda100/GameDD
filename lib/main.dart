@@ -1,18 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/CreateAccount.dart';
 import 'screens/UpdatePasss.dart';
 import 'screens/login.dart';
-import 'screens/multi_play.dart';
-import 'screens/setting.dart';
 import 'screens/unRememberPass.dart';
-import 'screens/highscore.dart';
-import 'screens/profile.dart';
 import 'screens/home.dart';
 import 'screens/room.dart';
-import 'screens/history_screen.dart';
 
-void main() {
+Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
