@@ -29,7 +29,7 @@ class _header_barState extends State<header_bar> {
                       onTap: () {},
                       child: CircleAvatar(
                         radius: 35,
-                        backgroundImage: AssetImage('assets/avartar/abc.jpg'),
+                        backgroundImage: AssetImage('assets/bg.png'),
                       ),
                     ),
                   ),
@@ -41,7 +41,7 @@ class _header_barState extends State<header_bar> {
                         color: Color.fromARGB(143, 16, 10, 10),
                         borderRadius: BorderRadius.circular(20.0)),
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    margin: EdgeInsets.only(bottom: 15, top: 10),
+                    margin: EdgeInsets.only(bottom: 15, top: 10, left: 10),
                     child: Row(
                       children: [
                         Expanded(child: Text("")),
