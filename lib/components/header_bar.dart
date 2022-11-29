@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexed/indexed.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
-import 'package:flutter_application_1/screens/profile.dart';
+import 'package:flutter_application_1/pop_up/profile.dart';
 
 import 'icon_button.dart';
 
@@ -26,9 +26,21 @@ class _header_barState extends State<header_bar> {
                   index: 3,
                   child: Container(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor:
+                                      Color.fromARGB(0, 246, 246, 246),
+                                  content: Container(
+                                    height: 280,
+                                    width: 500.0,
+                                    child: profile_screen(),
+                                  ),
+                                ));
+                      },
                       child: CircleAvatar(
-                        radius: 35,
+                        radius: 30,
                         backgroundImage: AssetImage('assets/bg.png'),
                       ),
                     ),

@@ -16,32 +16,25 @@ class _room_screenState extends State<room_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(0, 255, 193, 7),
       body: SingleChildScrollView(
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/bg.gif"), fit: BoxFit.cover)),
-            padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                header_bar(),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      setting_screenshot(),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          margin: EdgeInsets.only(left: 30, right: 50),
                           width: MediaQuery.of(context).size.width / 1.7,
                           height: MediaQuery.of(context).size.height / 1.5,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              color: Color.fromARGB(255, 100, 184, 224)
+                              color: Color.fromARGB(156, 242, 247, 244)
                                   .withOpacity(0.8),
                               border: Border.all(width: 2)),
                           child: Column(
@@ -104,11 +97,6 @@ class _room_screenState extends State<room_screen> {
                                       IconButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      home()));
                                         },
                                         icon: Image.asset(
                                             'assets/icons/exit.png'),
