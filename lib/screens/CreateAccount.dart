@@ -80,7 +80,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               controller: txtEmail,
-                              style: const TextStyle(color: Colors.yellow),
+                              keyboardType: TextInputType.emailAddress,
                               decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -98,7 +98,6 @@ class _CreateAccountState extends State<CreateAccount> {
                             padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               controller: txtusername,
-                              style: const TextStyle(color: Colors.yellow),
                               decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -106,7 +105,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                     color: Colors.yellow,
                                   )),
                                   border: OutlineInputBorder(),
-                                  hintText: 'Tài khoản',
+                                  hintText: 'Tên Ingame',
                                   hintStyle: TextStyle(
                                     color: Colors.black,
                                   )),
@@ -116,7 +115,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               controller: txtPass,
-                              style: const TextStyle(color: Colors.yellow),
+                              obscureText: true,
                               decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -134,7 +133,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               controller: txtRePass,
-                              style: const TextStyle(color: Colors.yellow),
+                              obscureText: true,
                               decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -163,32 +162,32 @@ class _CreateAccountState extends State<CreateAccount> {
                                     //   ScaffoldMessenger.of(context)
                                     //       .showSnackBar(snackBar);
                                     // } else {
-                                      try {
-                                        final newUser = _auth
-                                            .createUserWithEmailAndPassword(
-                                                email: txtEmail.text,
-                                                password: txtPass.text);
-                                        if (newUser != null) {
-                                          final snackBar = SnackBar(
-                                              content:
-                                                  Text("Đăng Ký Thành Công"));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                          sleep(Duration(seconds: 1));
-                                          Navigator.pop(context);
-                                        } else {
-                                          final snackBar = SnackBar(
-                                              content: Text(
-                                                  'Tài Khoản Không Hợp Lệ'));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                        }
-                                      } catch (e) {
+                                    try {
+                                      final newUser =
+                                          _auth.createUserWithEmailAndPassword(
+                                              email: txtEmail.text,
+                                              password: txtPass.text);
+                                      if (newUser != null) {
                                         final snackBar = SnackBar(
-                                            content: Text('Có Lỗi Xảy Ra'));
+                                            content:
+                                                Text("Đăng Ký Thành Công"));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        sleep(Duration(seconds: 1));
+                                        Navigator.pop(context);
+                                      } else {
+                                        final snackBar = SnackBar(
+                                            content:
+                                                Text('Tài Khoản Không Hợp Lệ'));
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBar);
                                       }
+                                    } catch (e) {
+                                      final snackBar = SnackBar(
+                                          content: Text('Có Lỗi Xảy Ra'));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
                                     //}
                                   },
                                   child: Text(
