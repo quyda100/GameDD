@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/unRememberPass.dart';
 import 'package:flutter_application_1/screens/home.dart';
 import 'CreateAccount.dart';
@@ -30,7 +31,7 @@ class _login_screenState extends State<login_screen> {
                     margin: const EdgeInsets.all(30),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
-                        color: const Color.fromARGB(208, 255, 255, 255),
+                        color: Colors.white.withOpacity(0.6),
                         border: Border.all(width: 0.5)),
                     child: Container(
                       child: Container(
@@ -50,14 +51,7 @@ class _login_screenState extends State<login_screen> {
                                     icon: Image.asset(
                                       'assets/logo.png',
                                     ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  login_screen()));
-                                    },
+                                    onPressed: () {},
                                   ),
                                 )
                               ],
@@ -80,8 +74,7 @@ class _login_screenState extends State<login_screen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextField(
                                       controller: txtEmail,
-                                      style:
-                                          const TextStyle(color: Colors.yellow),
+                                      // keyboardType: TextInputType.emailAddress,
                                       decoration: const InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -98,9 +91,8 @@ class _login_screenState extends State<login_screen> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextField(
-                                      style:
-                                          const TextStyle(color: Colors.yellow),
                                       controller: txtPassword,
+                                      obscureText: true,
                                       decoration: const InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -126,10 +118,12 @@ class _login_screenState extends State<login_screen> {
                                               _auth.signInWithEmailAndPassword(
                                                   email: txtEmail.text,
                                                   password: txtPassword.text);
+                                              sleep(const Duration(
+                                                  milliseconds: 300));
                                               _auth
                                                   .authStateChanges()
-                                                  .listen((event) {
-                                                if (event != null) {
+                                                  .listen((e) {
+                                                if (e != null) {
                                                   txtEmail.clear();
                                                   txtPassword.clear();
                                                   final snackBar = SnackBar(
@@ -137,8 +131,6 @@ class _login_screenState extends State<login_screen> {
                                                           'Đăng Nhập Thành Công'));
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(snackBar);
-                                                  sleep(const Duration(
-                                                      seconds: 1));
                                                   Navigator
                                                       .pushNamedAndRemoveUntil(
                                                           context,

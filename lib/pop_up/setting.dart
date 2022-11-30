@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pop_up/tutolrial.dart';
 import '../components/header_bar.dart';
@@ -17,7 +18,7 @@ class _settingState extends State<setting> {
   bool isPlaying = true;
   double hieuung = 20;
   double amluong = 20;
-
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,13 +158,20 @@ class _settingState extends State<setting> {
                   ),
                   Container(
                     padding: EdgeInsets.all(10),
-                    child: TextButton(
-                      onPressed: () => {
-                        Navigator.pop(context),
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => login_screen()))
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        try {
+                          _auth.signOut();
+                          final snackBar =
+                              SnackBar(content: Text('Đăng Xuất Thành Công'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'login', (route) => false);
+                        } catch (e) {
+                          final snackBar =
+                              SnackBar(content: Text('Có Lỗi Xảy Ra'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                       },
                       child: Text(
                         'Đăng xuất',

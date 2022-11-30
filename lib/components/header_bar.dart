@@ -62,7 +62,7 @@ class _header_barState extends State<header_bar> {
                     margin: EdgeInsets.only(bottom: 15, top: 10, left: 10),
                     child: Row(
                       children: [
-                        Expanded(child: Text("")),
+                        Expanded(child: Container()),
                         Text(
                           "AdminABC",
                           style: TextStyle(

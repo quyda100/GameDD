@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.0.0
   widget_and_text_animator: ^1.0.9
   indexed: ^0.0.8
+  form_field_validator: ^1.1.0
 
 dev_dependencies:
   flutter_native_splash: ^2.2.13
