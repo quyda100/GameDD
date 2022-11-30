@@ -1,150 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pop_up/room.dart';
-import 'package:widget_and_text_animator/widget_and_text_animator.dart';
-import '../components/header_bar.dart';
-import '../components/right_button.dart';
 
 class shop extends StatefulWidget {
-  const shop({
-    Key? key,
-  }) : super(key: key);
+  const shop({super.key});
+
   @override
-  State<shop> createState() => _shopState();
+  State<shop> createState() => __screenState();
 }
 
-class nap extends StatelessWidget {
-  const nap({super.key});
+class showitem extends StatelessWidget {
+  String icon;
+  String name;
+  int dau;
+  showitem(
+      {super.key, required this.icon, required this.name, required this.dau});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '10.000',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return TextButton(
+      onPressed: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 2),
+          borderRadius: BorderRadius.circular(18.0),
+          color: Color.fromARGB(255, 158, 208, 216),
         ),
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '10.000 đậu',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/icons/${this.icon}', width: 40, height: 40),
+            Text(
+              "${this.name}",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.only(right: 30),
+              child: Text(
+                "${this.dau}",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
 
-class _shopState extends State<shop> {
+class __screenState extends State<shop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(0, 255, 193, 7),
       body: SingleChildScrollView(
-          child: Container(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(210, 255, 193, 7),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Mệnh giá',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(8, 3, 8, 0),
+                padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2),
+                  borderRadius: BorderRadius.circular(18.0),
+                  color: const Color.fromARGB(255, 175, 99, 132),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 247, 216, 122),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Vật Phẩm",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Quy đổi',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "Tên vật phẩm",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            nap(),
-            nap(),
-            nap(),
-            nap(),
-            nap(),
-            Center(
-              child: Row(
-                children: [
-                  WidgetAnimator(
-                    incomingEffect:
-                        WidgetTransitionEffects.incomingSlideInFromRight(),
-                    atRestEffect: WidgetRestingEffects.size(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 247, 216, 122),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Nạp nhanh',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          ),
-                        ],
+                    Padding(
+                      padding: EdgeInsets.only(right: 30),
+                      child: Text(
+                        "Đậu",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )
-          ],
+              showitem(icon: '50.png', name: '50 phần trăm', dau: 10000),
+              showitem(icon: 'heart.png', name: '50 phần trăm', dau: 10000),
+              showitem(icon: 'heart.png', name: '50 phần trăm', dau: 30000),
+              showitem(icon: 'heart.png', name: '50 phần trăm', dau: 10000),
+              showitem(icon: 'heart.png', name: '50 phần trăm', dau: 40000),
+              showitem(icon: 'heart.png', name: '50 phần trăm', dau: 10000),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
