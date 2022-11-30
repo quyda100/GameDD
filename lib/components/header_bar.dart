@@ -73,7 +73,10 @@ class _header_barState extends State<header_bar> {
                               width: 40,
                               height: 40,
                             )),
-                        Text("1000"),
+                        Text(
+                          "1000",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset('assets/icons/add.png'),
@@ -87,7 +90,10 @@ class _header_barState extends State<header_bar> {
                             size: 30,
                           ),
                         ),
-                        Text("4:02"),
+                        Text(
+                          "4:02",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset('assets/icons/add.png'),

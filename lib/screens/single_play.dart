@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:flutter_application_1/model/question.dart';
+import 'package:flutter_application_1/model/answer.dart';
 import '../components/header_bar.dart';
 
 class SinglePlay extends StatefulWidget {
@@ -38,36 +37,9 @@ class _SinglePlayState extends State<SinglePlay> {
                   border: Border.all(width: 1)),
               child: Column(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                    margin: const EdgeInsets.only(bottom: 8),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        border: Border.all(width: 0, color: Colors.black),
-                        borderRadius: BorderRadius.circular(18),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 178, 177, 169)
-                                .withOpacity(0.5),
-                            blurRadius: 8,
-                            offset: Offset(0, 8),
-                          ),
-                        ]),
-                    child: const Text(
-                      "Câu 1: Tam giác là gì? ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                      softWrap: true,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                    ),
+                  QuestionWidget(
+                    question: Question.quest,
                   ),
-                  Answer(),
-                  const Padding(
-                      padding: EdgeInsets.only(top: 1), child: Answer()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -113,55 +85,87 @@ class _SinglePlayState extends State<SinglePlay> {
   }
 }
 
-class Answer extends StatelessWidget {
-  const Answer({
+class QuestionWidget extends StatelessWidget {
+  QuestionWidget({
+    required this.question,
+    Key? key,
+  }) : super(key: key);
+  Question question;
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Container(
+        width: MediaQuery.of(context).size.width / 2,
+        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+        margin: const EdgeInsets.only(bottom: 8),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            border: Border.all(width: 0, color: Colors.black),
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color:
+                    const Color.fromARGB(255, 178, 177, 169).withOpacity(0.5),
+                blurRadius: 8,
+                offset: Offset(0, 8),
+              ),
+            ]),
+        child: Text(
+          question.label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          softWrap: true,
+          maxLines: 2,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      GridView.builder(
+          itemCount: question.answers.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          ),
+          itemBuilder: (context, index) {
+            return AnswerWidget(answer: question.answers[index]);
+          })
+    ]);
+  }
+}
+
+class AnswerWidget extends StatelessWidget {
+  Answer answer;
+  AnswerWidget({
+    required this.answer,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                minimumSize: Size(300, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              onPressed: () {},
-              child: Text(
-                "I don't know",
-                style: TextStyle(fontSize: 18, color: Colors.black),
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          minimumSize: const Size(300, 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                minimumSize: Size(300, 50),
-              ),
-              onPressed: () {},
-              child: Text(
-                "I don't know",
-                style: TextStyle(fontSize: 18, color: Colors.black),
-              ),
-            ),
-          ),
+        onPressed: () {
+          if (answer.isCorrect) {
+            final snackBar = SnackBar(content: Text('Câu trả lời đúng'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else {
+            final snackBar = SnackBar(content: Text('Câu trả lời sai'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: Text(
+          answer.label,
+          style: const TextStyle(fontSize: 18, color: Colors.black),
         ),
-      ],
+      ),
     );
   }
 }
