@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pop_up/bag.dart';
 import 'package:indexed/indexed.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'package:flutter_application_1/pop_up/profile.dart';
@@ -31,12 +32,13 @@ class _header_barState extends State<header_bar> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                                  title: Text('sad'),
                                   backgroundColor:
                                       Color.fromARGB(0, 246, 246, 246),
                                   content: Container(
-                                    height: 280,
+                                    height: 200,
                                     width: 500.0,
-                                    child: profile_screen(),
+                                    child: Text('ghngfdrg'),
                                   ),
                                 ));
                       },
@@ -129,7 +131,63 @@ class _header_barState extends State<header_bar> {
               ),
               Expanded(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(''),
+                                    ),
+                                    Expanded(
+                                      flex: 9,
+                                      child: Container(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Túi Đồ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(''),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: IconButton(
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                        },
+                                        icon: Image.asset(
+                                          'assets/icons/exit.png',
+                                          width: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              backgroundColor:
+                                  Color.fromARGB(132, 219, 212, 212),
+                              content: Container(
+                                height: 280,
+                                width: 700.0,
+                                child: Bag(),
+                              ),
+                            ));
+                  },
                   icon: Image.asset('assets/icons/inventory.png'),
                   iconSize: 40,
                 ),

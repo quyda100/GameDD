@@ -123,32 +123,35 @@ class _login_screenState extends State<login_screen> {
                                         TextButton(
                                           onPressed: () async {
                                             try {
-                                              final user = _auth
-                                                  .signInWithEmailAndPassword(
-                                                      email: txtEmail.text,
-                                                      password:
-                                                          txtPassword.text)
-                                                  .then((value) {
-                                                final snackBar = SnackBar(
-                                                    content: Text(
-                                                        'Đăng Nhập Thành Công'));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(snackBar);
-                                                sleep(
-                                                    const Duration(seconds: 2));
-                                                Navigator
-                                                    .pushNamedAndRemoveUntil(
-                                                        context,
-                                                        'home',
-                                                        (route) => false);
+                                              _auth.signInWithEmailAndPassword(
+                                                  email: txtEmail.text,
+                                                  password: txtPassword.text);
+                                              _auth
+                                                  .authStateChanges()
+                                                  .listen((event) {
+                                                if (event != null) {
+                                                  txtEmail.clear();
+                                                  txtPassword.clear();
+                                                  final snackBar = SnackBar(
+                                                      content: Text(
+                                                          'Đăng Nhập Thành Công'));
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(snackBar);
+                                                  sleep(const Duration(
+                                                      seconds: 1));
+                                                  Navigator
+                                                      .pushNamedAndRemoveUntil(
+                                                          context,
+                                                          'home',
+                                                          (route) => false);
+                                                } else {
+                                                  final snackBar = SnackBar(
+                                                      content: Text(
+                                                          'Sai Email Hoặc Mật Khẩu'));
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(snackBar);
+                                                }
                                               });
-                                              // if (user == null) {
-                                              //   final snackBar = SnackBar(
-                                              //       content: Text(
-                                              //           'Đăng Nhập Không Thành Công'));
-                                              //   ScaffoldMessenger.of(context)
-                                              //       .showSnackBar(snackBar);
-                                              // }
                                             } catch (e) {
                                               final snackBar = SnackBar(
                                                   content:
