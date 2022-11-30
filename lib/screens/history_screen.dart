@@ -5,7 +5,6 @@ import '../components/header_bar.dart';
 
 class history_screen extends StatefulWidget {
   const history_screen({super.key});
-
   @override
   State<history_screen> createState() => _history_screenState();
 }
@@ -14,27 +13,22 @@ class _history_screenState extends State<history_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(0, 255, 193, 7),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
-        padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            header_bar(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                setting_screenshot(),
                 Expanded(
                   child: Container(
-                      margin: const EdgeInsets.only(left: 30),
                       width: MediaQuery.of(context).size.width / 1.7,
-                      height: MediaQuery.of(context).size.height / 1.5,
+                      height: MediaQuery.of(context).size.height / 1.48,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.deepPurple.shade300.withOpacity(0.8),
+                          color: Color.fromARGB(255, 115, 40, 244)
+                              .withOpacity(0.8),
                           border: Border.all(width: 2)),
                       child: Column(
                         children: [
@@ -43,7 +37,6 @@ class _history_screenState extends State<history_screen> {
                               Expanded(
                                 flex: 5,
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 15, 8),
                                   padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                                   decoration: BoxDecoration(
                                       //color: Colors.blue,
@@ -59,7 +52,9 @@ class _history_screenState extends State<history_screen> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 icon: Image.asset('assets/icons/exit.png'),
                                 iconSize: 30,
                               )
@@ -87,7 +82,6 @@ class _history_screenState extends State<history_screen> {
     );
   }
 }
-
 
 class history_item extends StatelessWidget {
   const history_item({

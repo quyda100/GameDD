@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pop_up/bag.dart';
+import 'package:flutter_application_1/pop_up/shop.dart';
 import 'package:indexed/indexed.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'package:flutter_application_1/pop_up/profile.dart';
 
+import '../pop_up/paydiscount.dart';
 import 'icon_button.dart';
 
 class header_bar extends StatefulWidget {
@@ -15,6 +17,8 @@ class header_bar extends StatefulWidget {
 
 class _header_barState extends State<header_bar> {
   @override
+  bool showShop = true;
+  bool showPay = false;
   Widget build(BuildContext context) {
     return Row(
       children: [
@@ -73,7 +77,10 @@ class _header_barState extends State<header_bar> {
                               width: 40,
                               height: 40,
                             )),
-                        Text("1000"),
+                        Text(
+                          "1000",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset('assets/icons/add.png'),
@@ -87,7 +94,10 @@ class _header_barState extends State<header_bar> {
                             size: 30,
                           ),
                         ),
-                        Text("4:02"),
+                        Text(
+                          "4:02",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset('assets/icons/add.png'),
@@ -112,7 +122,18 @@ class _header_barState extends State<header_bar> {
             children: [
               Expanded(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              backgroundColor: Color.fromARGB(0, 246, 246, 246),
+                              content: Container(
+                                height: 280,
+                                width: 700.0,
+                                child: Text(''),
+                              ),
+                            ));
+                  },
                   icon: Image.asset('assets/icons/trophy.png'),
                   iconSize: 40,
                 ),
@@ -182,7 +203,88 @@ class _header_barState extends State<header_bar> {
               ),
               Expanded(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 255, 193, 7),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/icons/setting.png',
+                                                width: 30,
+                                              ),
+                                              Text(
+                                                'Cửa hàng',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    content: Container(
+                                                      height: 200,
+                                                      width: 600.0,
+                                                      child: paydiscourt(),
+                                                    ),
+                                                  ));
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/icons/setting.png',
+                                                width: 30,
+                                              ),
+                                              Text(
+                                                'Nạp thẻ',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              content: Container(
+                                height: 200,
+                                width: 600.0,
+                                child: shop(),
+                              ),
+                            ));
+                  },
                   icon: Image.asset('assets/icons/shop.png'),
                   iconSize: 40,
                 ),

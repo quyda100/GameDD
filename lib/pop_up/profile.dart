@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/history_screen.dart';
-import 'package:flutter_application_1/screens/history_screen.dart';
+
+import '../screens/history_screen.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';
 import '../components/header_bar.dart';
@@ -145,7 +145,19 @@ class _profile_screenState extends State<profile_screen> {
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              backgroundColor: Color.fromARGB(
+                                                  0, 246, 246, 246),
+                                              content: Container(
+                                                height: 280,
+                                                width: 700.0,
+                                                child: history_screen(),
+                                              ),
+                                            ));
+                                  },
                                   icon: Icon(Icons.task_alt),
                                   label: Text("Lịch sử đấu",
                                       style: TextStyle(
