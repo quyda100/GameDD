@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pop_up/room.dart';
-
 import 'package:flutter_application_1/screens/vuot_ai.dart';
 import '../components/setting_screenshot.dart';
 import '../components/right_button.dart';

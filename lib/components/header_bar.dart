@@ -3,6 +3,7 @@ import 'package:indexed/indexed.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'package:flutter_application_1/pop_up/profile.dart';
 
+import '../pop_up/shop.dart';
 import 'icon_button.dart';
 
 class header_bar extends StatefulWidget {
@@ -110,7 +111,18 @@ class _header_barState extends State<header_bar> {
             children: [
               Expanded(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              backgroundColor: Color.fromARGB(0, 246, 246, 246),
+                              content: Container(
+                                height: 280,
+                                width: 700.0,
+                                child: Text(''),
+                              ),
+                            ));
+                  },
                   icon: Image.asset('assets/icons/trophy.png'),
                   iconSize: 40,
                 ),
@@ -124,7 +136,98 @@ class _header_barState extends State<header_bar> {
               ),
               Expanded(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(''),
+                                    ),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.amber,
+                                            border: Border.all(width: 0.1)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'assets/icons/setting.png',
+                                              width: 30,
+                                            ),
+                                            Text(
+                                              'Cửa hàng',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(child: Text('')),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.amber,
+                                            border: Border.all(width: 0.1)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'assets/icons/setting.png',
+                                              width: 30,
+                                            ),
+                                            Text(
+                                              'Nạp thẻ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(''),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                        },
+                                        icon: Image.asset(
+                                          'assets/icons/exit.png',
+                                          width: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              content: Container(
+                                height: 280,
+                                width: 700.0,
+                                child: shop(),
+                              ),
+                            ));
+                  },
                   icon: Image.asset('assets/icons/shop.png'),
                   iconSize: 40,
                 ),
