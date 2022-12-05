@@ -25,7 +25,7 @@ class _header_barState extends State<header_bar> {
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
         .collection("Users")
-        .where('uid', isEqualTo: _auth.currentUser!.uid)
+        .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(
         stream: users,

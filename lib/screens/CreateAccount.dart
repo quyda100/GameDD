@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/login.dart';
@@ -19,6 +20,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController txtPass = TextEditingController();
   TextEditingController txtRePass = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  final _fireStore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,41 +156,75 @@ class _CreateAccountState extends State<CreateAccount> {
                               children: [
                                 TextButton(
                                   onPressed: () async {
-                                    // if (txtPass.text != txtRePass.text ||
-                                    //     txtPass.text != null) {
-                                    //   final snackBar = SnackBar(
-                                    //       content: Text(
-                                    //           'Vui Lòng Kiểm Tra Lại Mật Khẩu'));
-                                    //   ScaffoldMessenger.of(context)
-                                    //       .showSnackBar(snackBar);
-                                    // } else {
-                                    try {
-                                      final newUser =
-                                          _auth.createUserWithEmailAndPassword(
-                                              email: txtEmail.text,
-                                              password: txtPass.text);
-                                      if (newUser != null) {
+                                    if (txtPass.text != txtRePass.text ||
+                                        txtPass.text == null) {
+                                      final snackBar = SnackBar(
+                                          content: Text(
+                                              'Vui Lòng Kiểm Tra Lại Mật Khẩu'));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    } else if (txtPass.text.length < 6) {
+                                      final snackBar = SnackBar(
+                                          content:
+                                              Text('Mật Khẩu Ít Nhất 6 Kí Tự'));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    } else {
+                                      try {
+                                        final newUser = _auth
+                                            .createUserWithEmailAndPassword(
+                                                email: txtEmail.text,
+                                                password: txtPass.text);
+                                        if (newUser != null) {
+                                          final snackBar = SnackBar(
+                                              content:
+                                                  Text("Đăng Ký Thành Công"));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          _fireStore
+                                              .collection("Users")
+                                              .add({
+                                                'uid': txtEmail.text,
+                                                'DisplayName': txtusername.text,
+                                                'Coin': 200,
+                                                'Heart': 5,
+                                                'RankPoint': 0,
+                                                'Avatar': 'user.jpg',
+                                                'Bag': {
+                                                  '50': 0,
+                                                  'double': 0,
+                                                  'heart': 0,
+                                                  'skip': 0,
+                                                },
+                                                'Chapters': {
+                                                  'First': 0,
+                                                  'Second': 0,
+                                                  'Third': 0
+                                                }
+                                              })
+                                              .then((value) =>
+                                                  Navigator.pop(context))
+                                              .onError((error, stackTrace) {
+                                                final snackBar = SnackBar(
+                                                    content:
+                                                        Text("Có Lỗi Xảy Ra"));
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(snackBar);
+                                              });
+                                        } else {
+                                          final snackBar = SnackBar(
+                                              content: Text(
+                                                  'Tài Khoản Không Hợp Lệ'));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        }
+                                      } catch (e) {
                                         final snackBar = SnackBar(
-                                            content:
-                                                Text("Đăng Ký Thành Công"));
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                        sleep(Duration(seconds: 1));
-                                        Navigator.pop(context);
-                                      } else {
-                                        final snackBar = SnackBar(
-                                            content:
-                                                Text('Tài Khoản Không Hợp Lệ'));
+                                            content: Text('Có Lỗi Xảy Ra'));
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBar);
                                       }
-                                    } catch (e) {
-                                      final snackBar = SnackBar(
-                                          content: Text('Có Lỗi Xảy Ra'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
                                     }
-                                    //}
                                   },
                                   child: Text(
                                     'Đăng ký',
