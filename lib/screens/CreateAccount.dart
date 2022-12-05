@@ -174,8 +174,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                         final newUser = _auth
                                             .createUserWithEmailAndPassword(
                                                 email: txtEmail.text,
-                                                password: txtPass.text);
-                                        if (newUser != null) {
+                                                password: txtPass.text)
+                                            .then((value) {
                                           final snackBar = SnackBar(
                                               content:
                                                   Text("Đăng Ký Thành Công"));
@@ -211,19 +211,14 @@ class _CreateAccountState extends State<CreateAccount> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(snackBar);
                                               });
-                                        } else {
+                                        }).onError((error, stackTrace) {
                                           final snackBar = SnackBar(
                                               content: Text(
                                                   'Tài Khoản Không Hợp Lệ'));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
-                                        }
-                                      } catch (e) {
-                                        final snackBar = SnackBar(
-                                            content: Text('Có Lỗi Xảy Ra'));
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      }
+                                        });
+                                      } catch (e) {}
                                     }
                                   },
                                   child: Text(
