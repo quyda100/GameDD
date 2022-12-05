@@ -115,11 +115,18 @@ class _login_screenState extends State<login_screen> {
                                         TextButton(
                                           onPressed: () async {
                                             try {
-                                              _auth.signInWithEmailAndPassword(
-                                                  email: txtEmail.text,
-                                                  password: txtPassword.text);
-                                              sleep(const Duration(
-                                                  milliseconds: 300));
+                                              _auth
+                                                  .signInWithEmailAndPassword(
+                                                      email: txtEmail.text,
+                                                      password:
+                                                          txtPassword.text)
+                                                  .then(
+                                                (value) {
+                                                  sleep(const Duration(
+                                                      milliseconds: 500));
+                                                },
+                                              );
+
                                               _auth
                                                   .authStateChanges()
                                                   .listen((e) {
