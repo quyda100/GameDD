@@ -37,6 +37,9 @@ class _profile_screenState extends State<profile_screen> {
     return StreamBuilder<QuerySnapshot>(
         stream: pro,
         builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
           final user = snapshot.data!.docs;
           return Scaffold(
             backgroundColor: Color.fromARGB(0, 255, 193, 7),
