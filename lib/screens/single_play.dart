@@ -121,14 +121,25 @@ class QuestionWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      GridView.builder(
-          itemCount: question.answers.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (context, index) {
-            return AnswerWidget(answer: question.answers[index]);
-          })
+      Row(
+        children: [
+          AnswerWidget(answer: question.answers[0]),
+          Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: AnswerWidget(answer: question.answers[1])),
+        ],
+      ),
+      Padding(
+        padding: EdgeInsets.only(top: 10),
+        child: Row(
+          children: [
+            AnswerWidget(answer: question.answers[2]),
+            Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: AnswerWidget(answer: question.answers[3])),
+          ],
+        ),
+      )
     ]);
   }
 }
@@ -142,29 +153,26 @@ class AnswerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          minimumSize: const Size(300, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        minimumSize: const Size(300, 50),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
-        onPressed: () {
-          if (answer.isCorrect) {
-            final snackBar = SnackBar(content: Text('Câu trả lời đúng'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else {
-            final snackBar = SnackBar(content: Text('Câu trả lời sai'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-        },
-        child: Text(
-          answer.label,
-          style: const TextStyle(fontSize: 18, color: Colors.black),
-        ),
+      ),
+      onPressed: () {
+        if (answer.isCorrect) {
+          final snackBar = SnackBar(content: Text('Câu trả lời đúng'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          final snackBar = SnackBar(content: Text('Câu trả lời sai'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      },
+      child: Text(
+        answer.label,
+        style: const TextStyle(fontSize: 18, color: Colors.black),
       ),
     );
   }
