@@ -32,11 +32,14 @@ class _profile_screenState extends State<profile_screen> {
   Widget build(BuildContext context) {
     final pro = FirebaseFirestore.instance
         .collection("Users")
-        .where('uid', isEqualTo: _auth.currentUser!.uid)
+        .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(
         stream: pro,
         builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
           final user = snapshot.data!.docs;
           return Scaffold(
             backgroundColor: Color.fromARGB(0, 255, 193, 7),
@@ -65,7 +68,7 @@ class _profile_screenState extends State<profile_screen> {
                                           EdgeInsets.fromLTRB(15, 0, 15, 0),
                                       child: CircleAvatar(
                                         backgroundImage: AssetImage(
-                                            'assets/img/${user[0]['Rank']}'),
+                                            'assets/img/${user[0]['Avatar']}'),
                                       )),
                                   Expanded(
                                     child: Column(
