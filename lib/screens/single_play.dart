@@ -144,7 +144,7 @@ class QuestionWidget extends StatelessWidget {
   }
 }
 
-class AnswerWidget extends StatelessWidget {
+class AnswerWidget extends StatefulWidget {
   Answer answer;
   AnswerWidget({
     required this.answer,
@@ -152,26 +152,34 @@ class AnswerWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AnswerWidget> createState() => _AnswerWidgetState();
+}
+
+class _AnswerWidgetState extends State<AnswerWidget> {
+  bool isLock = false;
+
+  @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
+        backgroundColor: isLock
+            ? widget.answer.isCorrect
+                ? Colors.green
+                : Colors.red
+            : Colors.white,
         minimumSize: const Size(300, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
       ),
       onPressed: () {
-        if (answer.isCorrect) {
-          final snackBar = SnackBar(content: Text('Câu trả lời đúng'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          final snackBar = SnackBar(content: Text('Câu trả lời sai'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
+        if (isLock) return;
+        setState(() {
+          isLock = true;
+        });
       },
       child: Text(
-        answer.label,
+        widget.answer.label,
         style: const TextStyle(fontSize: 18, color: Colors.black),
       ),
     );
