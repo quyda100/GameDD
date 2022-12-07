@@ -21,21 +21,22 @@ class room_screen extends StatefulWidget {
 class _room_screenState extends State<room_screen> {
   final _auth = FirebaseAuth.instance;
   final _fireRoom = FirebaseFirestore.instance;
+  // test
+  var idRoom = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var Rooms = FirebaseFirestore.instance
-        .collection("Rooms")
-        .where("Id", isEqualTo: widget.RoomId)
-        .snapshots();
-    return StreamBuilder<QuerySnapshot>(
-      stream: Rooms,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+    var collection = FirebaseFirestore.instance.collection('Rooms');
+    return StreamBuilder(
+      stream: collection.doc(widget.RoomId.toString()).snapshots(),
+      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: CircularProgressIndicator());
         }
-        final room = snapshot.data!.docs;
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return Center(child: CircularProgressIndicator());
+        }
+        Map<String, dynamic> room =
+            snapshot.data!.data() as Map<String, dynamic>;
         return Scaffold(
           backgroundColor: Color.fromARGB(0, 255, 193, 7),
           body: SingleChildScrollView(
@@ -79,7 +80,7 @@ class _room_screenState extends State<room_screen> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Text('${room[0]['Id']}'),
+                                              child: Text('${room['id']}'),
                                             ),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
@@ -97,6 +98,7 @@ class _room_screenState extends State<room_screen> {
                                               padding: EdgeInsets.fromLTRB(
                                                   8, 8, 10, 5),
                                               child: TextField(
+                                                controller: idRoom,
                                                 decoration: InputDecoration(
                                                   hintText: 'ID',
                                                   border: OutlineInputBorder(
@@ -115,7 +117,54 @@ class _room_screenState extends State<room_screen> {
                                             style: ElevatedButton.styleFrom(
                                               minimumSize: Size(20, 40),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              // kiem tra rôm ton tai theo idrom thi add vao layer2
+                                              StreamBuilder(
+                                                stream: collection
+                                                    .doc(idRoom.toString())
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<dynamic>
+                                                        snapshot) {
+                                                  if (snapshot.hasError) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  }
+                                                  if (snapshot.hasData &&
+                                                      !snapshot.data!.exists) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  }
+                                                  return room_screen(
+                                                      RoomId: int.parse(
+                                                          idRoom.toString()));
+                                                  //  showDialog(
+                                                  //     context: context,
+                                                  //     barrierDismissible: false,
+                                                  //     builder: (context) =>
+                                                  //         AlertDialog(
+                                                  //           backgroundColor:
+                                                  //               Color.fromARGB(
+                                                  //                   0,
+                                                  //                   246,
+                                                  //                   246,
+                                                  //                   246),
+                                                  //           content: Container(
+                                                  //             height: 280,
+                                                  //             width: 580.0,
+                                                  //             child:
+                                                  //                 room_screen(
+                                                  //               RoomId: int
+                                                  //                   .parse(idRoom
+                                                  //                       .toString()),
+                                                  //             ),
+                                                  //           ),
+                                                  //         ));
+                                                },
+                                              );
+                                            },
                                             child: Text(
                                               'Ok',
                                               style: TextStyle(fontSize: 15),
@@ -123,16 +172,41 @@ class _room_screenState extends State<room_screen> {
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              if (room[0]['player1']['email'] ==
-                                                      _auth
-                                                          .currentUser!.email &&
-                                                  room[0]['player2']['email'] ==
-                                                      '') {
+                                              if (room['player1']['email'] !=
+                                                      null &&
+                                                  room['player2']['email'] ==
+                                                      null) {
                                                 _fireRoom
                                                     .collection("Rooms")
                                                     .doc(widget.RoomId
                                                         .toString())
                                                     .delete();
+                                              }
+                                              if (room['player1']['email'] !=
+                                                      null &&
+                                                  room['player2']['email'] !=
+                                                      null) {
+                                                _fireRoom
+                                                    .collection("Rooms")
+                                                    .doc(widget.RoomId
+                                                        .toString())
+                                                    .update({
+                                                  'create_at': DateTime.now(),
+                                                  'player1.Avatar':
+                                                      room['player2']['Avatar'],
+                                                  'player1.DisplayName':
+                                                      room['player2']
+                                                          ['DisplayName'],
+                                                  'player1.email':
+                                                      room['player2']['email'],
+                                                  'player1.RankPoint':
+                                                      room['player2']
+                                                          ['RankPoint'],
+                                                  'player2.Avatar': null,
+                                                  'player2.DisplayName': null,
+                                                  'player2.email': null,
+                                                  'player2.RankPoint': 0,
+                                                });
                                               }
                                               Navigator.pop(context);
                                             },
@@ -169,8 +243,7 @@ class _room_screenState extends State<room_screen> {
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                             ),
-                                            child:
-                                                User(user: room[0]['player1']),
+                                            child: User(user: room['player1']),
                                           ),
                                         ),
                                         Expanded(
@@ -201,8 +274,11 @@ class _room_screenState extends State<room_screen> {
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         10.0)),
-                                            child:
-                                                User(user: room[0]['player2']),
+                                            child: room['player2']['email'] ==
+                                                    null
+                                                ? Image.asset(
+                                                    'assets/Loading_2.gif')
+                                                : User(user: room['player2']),
                                           ),
                                         ),
                                       ],
@@ -277,9 +353,7 @@ class User extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             child: CircleAvatar(
-              backgroundImage: AssetImage(user['email'] != ''
-                  ? 'assets/img/${user['Avatar']}'
-                  : 'assets/Loading_2.gif'),
+              backgroundImage: AssetImage('assets/img/${user['Avatar']}'),
             ),
           ),
         ),
