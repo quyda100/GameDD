@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,23 +14,26 @@ import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 final _fireRoom = FirebaseFirestore.instance;
 
-class home extends StatelessWidget {
+class home extends StatefulWidget {
   const home({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
   // void createRoom(Map<String, dynamic> data) async {
-  //   await _fireRoom.collection("Rooms").doc('${roomId}').update(data);
-  // }
 
   @override
   Widget build(BuildContext context) {
+    // bien user dang nhap
     final _auth = FirebaseAuth.instance;
     var users = FirebaseFirestore.instance
         .collection("Users")
         .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
-    int roomId = 6926; //Random().nextInt(9999);
-    debugPrint(roomId.toString());
     return StreamBuilder<QuerySnapshot>(
       stream: users,
       builder: (context, snapshot) {
@@ -114,6 +118,8 @@ class home extends StatelessWidget {
                               child: IconButton(
                                 icon: Image.asset("assets/img/xephang.png"),
                                 onPressed: () {
+                                  int roomId = Random().nextInt(9999);
+
                                   FirebaseFirestore.instance
                                       .collection("Rooms")
                                       .doc('${roomId}')
@@ -124,7 +130,7 @@ class home extends StatelessWidget {
                                       debugPrint('exist');
                                     }
                                   });
-                                  debugPrint(roomId.toString());
+
                                   _fireRoom
                                       .collection("Rooms")
                                       .doc('${roomId}')
@@ -144,20 +150,34 @@ class home extends StatelessWidget {
                                       'RankPoint': 0,
                                     }
                                   });
+
                                   // createRoom(data);
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            backgroundColor: Color.fromARGB(
-                                                0, 246, 246, 246),
-                                            content: Container(
-                                              height: 280,
-                                              width: 580.0,
-                                              child: room_screen(
-                                                RoomId: roomId,
+
+                                  Future.delayed(Duration(milliseconds: 500),
+                                      () {
+                                    final snackBar = SnackBar(
+                                        content: Text(
+                                            'Đang tiến hành tạo trận đấu'));
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  });
+                                  Future.delayed(Duration(milliseconds: 3000),
+                                      () {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) => AlertDialog(
+                                              backgroundColor: Color.fromARGB(
+                                                  0, 246, 246, 246),
+                                              content: Container(
+                                                height: 280,
+                                                width: 580.0,
+                                                child: room_screen(
+                                                  RoomId: roomId,
+                                                ),
                                               ),
-                                            ),
-                                          ));
+                                            ));
+                                  });
                                 },
                               ),
                             ),
