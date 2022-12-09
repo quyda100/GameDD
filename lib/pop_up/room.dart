@@ -1,5 +1,6 @@
 import 'dart:math';
-
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database_mocks/firebase_database_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home.dart';
 import 'package:flutter_application_1/screens/multi_play.dart';
@@ -9,22 +10,43 @@ import '../components/setting_screenshot.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto/crypto.dart';
-import 'dart:convert'; // for the utf8.encode method
+import 'dart:convert';
+
+// for the utf8.encode method
 
 class room_screen extends StatefulWidget {
-  const room_screen({super.key, required this.RoomId});
+  const room_screen({
+    super.key,
+    required this.RoomId,
+    required this.name,
+    // required this.avatar,
+    // required this.email,
+    // required this.RankPoint,
+  });
   final int RoomId;
+  final String name;
+  // final String avatar;
+  // final String email;
+  // final String RankPoint;
   @override
   State<room_screen> createState() => _room_screenState();
 }
 
 class _room_screenState extends State<room_screen> {
   final _auth = FirebaseAuth.instance;
+
   final _fireRoom = FirebaseFirestore.instance;
   // test
   var idRoom = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // LAY THONG TIN NGUOI CHOI 2
+    final _auth = FirebaseAuth.instance;
+    var users = FirebaseFirestore.instance
+        .collection("Users")
+        .where('uid', isEqualTo: _auth.currentUser!.email)
+        .snapshots();
+    //
     var collection = FirebaseFirestore.instance.collection('Rooms');
     return StreamBuilder(
       stream: collection.doc(widget.RoomId.toString()).snapshots(),
@@ -118,52 +140,60 @@ class _room_screenState extends State<room_screen> {
                                               minimumSize: Size(20, 40),
                                             ),
                                             onPressed: () {
-                                              // kiem tra rôm ton tai theo idrom thi add vao layer2
-                                              StreamBuilder(
-                                                stream: collection
-                                                    .doc(idRoom.toString())
-                                                    .snapshots(),
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot<dynamic>
-                                                        snapshot) {
-                                                  if (snapshot.hasError) {
-                                                    return Center(
-                                                        child:
-                                                            CircularProgressIndicator());
-                                                  }
-                                                  if (snapshot.hasData &&
-                                                      !snapshot.data!.exists) {
-                                                    return Center(
-                                                        child:
-                                                            CircularProgressIndicator());
-                                                  }
-                                                  return room_screen(
-                                                      RoomId: int.parse(
-                                                          idRoom.toString()));
-                                                  //  showDialog(
-                                                  //     context: context,
-                                                  //     barrierDismissible: false,
-                                                  //     builder: (context) =>
-                                                  //         AlertDialog(
-                                                  //           backgroundColor:
-                                                  //               Color.fromARGB(
-                                                  //                   0,
-                                                  //                   246,
-                                                  //                   246,
-                                                  //                   246),
-                                                  //           content: Container(
-                                                  //             height: 280,
-                                                  //             width: 580.0,
-                                                  //             child:
-                                                  //                 room_screen(
-                                                  //               RoomId: int
-                                                  //                   .parse(idRoom
-                                                  //                       .toString()),
-                                                  //             ),
-                                                  //           ),
-                                                  //         ));
-                                                },
-                                              );
+                                              String id = idRoom.text;
+                                              FirebaseFirestore.instance
+                                                  .collection('Rooms')
+                                                  .doc(id)
+                                                  .snapshots()
+                                                  .forEach((element) {
+                                                if (element.data()!['player2']
+                                                        ['email'] ==
+                                                    null) {
+                                                  _fireRoom
+                                                      .collection("Rooms")
+                                                      .doc(widget.RoomId
+                                                          .toString())
+                                                      .delete();
+
+                                                  _fireRoom
+                                                      .collection("Rooms")
+                                                      .doc(id)
+                                                      .update({
+                                                    'create_at': DateTime.now(),
+                                                    'player2.Avatar': null,
+                                                    'player2.DisplayName': null,
+                                                    'player2.email': 'nguyen',
+                                                    'player2.RankPoint': 0,
+                                                  });
+                                                }
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                    context: context,
+                                                    // barrierDismissible: false,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                          backgroundColor:
+                                                              Color.fromARGB(
+                                                                  0,
+                                                                  246,
+                                                                  246,
+                                                                  246),
+                                                          content: Container(
+                                                            height: 280,
+                                                            width: 580.0,
+                                                            child: room_screen(
+                                                              RoomId:
+                                                                  int.parse(id),
+                                                              name: widget.name,
+                                                              // avatar: user[0]['Avatar'],
+                                                              // email: user[0]['email'],
+                                                              // RankPoint: user[0]
+                                                              //         ['RankPoint']
+                                                              //     .toString(),
+                                                            ),
+                                                          ),
+                                                        ));
+                                              });
                                             },
                                             child: Text(
                                               'Ok',
@@ -202,6 +232,23 @@ class _room_screenState extends State<room_screen> {
                                                   'player1.RankPoint':
                                                       room['player2']
                                                           ['RankPoint'],
+                                                  'player2.Avatar': null,
+                                                  'player2.DisplayName': null,
+                                                  'player2.email': null,
+                                                  'player2.RankPoint': 0,
+                                                });
+                                              }
+                                              if (room['player1']['email'] !=
+                                                      null &&
+                                                  room['player2']['email'] ==
+                                                      _auth
+                                                          .currentUser!.email) {
+                                                _fireRoom
+                                                    .collection("Rooms")
+                                                    .doc(widget.RoomId
+                                                        .toString())
+                                                    .update({
+                                                  'create_at': DateTime.now(),
                                                   'player2.Avatar': null,
                                                   'player2.DisplayName': null,
                                                   'player2.email': null,
@@ -324,6 +371,32 @@ String CheckRank(int p) {
     return "Vàng";
   else if (p <= 150) return "Bạch Kim";
   return "kim cương";
+}
+
+int checkRooms(String rooms) {
+  var room = FirebaseFirestore.instance.collection('Rooms');
+  var resulf = "ok";
+  FutureBuilder<DocumentSnapshot>(
+    future: room.doc(rooms).get(),
+    builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      if (snapshot.hasError) {
+        resulf = "no";
+      }
+      if (snapshot.hasData && !snapshot.data!.exists) {
+        resulf = "no";
+      }
+      if (snapshot.connectionState == ConnectionState.done) {
+        Map<String, dynamic> data =
+            snapshot.data!.data() as Map<String, dynamic>;
+        if (data['layer2']['email'] != null) {
+          resulf = "no";
+        }
+      }
+      return Text('');
+    },
+  );
+  if (resulf == "ok") return 1;
+  return -1;
 }
 
 class User extends StatelessWidget {
