@@ -19,7 +19,7 @@ class _ingame_screenState extends State<ingame_screen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 1.5,
+                width: MediaQuery.of(context).size.width / 1.6,
                 height: MediaQuery.of(context).size.height / 1.5,
                 child: Row(
                   children: [
@@ -34,7 +34,7 @@ class _ingame_screenState extends State<ingame_screen> {
                         children: [
                           Row(
                             children: [
-                              Image.asset('assets/icons/math.png'),
+                              Image.asset('assets/subjects/math.png'),
                             ],
                           ),
                           Row(

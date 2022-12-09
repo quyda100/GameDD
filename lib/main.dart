@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': (context) => login_screen(),
         'home': (context) => home(),
-        'room': (context) => room_screen(),
         'unRemmemberPass': (context) => unRememberPass(),
         'UpdatePasss': (context) => UpdatePasss(),
         'CreateAccount': (context) => CreateAccount(),
