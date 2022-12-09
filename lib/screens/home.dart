@@ -77,7 +77,10 @@ class _homeState extends State<home> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SinglePlay()));
+                                          builder: (context) => SinglePlay(
+                                                chapterId: 1,
+                                                subjectId: 1,
+                                              )));
                                 },
                               ),
                             ),
@@ -101,7 +104,9 @@ class _homeState extends State<home> {
                                             content: Container(
                                               height: 280,
                                               width: 700.0,
-                                              child: VuotAi(),
+                                              child: new VuotAi(
+                                                chapter: 1,
+                                              ),
                                             ),
                                           ));
                                 },
