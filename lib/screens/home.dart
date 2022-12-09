@@ -46,11 +46,11 @@ class home extends StatelessWidget {
                               scale: 2,
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SinglePlay()));
+                              // Navigator.pop(context);
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => SinglePlay()));
                             },
                           ),
                         ),
@@ -74,7 +74,9 @@ class home extends StatelessWidget {
                                         content: Container(
                                           height: 280,
                                           width: 700.0,
-                                          child: VuotAi(),
+                                          child: new VuotAi(
+                                            chapter: 1,
+                                          ),
                                         ),
                                       ));
                             },
