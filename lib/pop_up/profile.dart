@@ -16,14 +16,16 @@ class profile_screen extends StatefulWidget {
 }
 
 String CheckRank(int p) {
-  if (p <= 0)
-    return "Không";
+  if (p <= 1)
+    return "Đồng";
   else if (p <= 50)
     return "Bạc";
   else if (p <= 100)
     return "Vàng";
-  else if (p <= 150) return "Bạch Kim";
-  return "kim cương";
+  else if (p <= 150)
+    return "Bạch Kim";
+  else if (p > 150) return "Kim Cương";
+  return "Không";
 }
 
 class _profile_screenState extends State<profile_screen> {
@@ -32,6 +34,7 @@ class _profile_screenState extends State<profile_screen> {
   Widget build(BuildContext context) {
     final pro = FirebaseFirestore.instance
         .collection("Users")
+        
         .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(

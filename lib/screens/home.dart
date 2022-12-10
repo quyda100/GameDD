@@ -77,7 +77,10 @@ class _homeState extends State<home> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SinglePlay()));
+                                          builder: (context) => SinglePlay(
+                                                chapterId: 1,
+                                                subjectId: 1,
+                                              )));
                                 },
                               ),
                             ),
@@ -101,7 +104,9 @@ class _homeState extends State<home> {
                                             content: Container(
                                               height: 280,
                                               width: 700.0,
-                                              child: VuotAi(),
+                                              child: new VuotAi(
+                                                chapter: 1,
+                                              ),
                                             ),
                                           ));
                                 },
@@ -157,11 +162,6 @@ class _homeState extends State<home> {
 
                                   // createRoom(data);
 
-                                  Future.delayed(Duration(milliseconds: 3000),
-                                      () {
-                                    child:
-                                    CircularProgressIndicator();
-                                  });
                                   Future.delayed(Duration(milliseconds: 1), () {
                                     showDialog(
                                         context: context,
@@ -175,11 +175,10 @@ class _homeState extends State<home> {
                                                 child: room_screen(
                                                   RoomId: roomId,
                                                   name: user[0]['DisplayName'],
-                                                  // avatar: user[0]['Avatar'],
+                                                  avatar: user[0]['Avatar'],
                                                   // email: user[0]['email'],
-                                                  // RankPoint: user[0]
-                                                  //         ['RankPoint']
-                                                  //     .toString(),
+                                                  RankPoint: user[0]
+                                                      ['RankPoint'],
                                                 ),
                                               ),
                                             ));

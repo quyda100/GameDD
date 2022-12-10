@@ -19,15 +19,15 @@ class room_screen extends StatefulWidget {
     super.key,
     required this.RoomId,
     required this.name,
-    // required this.avatar,
+    required this.avatar,
     // required this.email,
-    // required this.RankPoint,
+    required this.RankPoint,
   });
   final int RoomId;
   final String name;
-  // final String avatar;
+  final String avatar;
   // final String email;
-  // final String RankPoint;
+  final int RankPoint;
   @override
   State<room_screen> createState() => _room_screenState();
 }
@@ -62,7 +62,13 @@ class _room_screenState extends State<room_screen> {
         if (room['star'] == 1) {
           Navigator.pop(context);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => multi_play()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => multi_play(
+                        chapter: 3,
+                        chapterId: 1,
+                        subjectId: 1,
+                      )));
         }
         return Scaffold(
           backgroundColor: Color.fromARGB(0, 255, 193, 7),
@@ -204,12 +210,16 @@ class _room_screenState extends State<room_screen> {
                                                         .update({
                                                       'create_at':
                                                           DateTime.now(),
-                                                      'player2.Avatar': null,
+                                                      'player2.Avatar': widget
+                                                          .avatar
+                                                          .toString(),
                                                       'player2.DisplayName':
-                                                          null,
+                                                          widget.name
+                                                              .toString(),
                                                       'player2.email': _auth
                                                           .currentUser!.email,
-                                                      'player2.RankPoint': 0,
+                                                      'player2.RankPoint':
+                                                          widget.RankPoint,
                                                       'player2.Point': 0,
                                                     });
                                                     _fireRoom
@@ -242,6 +252,10 @@ class _room_screenState extends State<room_screen> {
                                                                           id),
                                                                   name: widget
                                                                       .name,
+                                                                  avatar: widget
+                                                                      .avatar,
+                                                                  RankPoint: widget
+                                                                      .RankPoint,
                                                                 ),
                                                               ),
                                                             ));
@@ -395,6 +409,15 @@ class _room_screenState extends State<room_screen> {
                                           'star': 1,
                                         });
                                         Navigator.pop(context);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    multi_play(
+                                                      chapter: 3,
+                                                      chapterId: 1,
+                                                      subjectId: 1,
+                                                    )));
                                       }
                                     },
                                     child: room['player1']['email'] ==
