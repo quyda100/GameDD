@@ -132,7 +132,8 @@ class _homeState extends State<home> {
                                       .then(
                                           (DocumentSnapshot documentSnapshot) {
                                     if (documentSnapshot.exists) {
-                                      debugPrint('exist');
+                                      return Center(
+                                          child: CircularProgressIndicator());
                                     }
                                   });
 
@@ -141,36 +142,30 @@ class _homeState extends State<home> {
                                       .doc('${roomId}')
                                       .set({
                                     'id': roomId,
+                                    'star': 0,
                                     'create_at': DateTime.now(),
                                     'player1': {
                                       'Avatar': user[0]['Avatar'],
                                       'DisplayName': user[0]['DisplayName'],
                                       'email': _auth.currentUser!.email,
                                       'RankPoint': user[0]['RankPoint'],
+                                      'Point': 0,
                                     },
                                     'player2': {
                                       'Avatar': null,
                                       'DisplayName': null,
-                                      'email': null,
+                                      'email': '',
                                       'RankPoint': 0,
+                                      'Point': 0,
                                     }
                                   });
 
                                   // createRoom(data);
 
-                                  Future.delayed(Duration(milliseconds: 500),
-                                      () {
-                                    final snackBar = SnackBar(
-                                        content: Text(
-                                            'Đang tiến hành tạo trận đấu'));
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  });
-                                  Future.delayed(Duration(milliseconds: 3000),
-                                      () {
+                                  Future.delayed(Duration(milliseconds: 1), () {
                                     showDialog(
                                         context: context,
-                                        barrierDismissible: false,
+                                        // barrierDismissible: false,
                                         builder: (context) => AlertDialog(
                                               backgroundColor: Color.fromARGB(
                                                   0, 246, 246, 246),
@@ -179,6 +174,11 @@ class _homeState extends State<home> {
                                                 width: 580.0,
                                                 child: room_screen(
                                                   RoomId: roomId,
+                                                  name: user[0]['DisplayName'],
+                                                  avatar: user[0]['Avatar'],
+                                                  // email: user[0]['email'],
+                                                  RankPoint: user[0]
+                                                      ['RankPoint'],
                                                 ),
                                               ),
                                             ));
