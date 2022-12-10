@@ -59,6 +59,11 @@ class _room_screenState extends State<room_screen> {
         }
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
+        if (room['star'] == 1) {
+          Navigator.pop(context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => multi_play()));
+        }
         return Scaffold(
           backgroundColor: Color.fromARGB(0, 255, 193, 7),
           body: SingleChildScrollView(
@@ -141,59 +146,108 @@ class _room_screenState extends State<room_screen> {
                                             ),
                                             onPressed: () {
                                               String id = idRoom.text;
-                                              FirebaseFirestore.instance
-                                                  .collection('Rooms')
-                                                  .doc(id)
-                                                  .snapshots()
-                                                  .forEach((element) {
-                                                if (element.data()!['player2']
-                                                        ['email'] ==
-                                                    null) {
-                                                  _fireRoom
-                                                      .collection("Rooms")
-                                                      .doc(widget.RoomId
-                                                          .toString())
-                                                      .delete();
-
-                                                  _fireRoom
-                                                      .collection("Rooms")
-                                                      .doc(id)
-                                                      .update({
-                                                    'create_at': DateTime.now(),
-                                                    'player2.Avatar': null,
-                                                    'player2.DisplayName': null,
-                                                    'player2.email': 'nguyen',
-                                                    'player2.RankPoint': 0,
-                                                  });
-                                                }
-                                                Navigator.pop(context);
+                                              debugPrint(id);
+                                              debugPrint(room['id'].toString());
+                                              if (id == room['id'].toString()) {
                                                 showDialog(
                                                     context: context,
-                                                    // barrierDismissible: false,
                                                     builder: (context) =>
                                                         AlertDialog(
                                                           backgroundColor:
                                                               Color.fromARGB(
-                                                                  0,
+                                                                  255,
                                                                   246,
                                                                   246,
                                                                   246),
                                                           content: Container(
-                                                            height: 280,
-                                                            width: 580.0,
-                                                            child: room_screen(
-                                                              RoomId:
-                                                                  int.parse(id),
-                                                              name: widget.name,
-                                                              // avatar: user[0]['Avatar'],
-                                                              // email: user[0]['email'],
-                                                              // RankPoint: user[0]
-                                                              //         ['RankPoint']
-                                                              //     .toString(),
-                                                            ),
+                                                            height: 20,
+                                                            width: 300.0,
+                                                            child: Text(
+                                                                'Bạn đang ở trong phòng rồi đó:))'),
                                                           ),
                                                         ));
-                                              });
+                                              } else {
+                                                FirebaseFirestore.instance
+                                                    .collection('Rooms')
+                                                    .doc(id)
+                                                    .snapshots()
+                                                    .forEach((element) {
+                                                  if (element.data()!['player2']
+                                                          ['email'] !=
+                                                      '') {
+                                                    showDialog(
+                                                        context: context,
+                                                        // barrierDismissible: false,
+                                                        builder:
+                                                            (context) =>
+                                                                AlertDialog(
+                                                                  backgroundColor:
+                                                                      Color.fromARGB(
+                                                                          255,
+                                                                          246,
+                                                                          246,
+                                                                          246),
+                                                                  content:
+                                                                      Container(
+                                                                    height: 20,
+                                                                    width:
+                                                                        300.0,
+                                                                    child: Text(
+                                                                        'Phòng đã đủ người:))'),
+                                                                  ),
+                                                                ));
+                                                  } else {
+                                                    Navigator.pop(context);
+                                                    _fireRoom
+                                                        .collection("Rooms")
+                                                        .doc(id)
+                                                        .update({
+                                                      'create_at':
+                                                          DateTime.now(),
+                                                      'player2.Avatar': null,
+                                                      'player2.DisplayName':
+                                                          null,
+                                                      'player2.email': _auth
+                                                          .currentUser!.email,
+                                                      'player2.RankPoint': 0,
+                                                      'player2.Point': 0,
+                                                    });
+                                                    _fireRoom
+                                                        .collection("Rooms")
+                                                        .doc(widget.RoomId
+                                                            .toString())
+                                                        .delete();
+
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            false,
+                                                        builder: (context) =>
+                                                            AlertDialog(
+                                                              backgroundColor:
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          0,
+                                                                          246,
+                                                                          246,
+                                                                          246),
+                                                              content:
+                                                                  Container(
+                                                                height: 280,
+                                                                width: 580.0,
+                                                                child:
+                                                                    room_screen(
+                                                                  RoomId:
+                                                                      int.parse(
+                                                                          id),
+                                                                  name: widget
+                                                                      .name,
+                                                                ),
+                                                              ),
+                                                            ));
+                                                  }
+                                                });
+                                              }
                                             },
                                             child: Text(
                                               'Ok',
@@ -202,20 +256,19 @@ class _room_screenState extends State<room_screen> {
                                           ),
                                           IconButton(
                                             onPressed: () {
+                                              Navigator.pop(context);
                                               if (room['player1']['email'] !=
-                                                      null &&
+                                                      '' &&
                                                   room['player2']['email'] ==
-                                                      null) {
+                                                      '') {
                                                 _fireRoom
                                                     .collection("Rooms")
                                                     .doc(widget.RoomId
                                                         .toString())
                                                     .delete();
                                               }
-                                              if (room['player1']['email'] !=
-                                                      null &&
-                                                  room['player2']['email'] !=
-                                                      null) {
+                                              if (room['player1']['email'] ==
+                                                  _auth.currentUser!.email) {
                                                 _fireRoom
                                                     .collection("Rooms")
                                                     .doc(widget.RoomId
@@ -234,15 +287,13 @@ class _room_screenState extends State<room_screen> {
                                                           ['RankPoint'],
                                                   'player2.Avatar': null,
                                                   'player2.DisplayName': null,
-                                                  'player2.email': null,
+                                                  'player2.email': '',
                                                   'player2.RankPoint': 0,
+                                                  'player2.Point': 0,
                                                 });
                                               }
-                                              if (room['player1']['email'] !=
-                                                      null &&
-                                                  room['player2']['email'] ==
-                                                      _auth
-                                                          .currentUser!.email) {
+                                              if (room['player2']['email'] ==
+                                                  _auth.currentUser!.email) {
                                                 _fireRoom
                                                     .collection("Rooms")
                                                     .doc(widget.RoomId
@@ -251,11 +302,11 @@ class _room_screenState extends State<room_screen> {
                                                   'create_at': DateTime.now(),
                                                   'player2.Avatar': null,
                                                   'player2.DisplayName': null,
-                                                  'player2.email': null,
+                                                  'player2.email': '',
                                                   'player2.RankPoint': 0,
+                                                  'player2.Point': 0,
                                                 });
                                               }
-                                              Navigator.pop(context);
                                             },
                                             icon: Image.asset(
                                                 'assets/icons/exit.png'),
@@ -322,7 +373,7 @@ class _room_screenState extends State<room_screen> {
                                                     BorderRadius.circular(
                                                         10.0)),
                                             child: room['player2']['email'] ==
-                                                    null
+                                                    ''
                                                 ? Image.asset(
                                                     'assets/Loading_2.gif')
                                                 : User(user: room['player2']),
@@ -333,18 +384,30 @@ class _room_screenState extends State<room_screen> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  multi_play()),
-                                          (route) => false);
+                                      if (room['player1']['email'] ==
+                                              _auth.currentUser!.email &&
+                                          room['player2']['email'] != '') {
+                                        _fireRoom
+                                            .collection("Rooms")
+                                            .doc(widget.RoomId.toString())
+                                            .update({
+                                          'create_at': DateTime.now(),
+                                          'star': 1,
+                                        });
+                                        Navigator.pop(context);
+                                      }
                                     },
-                                    child: Text(
-                                      'Bắt Đầu',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
+                                    child: room['player1']['email'] ==
+                                                _auth.currentUser!.email &&
+                                            room['player2']['email'] != ''
+                                        ? Text(
+                                            'Bắt đầu',
+                                            style: TextStyle(fontSize: 15),
+                                          )
+                                        : Text(
+                                            'không thể Bắt đầu',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
                                   ),
                                 ],
                               ),

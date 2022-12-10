@@ -137,18 +137,21 @@ class _homeState extends State<home> {
                                       .doc('${roomId}')
                                       .set({
                                     'id': roomId,
+                                    'star': 0,
                                     'create_at': DateTime.now(),
                                     'player1': {
                                       'Avatar': user[0]['Avatar'],
                                       'DisplayName': user[0]['DisplayName'],
                                       'email': _auth.currentUser!.email,
                                       'RankPoint': user[0]['RankPoint'],
+                                      'Point': 0,
                                     },
                                     'player2': {
                                       'Avatar': null,
                                       'DisplayName': null,
-                                      'email': null,
+                                      'email': '',
                                       'RankPoint': 0,
+                                      'Point': 0,
                                     }
                                   });
 
