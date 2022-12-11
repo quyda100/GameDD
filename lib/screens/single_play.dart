@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import '../components/header_bar.dart';
 
+var po = 0;
+
 class SinglePlay extends StatefulWidget {
   SinglePlay({super.key, required this.chapterId, required this.subjectId});
   final int chapterId;
   final int subjectId;
-  int index = 0;
   @override
   State<SinglePlay> createState() => _SinglePlayState();
 }
@@ -17,15 +20,19 @@ class _SinglePlayState extends State<SinglePlay> {
   final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   bool isLock = false;
-  void nextQuest() {
-    setState(() {
-      if (widget.index >= 7) {
-        return;
-      } else {
-        widget.index++;
-        isLock = false;
-      }
-    });
+  int index = 0;
+  int point = 0;
+  void nextQuest(int p) {
+    po = p;
+    if (index >= 8 || isLock == true) {
+      return;
+    } else {
+      point += po;
+      isLock = true;
+      index == 7 ? null : index++;
+      isLock = false;
+    }
+    setState(() {});
   }
 
   @override
@@ -76,8 +83,8 @@ class _SinglePlayState extends State<SinglePlay> {
                         child: Column(
                           children: [
                             QuestionWidget(
-                              question: questions[widget.index],
-                              next: nextQuest,
+                              question: questions[index],
+                              next: () => nextQuest(questions[index].point),
                               islock: isLock,
                             ),
                             Row(
@@ -114,7 +121,13 @@ class _SinglePlayState extends State<SinglePlay> {
                                   ),
                                 ),
                                 Text(
-                                  "Câu: ${(widget.index + 1)} / 8",
+                                  "Câu: ${(index + 1)} / 8",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Điểm: ${(point)}",
                                   style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),
@@ -187,37 +200,30 @@ class QuestionWidget extends StatelessWidget {
                 next: next,
                 isLock: islock,
               ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: AnswerWidget(
-                    answer: question.answers[dex],
-                    isKey: dex++ == question.key,
-                    next: next,
-                    isLock: islock,
-                  )),
+              AnswerWidget(
+                answer: question.answers[dex],
+                isKey: dex++ == question.key,
+                next: next,
+                isLock: islock,
+              ),
             ],
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(0, 10, 0, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnswerWidget(
-                  answer: question.answers[dex],
-                  isKey: dex++ == question.key,
-                  next: next,
-                  isLock: islock,
-                ),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: AnswerWidget(
-                      answer: question.answers[dex],
-                      isKey: dex == question.key,
-                      next: next,
-                      isLock: islock,
-                    )),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnswerWidget(
+                answer: question.answers[dex],
+                isKey: dex++ == question.key,
+                next: next,
+                isLock: islock,
+              ),
+              AnswerWidget(
+                answer: question.answers[dex],
+                isKey: dex == question.key,
+                next: next,
+                isLock: islock,
+              ),
+            ],
           )
         ],
       ),
@@ -245,23 +251,28 @@ class AnswerWidget extends StatefulWidget {
 class _AnswerWidgetState extends State<AnswerWidget> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: widget.isLock
-            ? widget.isKey
-                ? Colors.green
-                : Colors.red
-            : Colors.white,
-        maximumSize: Size(MediaQuery.of(context).size.width / 4,
-            MediaQuery.of(context).size.height / 6),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+    return Container(
+      width: MediaQuery.of(context).size.width / 4,
+      height: MediaQuery.of(context).size.height / 8,
+      margin: const EdgeInsets.fromLTRB(3, 8, 3, 0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.isLock
+              ? widget.isKey
+                  ? Colors.green
+                  : Colors.red
+              : Colors.white,
+          maximumSize: Size(MediaQuery.of(context).size.width / 4,
+              MediaQuery.of(context).size.height / 6),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
-      ),
-      onPressed: widget.next,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width / 4,
-        height: MediaQuery.of(context).size.height / 8,
+        onPressed: widget.isKey
+            ? widget.next
+            : () => setState(() {
+                  widget.isLock = true;
+                }),
         child: Text(
           widget.answer,
           style: const TextStyle(fontSize: 18, color: Colors.black),
