@@ -89,36 +89,47 @@ class _multi_playState extends State<multi_play> {
                               border: Border.all(width: 1)),
                           child: Column(
                             children: [
-                              Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width / 2,
-                                height: MediaQuery.of(context).size.height / 7,
-                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                margin: const EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    border: Border.all(
-                                        width: 0, color: Colors.black),
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color.fromARGB(
-                                                255, 178, 177, 169)
-                                            .withOpacity(0.5),
-                                        blurRadius: 8,
-                                        offset: const Offset(0, 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    height:
+                                        MediaQuery.of(context).size.height /
+                                            7,
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        border: Border.all(
+                                            width: 0, color: Colors.black),
+                                        borderRadius:
+                                            BorderRadius.circular(18),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color.fromARGB(
+                                                    255, 178, 177, 169)
+                                                .withOpacity(0.5),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 8),
+                                          ),
+                                        ]),
+                                    child: Text(
+                                      questions[index].title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
                                       ),
-                                    ]),
-                                child: Text(
-                                  questions[index].title,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
+                                  Text("Điểm: ${point}")
+                                ],
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
