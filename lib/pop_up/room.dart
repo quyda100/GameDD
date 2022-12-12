@@ -179,8 +179,9 @@ class _room_screenState extends State<room_screen> {
                                                     .snapshots()
                                                     .forEach((element) {
                                                   if (element.data()!['player2']
-                                                          ['email'] !=
-                                                      '') {
+                                                          ['email'] ==
+                                                      _auth
+                                                          .currentUser!.email) {
                                                     showDialog(
                                                         context: context,
                                                         // barrierDismissible: false,
@@ -428,8 +429,10 @@ class _room_screenState extends State<room_screen> {
                                             style: TextStyle(fontSize: 15),
                                           )
                                         : Text(
-                                            'không thể Bắt đầu',
-                                            style: TextStyle(fontSize: 15),
+                                            'Đợi đối thủ bắt đầu',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.amber),
                                           ),
                                   ),
                                 ],

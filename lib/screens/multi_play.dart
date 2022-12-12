@@ -113,7 +113,13 @@ class _multi_playState extends State<multi_play> {
                                       IconButton(
                                           onPressed: () {},
                                           icon: Image.asset(
-                                              'assets/icons/50.png'))
+                                              'assets/icons/50.png')),
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Image.asset(
+                                              'assets/icons/exit.png')),
                                     ],
                                   ),
                                 ),
