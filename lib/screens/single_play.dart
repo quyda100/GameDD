@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import '../components/header_bar.dart';
 
-var po = 0;
-
 class SinglePlay extends StatefulWidget {
   SinglePlay({super.key, required this.chapterId, required this.subjectId});
   final int chapterId;
@@ -16,23 +14,58 @@ class SinglePlay extends StatefulWidget {
   State<SinglePlay> createState() => _SinglePlayState();
 }
 
-class _SinglePlayState extends State<SinglePlay> {
+class _SinglePlayState extends State<SinglePlay>
+    with SingleTickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   bool isLock = false;
   int index = 0;
   int point = 0;
-  void nextQuest(int p) {
-    po = p;
-    if (index >= 8 || isLock == true) {
+  late Animation _animation;
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 15));
+    _animation =
+        ColorTween(begin: Colors.blue, end: Colors.red).animate(_controller)
+          ..addListener(() {
+            setState(() {});
+          });
+    _controller.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+  }
+
+  void nextQuest(int p, bool value) {
+    if (isLock == true) {
       return;
+    } else if (index == 7) {
+      point += value ? p : 0;
+      setState(() {
+        isLock = true;
+      });
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+      });
     } else {
-      point += po;
+      point += value ? p : 0;
       isLock = true;
-      index == 7 ? null : index++;
-      isLock = false;
+      setState(() {});
+      Future.delayed(Duration(seconds: 1), () {
+        setState(() {
+          index++;
+          isLock = false;
+        });
+      });
+      //
     }
-    setState(() {});
   }
 
   @override
@@ -82,10 +115,91 @@ class _SinglePlayState extends State<SinglePlay> {
                             border: Border.all(width: 1)),
                         child: Column(
                           children: [
-                            QuestionWidget(
-                              question: questions[index],
-                              next: () => nextQuest(questions[index].point),
-                              islock: isLock,
+                            Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.height / 7,
+                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                              margin: const EdgeInsets.only(bottom: 8),
+                              decoration: BoxDecoration(
+                                  color: _animation.value,
+                                  border:
+                                      Border.all(width: 0, color: Colors.black),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color.fromARGB(
+                                              255, 178, 177, 169)
+                                          .withOpacity(0.5),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ]),
+                              child: Text(
+                                questions[index].title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                                softWrap: true,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => nextQuest(
+                                          questions[index].point,
+                                          0 == questions[index].key),
+                                      child: AnswerWidget(
+                                        answer: questions[index].answers[0],
+                                        isKey: 0 == questions[index].key,
+                                        isLock: isLock,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => nextQuest(
+                                          questions[index].point,
+                                          1 == questions[index].key),
+                                      child: AnswerWidget(
+                                        answer: questions[index].answers[1],
+                                        isKey: 1 == questions[index].key,
+                                        isLock: isLock,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => nextQuest(
+                                          questions[index].point,
+                                          2 == questions[index].key),
+                                      child: AnswerWidget(
+                                        answer: questions[index].answers[2],
+                                        isKey: 2 == questions[index].key,
+                                        isLock: isLock,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => nextQuest(
+                                          questions[index].point,
+                                          3 == questions[index].key),
+                                      child: AnswerWidget(
+                                        answer: questions[index].answers[3],
+                                        isKey: 3 == questions[index].key,
+                                        isLock: isLock,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -145,101 +259,13 @@ class _SinglePlayState extends State<SinglePlay> {
   }
 }
 
-class QuestionWidget extends StatelessWidget {
-  int dex = 0;
-  final VoidCallback next;
-  bool islock;
-  QuestionWidget({
-    required this.question,
-    required this.next,
-    required this.islock,
-    Key? key,
-  }) : super(key: key);
-  Question question;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        width: MediaQuery.of(context).size.width / 2,
-        height: MediaQuery.of(context).size.height / 7,
-        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-        margin: const EdgeInsets.only(bottom: 8),
-        decoration: BoxDecoration(
-            color: Colors.blue,
-            border: Border.all(width: 0, color: Colors.black),
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color.fromARGB(255, 178, 177, 169).withOpacity(0.5),
-                blurRadius: 8,
-                offset: const Offset(0, 8),
-              ),
-            ]),
-        child: Text(
-          question.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          softWrap: true,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnswerWidget(
-                answer: question.answers[dex],
-                isKey: dex++ == question.key,
-                next: next,
-                isLock: islock,
-              ),
-              AnswerWidget(
-                answer: question.answers[dex],
-                isKey: dex++ == question.key,
-                next: next,
-                isLock: islock,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnswerWidget(
-                answer: question.answers[dex],
-                isKey: dex++ == question.key,
-                next: next,
-                isLock: islock,
-              ),
-              AnswerWidget(
-                answer: question.answers[dex],
-                isKey: dex == question.key,
-                next: next,
-                isLock: islock,
-              ),
-            ],
-          )
-        ],
-      ),
-    ]);
-  }
-}
-
 class AnswerWidget extends StatefulWidget {
   String answer;
   bool isKey;
-  final VoidCallback next;
   bool isLock;
   AnswerWidget({
     required this.answer,
     required this.isKey,
-    required this.next,
     required this.isLock,
     super.key,
   });
@@ -252,31 +278,22 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       width: MediaQuery.of(context).size.width / 4,
       height: MediaQuery.of(context).size.height / 8,
       margin: const EdgeInsets.fromLTRB(3, 8, 3, 0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: widget.isLock
-              ? widget.isKey
-                  ? Colors.green
-                  : Colors.red
-              : Colors.white,
-          maximumSize: Size(MediaQuery.of(context).size.width / 4,
-              MediaQuery.of(context).size.height / 6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        onPressed: widget.isKey
-            ? widget.next
-            : () => setState(() {
-                  widget.isLock = true;
-                }),
-        child: Text(
-          widget.answer,
-          style: const TextStyle(fontSize: 18, color: Colors.black),
-        ),
+      decoration: BoxDecoration(
+        color: widget.isLock
+            ? widget.isKey
+                ? Colors.green
+                : Colors.red
+            : Colors.white,
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: Text(
+        widget.answer,
+        style: const TextStyle(fontSize: 18, color: Colors.black),
+        textAlign: TextAlign.center,
       ),
     );
   }

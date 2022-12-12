@@ -5,15 +5,12 @@ class Question {
   List<dynamic> answers;
   int key;
   int point;
-  int? chapter;
-  int? subject;
-  Question(
-      {required this.title,
-      required this.answers,
-      required this.key,
-      required this.point,
-      this.chapter,
-      this.subject});
+  Question({
+    required this.title,
+    required this.answers,
+    required this.key,
+    required this.point,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,8 +18,6 @@ class Question {
       'Answer': answers,
       'Key': key,
       'Point': point,
-      'Chapter.Id': chapter,
-      'Subject.Id': subject
     };
   }
 
@@ -36,7 +31,5 @@ class Question {
       : title = doc.data()!["Title"],
         point = doc.data()!["Point"],
         key = doc.data()!["Key"],
-        answers = doc.data()!["Answer"],
-        chapter = doc.data()!["Chapter.Id"],
-        subject = doc.data()!["Subject.Id"];
+        answers = doc.data()!["Answer"];
 }
