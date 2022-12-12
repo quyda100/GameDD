@@ -5,6 +5,7 @@ import '../components/header_bar.dart';
 import '../components/right_button.dart';
 import '../components/setting_screenshot.dart';
 import '../screens/login.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class setting extends StatefulWidget {
   const setting({
@@ -19,6 +20,7 @@ class _settingState extends State<setting> {
   double hieuung = 20;
   double amluong = 20;
   final _auth = FirebaseAuth.instance;
+  final player = AudioCache();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
