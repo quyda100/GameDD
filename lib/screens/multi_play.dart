@@ -74,188 +74,195 @@ class _multi_playState extends State<multi_play> {
                       image: AssetImage("assets/bg.gif"), fit: BoxFit.cover),
                 ),
                 padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                child: Column(children: [
-                  header_bar(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 1.3,
-                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            color: Colors.blueAccent.withOpacity(0.3),
-                            border: Border.all(width: 1)),
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: MediaQuery.of(context).size.height / 7,
-                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                              margin: const EdgeInsets.only(bottom: 8),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  border:
-                                      Border.all(width: 0, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color.fromARGB(
-                                              255, 178, 177, 169)
-                                          .withOpacity(0.5),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 8),
-                                    ),
-                                  ]),
-                              child: Text(
-                                questions[index].title,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                child: SafeArea(
+                  child: Column(children: [
+                    header_bar(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.0),
+                              color: Colors.blueAccent.withOpacity(0.3),
+                              border: Border.all(width: 1)),
+                          child: Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.height / 7,
+                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                margin: const EdgeInsets.only(bottom: 8),
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    border: Border.all(
+                                        width: 0, color: Colors.black),
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color.fromARGB(
+                                                255, 178, 177, 169)
+                                            .withOpacity(0.5),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 8),
+                                      ),
+                                    ]),
+                                child: Text(
+                                  questions[index].title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
                                 ),
-                                softWrap: true,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => nextQuest(
-                                          questions[index].point,
-                                          0 == questions[index].key),
-                                      child: AnswerWidget(
-                                        answer: questions[index].answers[0],
-                                        isKey: 0 == questions[index].key,
-                                        isLock: isLock,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => nextQuest(
+                                            questions[index].point,
+                                            0 == questions[index].key),
+                                        child: AnswerWidget(
+                                          answer: questions[index].answers[0],
+                                          isKey: 0 == questions[index].key,
+                                          isLock: isLock,
+                                        ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => nextQuest(
-                                          questions[index].point,
-                                          1 == questions[index].key),
-                                      child: AnswerWidget(
-                                        answer: questions[index].answers[1],
-                                        isKey: 1 == questions[index].key,
-                                        isLock: isLock,
+                                      GestureDetector(
+                                        onTap: () => nextQuest(
+                                            questions[index].point,
+                                            1 == questions[index].key),
+                                        child: AnswerWidget(
+                                          answer: questions[index].answers[1],
+                                          isKey: 1 == questions[index].key,
+                                          isLock: isLock,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => nextQuest(
-                                          questions[index].point,
-                                          2 == questions[index].key),
-                                      child: AnswerWidget(
-                                        answer: questions[index].answers[2],
-                                        isKey: 2 == questions[index].key,
-                                        isLock: isLock,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => nextQuest(
-                                          questions[index].point,
-                                          3 == questions[index].key),
-                                      child: AnswerWidget(
-                                        answer: questions[index].answers[3],
-                                        isKey: 3 == questions[index].key,
-                                        isLock: isLock,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 1),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      color: Colors.grey.shade300
-                                          .withOpacity(0.6)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Image.asset(
-                                              'assets/icons/camera.png')),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Image.asset(
-                                              'assets/icons/heart.png')),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Image.asset(
-                                              'assets/icons/100.png')),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Image.asset(
-                                              'assets/icons/50.png'))
                                     ],
                                   ),
-                                ),
-                                Text(
-                                  "Câu: ${(index + 1)} / 8",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 8, 20, 0),
-                                  child: Container(
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => nextQuest(
+                                            questions[index].point,
+                                            2 == questions[index].key),
+                                        child: AnswerWidget(
+                                          answer: questions[index].answers[2],
+                                          isKey: 2 == questions[index].key,
+                                          isLock: isLock,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () => nextQuest(
+                                            questions[index].point,
+                                            3 == questions[index].key),
+                                        child: AnswerWidget(
+                                          answer: questions[index].answers[3],
+                                          isKey: 3 == questions[index].key,
+                                          isLock: isLock,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    padding: const EdgeInsets.all(8.0),
                                     decoration: BoxDecoration(
-                                      border: Border.all(width: 2),
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(18.0),
+                                        border: Border.all(width: 1),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        color: Colors.grey.shade300
+                                            .withOpacity(0.6)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Image.asset(
+                                                'assets/icons/camera.png')),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Image.asset(
+                                                'assets/icons/heart.png')),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Image.asset(
+                                                'assets/icons/100.png')),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Image.asset(
+                                                'assets/icons/50.png'))
+                                      ],
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          25, 7, 15, 15),
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                                "assets/img/Default.png"),
-                                          ),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: Image.asset(
-                                                  'assets/icons/heart.png')),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: Image.asset(
-                                                  'assets/icons/50.png')),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: Image.asset(
-                                                  'assets/icons/100.png')),
-                                        ],
+                                  ),
+                                  Text(
+                                    "Câu: ${(index + 1)} / 8",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 8, 20, 0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 2),
+                                        color: Colors.grey,
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            25, 7, 15, 15),
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundImage: AssetImage(
+                                                  "assets/img/Default.png"),
+                                            ),
+                                            IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset(
+                                                    'assets/icons/heart.png')),
+                                            IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset(
+                                                    'assets/icons/50.png')),
+                                            IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset(
+                                                    'assets/icons/100.png')),
+                                            Text("Điểm : ${point}"),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ]),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ]),
+                ),
               ));
         });
   }
