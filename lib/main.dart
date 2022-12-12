@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
 
-      //home: AddQuestion(),
+      // home: AddQuestion(),
       routes: {
         'login': (context) => login_screen(),
         'home': (context) => home(),
@@ -63,14 +63,21 @@ class MyApp extends StatelessWidget {
 //         body: Center(
 //       child: ElevatedButton(
 //           onPressed: () {
-//             _fireStore.collection("Questions").add({
-//               'Id': 120,
-//               'Title': "Tên gọi Tân Việt Cách mạng đảng có từ khi nào?",
-//               'Answer': ["Năm 1922", "Năm 1922", "Năm 1928", "Năm 1929"],
+//             _fireStore.collection("SimpleQuestions").add({
+//               'Id': 55,
+//               'Title':
+//                   "Tổ chức hiệp ước Vác-sa-va trở thành một đối trọng với khối quân sự nào của Mĩ ?",
+//               'Answer': [
+//                 "Khối SEATO",
+//                 "Khối CENTO",
+//                 "Khối NATO",
+//                 "Khối ANZUSS"
+//               ],
 //               'Key': 2,
-//               'Point': 150,
-//               'Subject': {'Id': 5, 'Title': "Lịch sử"},
-//               'Chapter': {'Id': 3, 'Title': "Về đích"}
+//               'Point': 20,
+//               // 'Subject': {'Id': 5, 'Title': "Lịch sử"},
+//               // 'Chapter': {'Id': 3, 'Title': "Về đích"}
+//               'type': {'id': 2, 'Title': 'Xếp Hạng'}
 //             }).then((value) {
 //               final snackBar = SnackBar(content: Text("Thêm thành công"));
 //               ScaffoldMessenger.of(context).showSnackBar(snackBar);
