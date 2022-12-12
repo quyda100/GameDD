@@ -63,14 +63,13 @@ class MyApp extends StatelessWidget {
 //         body: Center(
 //       child: ElevatedButton(
 //           onPressed: () {
-//             _fireStore.collection("Questions").add({
+//             _fireStore.collection("SimpleQuestion").add({
 //               'Id': 120,
 //               'Title': "Tên gọi Tân Việt Cách mạng đảng có từ khi nào?",
 //               'Answer': ["Năm 1922", "Năm 1922", "Năm 1928", "Năm 1929"],
 //               'Key': 2,
 //               'Point': 150,
-//               'Subject': {'Id': 5, 'Title': "Lịch sử"},
-//               'Chapter': {'Id': 3, 'Title': "Về đích"}
+//               'Type': {Id: 1, Title: 'Xếp hạng'}
 //             }).then((value) {
 //               final snackBar = SnackBar(content: Text("Thêm thành công"));
 //               ScaffoldMessenger.of(context).showSnackBar(snackBar);
