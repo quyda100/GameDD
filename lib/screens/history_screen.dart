@@ -21,7 +21,6 @@ class _history_screenState extends State<history_screen> {
         .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
     String uid = _auth.currentUser!.email.toString();
-
     bool check(String u) {
       if (u == "thua") {
         return false;
@@ -87,51 +86,59 @@ class _history_screenState extends State<history_screen> {
                                   ],
                                 ),
                                 Expanded(
-                                  child: SingleChildScrollView(
-                                      child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                          color: check(
-                                                  user[0]['result'].toString())
-                                              ? Colors.green.shade600
-                                              : Colors.red.shade500,
-                                        ),
-                                        padding: EdgeInsets.all(15.0),
-                                        margin:
-                                            EdgeInsets.fromLTRB(15, 8, 15, 3),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  user[0]['competitor']
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  "${DateTime.parse(user[0]['time'].toDate().toString())}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      // history_item(isWin: true),
-                                      // history_item(isWin: true),
-                                      // history_item(isWin: true),
-                                      // history_item(isWin: false),
-                                    ],
-                                  )),
+                                  child: ListView.builder(
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemBuilder: (context, index) => Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  color: check(user[index]
+                                                              ['result']
+                                                          .toString())
+                                                      ? Colors.green.shade600
+                                                      : Colors.red.shade500,
+                                                ),
+                                                padding: EdgeInsets.all(15.0),
+                                                margin: EdgeInsets.fromLTRB(
+                                                    15, 8, 15, 3),
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          user[index]
+                                                                  ['competitor']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          "${DateTime.parse(user[index]['time'].toDate().toString())}",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              // history_item(isWin: true),
+                                              // history_item(isWin: true),
+                                              // history_item(isWin: true),
+                                              // history_item(isWin: false),
+                                            ],
+                                          )),
                                 ),
                               ],
                             )),
