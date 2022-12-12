@@ -66,8 +66,6 @@ class _room_screenState extends State<room_screen> {
               MaterialPageRoute(
                   builder: (context) => multi_play(
                         chapter: 3,
-                        chapterId: 1,
-                        subjectId: 1,
                       )));
         }
         return Scaffold(
@@ -416,8 +414,6 @@ class _room_screenState extends State<room_screen> {
                                                 builder: (context) =>
                                                     multi_play(
                                                       chapter: 3,
-                                                      chapterId: 1,
-                                                      subjectId: 1,
                                                     )));
                                       }
                                     },
