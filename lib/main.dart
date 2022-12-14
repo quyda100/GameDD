@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,6 @@ import 'screens/UpdatePasss.dart';
 import 'screens/login.dart';
 import 'screens/unRememberPass.dart';
 import 'screens/home.dart';
-import 'pop_up/room.dart';
 import 'screens/Pay.dart';
 
 Future<void> main(List<String> args) async {
@@ -37,12 +35,12 @@ class MyApp extends StatelessWidget {
 
       //home: AddQuestion(),
       routes: {
-        'login': (context) => login_screen(),
-        'home': (context) => home(),
-        'unRemmemberPass': (context) => unRememberPass(),
-        'UpdatePasss': (context) => UpdatePasss(),
-        'CreateAccount': (context) => CreateAccount(),
-        'Pay': (context) => Pay(),
+        'login': (context) => const login_screen(),
+        'home': (context) => const home(),
+        'unRemmemberPass': (context) => const unRememberPass(),
+        'UpdatePasss': (context) => const UpdatePasss(),
+        'CreateAccount': (context) => const CreateAccount(),
+        'Pay': (context) => const Pay(),
       },
     );
   }

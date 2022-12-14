@@ -21,20 +21,18 @@ class room_screen extends StatefulWidget {
     required this.name,
     required this.avatar,
     // required this.email,
-    required this.RankPoint,
+    required this.rankpoint,
   });
   final int RoomId;
   final String name;
-  final String avatar;
+  final String? avatar;
   // final String email;
-  final int RankPoint;
+  final int? rankpoint;
   @override
   State<room_screen> createState() => _room_screenState();
 }
 
 class _room_screenState extends State<room_screen> {
-  final _auth = FirebaseAuth.instance;
-
   final _fireRoom = FirebaseFirestore.instance;
   // test
   var idRoom = TextEditingController();
@@ -217,8 +215,8 @@ class _room_screenState extends State<room_screen> {
                                                               .toString(),
                                                       'player2.email': _auth
                                                           .currentUser!.email,
-                                                      'player2.RankPoint':
-                                                          widget.RankPoint,
+                                                      'player2.rankpoint':
+                                                          widget.rankpoint,
                                                       'player2.Point': 0,
                                                     });
                                                     _fireRoom
@@ -253,8 +251,8 @@ class _room_screenState extends State<room_screen> {
                                                                       .name,
                                                                   avatar: widget
                                                                       .avatar,
-                                                                  RankPoint: widget
-                                                                      .RankPoint,
+                                                                  rankpoint: widget
+                                                                      .rankpoint,
                                                                 ),
                                                               ),
                                                             ));

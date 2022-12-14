@@ -117,12 +117,12 @@ class __screenState extends State<Bag> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset('assets/icons/50.png', width: 40, height: 40),
-                    Text(
+                   const Text(
                       "Loại đi 50% câu trả lời",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 30),
                       child: Text(
                         "2",
@@ -145,12 +145,12 @@ class __screenState extends State<Bag> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset('assets/icons/50.png', width: 40, height: 40),
-                    Text(
+                    const Text(
                       "Loại đi 50% câu trả lời",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Padding(
+                   const Padding(
                       padding: EdgeInsets.only(right: 30),
                       child: Text(
                         "2",
