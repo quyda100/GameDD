@@ -75,15 +75,15 @@ class _room_screenState extends State<room_screen> {
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
         if (room['star'] == 1) {
-          Navigator.pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => multi_play(
-                player: widget.player,
-              ),
-            ),
-          );
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => multi_play(
+                    player: widget.player,
+                  ),
+                ));
+          });
         }
         return Scaffold(
           resizeToAvoidBottomInset: false,

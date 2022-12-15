@@ -207,7 +207,14 @@ class _multi_playState extends State<multi_play> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                        title: Text('hi'),
+                                                      ));
+                                            },
                                             icon: Image.asset(
                                                 'assets/icons/camera.png')),
                                         IconButton(
@@ -226,7 +233,7 @@ class _multi_playState extends State<multi_play> {
                                     ),
                                   ),
                                   Text(
-                                    "Câu: ${(index + 1)} / $totalQuestion}",
+                                    "Câu: ${(index + 1)} / $totalQuestion",
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold),
