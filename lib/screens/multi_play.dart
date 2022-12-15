@@ -7,7 +7,7 @@ import 'package:flutter_application_1/model/user.dart';
 import '../components/header_bar.dart';
 
 class multi_play extends StatefulWidget {
-  multi_play({super.key, required int chapter, required this.player});
+  multi_play({super.key, required this.player});
   Player player;
   @override
   State<multi_play> createState() => _multi_playState();
@@ -22,7 +22,7 @@ class _multi_playState extends State<multi_play> {
   void nextQuest(int p, bool value) {
     if (isLock == true) {
       return;
-    } else if (index == 7) {
+    } else if (index == totalQuestion - 1) {
       point += value ? p : 0;
       setState(() {
         isLock = true;
@@ -63,11 +63,6 @@ class _multi_playState extends State<multi_play> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }
-          snapshot.data!.docs.shuffle();
-          for (var i = 0; i < totalQuestion; i++) {
-            questions
-                .add(Question.fromDocumentSnapshot(snapshot.data!.docs[i]));
           }
           return Scaffold(
               resizeToAvoidBottomInset: true,
@@ -228,7 +223,7 @@ class _multi_playState extends State<multi_play> {
                                     ),
                                   ),
                                   Text(
-                                    "Câu: ${(index + 1)} / 8",
+                                    "Câu: ${(index + 1)} / $totalQuestion}",
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold),
