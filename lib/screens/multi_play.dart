@@ -48,8 +48,9 @@ class _multi_playState extends State<multi_play> {
   Widget build(BuildContext context) {
     List<Question> questions = [];
     var snapshots = _fireStore
-        .collection("SimpleQuestions")
-        .where("type.id", isEqualTo: 2)
+        .collection("Questions")
+        .where("Subject.Id", isEqualTo: 1)
+        .where("Chapter.Id", isEqualTo: 3)
         .snapshots();
     return StreamBuilder(
         stream: snapshots,
