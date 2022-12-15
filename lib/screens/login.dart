@@ -33,7 +33,7 @@ class _login_screenState extends State<login_screen> {
                     color: Colors.white.withOpacity(0.6),
                     border: Border.all(width: 0.5)),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 0.8,
+                  width: MediaQuery.of(context).size.width / 1,
                   child: (Row(children: [
                     Container(
                       padding: const EdgeInsets.all(20),
@@ -81,7 +81,7 @@ class _login_screenState extends State<login_screen> {
                                     hintText: 'Email',
                                     hintStyle: TextStyle(
                                       color: Colors.black,
-                                    )),
+                                    ),),
                               ),
                             ),
                             Padding(
@@ -117,18 +117,16 @@ class _login_screenState extends State<login_screen> {
                                                         .size
                                                         .width /
                                                     4,
-                                                title:
-                                                    const Text("Thông báo"),
+                                                title: const Text("Thông báo"),
                                                 description: const Text(
                                                     "Vui Lòng Nhập Đủ Thông Tin"))
                                             .show(context);
                                         return;
                                       }
                                       try {
-                                        await _auth
-                                            .signInWithEmailAndPassword(
-                                                email: txtEmail.text,
-                                                password: txtPassword.text);
+                                        await _auth.signInWithEmailAndPassword(
+                                            email: txtEmail.text,
+                                            password: txtPassword.text);
 
                                         _auth
                                             .authStateChanges()
@@ -145,8 +143,8 @@ class _login_screenState extends State<login_screen> {
                                                                 .size
                                                                 .width /
                                                             4,
-                                                    title: const Text(
-                                                        "Thông báo"),
+                                                    title:
+                                                        const Text("Thông báo"),
                                                     description: const Text(
                                                         "Đăng Nhập Thành Công"))
                                                 .show(context);
@@ -164,8 +162,8 @@ class _login_screenState extends State<login_screen> {
                                                                 .size
                                                                 .width /
                                                             4,
-                                                    title: const Text(
-                                                        "Thông báo"),
+                                                    title:
+                                                        const Text("Thông báo"),
                                                     description: const Text(
                                                         "Sai Email Hoặc Mật Khẩu"))
                                                 .show(context);
@@ -177,10 +175,9 @@ class _login_screenState extends State<login_screen> {
                                                         .size
                                                         .width /
                                                     4,
-                                                title:
-                                                    const Text("Thông báo"),
-                                                description: const Text(
-                                                    "Có Lỗi Xảy Ra"))
+                                                title: const Text("Thông báo"),
+                                                description:
+                                                    const Text("Có Lỗi Xảy Ra"))
                                             .show(context);
                                       }
                                     },
