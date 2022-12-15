@@ -3,6 +3,7 @@ import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 import '../pop_up/setting.dart';
 
+// ignore: camel_case_types
 class setting_screenshot extends StatefulWidget {
   const setting_screenshot({
     Key? key,
@@ -12,6 +13,7 @@ class setting_screenshot extends StatefulWidget {
   State<setting_screenshot> createState() => _setting_screenshotState();
 }
 
+// ignore: camel_case_types
 class _setting_screenshotState extends State<setting_screenshot> {
   @override
   Widget build(BuildContext context) {
@@ -23,65 +25,63 @@ class _setting_screenshotState extends State<setting_screenshot> {
           incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(),
           atRestEffect: WidgetRestingEffects.rotate(),
           child: Padding(
-              padding: EdgeInsets.only(top: 3, bottom: 3),
+              padding: const EdgeInsets.only(top: 3, bottom: 3),
               child: IconButton(
                 onPressed: () {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 9,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.amber,
-                                    border: Border.all(width: 0.1)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/icons/setting.png',
-                                      width: 30,
+                      title: Row(
+                        children: [
+                          const Expanded(
+                            flex: 3,
+                            child: Text(''),
+                          ),
+                          Expanded(
+                            flex: 9,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.amber,
+                                  border: Border.all(width: 0.1)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/icons/setting.png',
+                                    width: 30,
+                                  ),
+                                  const Text(
+                                    'Cài đặt',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
                                     ),
-                                    Text(
-                                      'Cài đặt',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(''),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: IconButton(
-                                onPressed: () => {
-                                  Navigator.pop(context),
-                                },
-                                icon: Image.asset(
-                                  'assets/icons/exit.png',
-                                  width: 25,
-                                ),
+                          ),
+                          const Expanded(
+                            flex: 1,
+                            child: Text(''),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: IconButton(
+                              onPressed: () => {
+                                Navigator.pop(context),
+                              },
+                              icon: Image.asset(
+                                'assets/icons/exit.png',
+                                width: 25,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      backgroundColor: Color.fromARGB(96, 7, 77, 255),
-                      content: Container(
+                      backgroundColor: const Color.fromARGB(96, 7, 77, 255),
+                      content: const SizedBox(
                         height: 150,
                         width: 500.0,
                         child: setting(),

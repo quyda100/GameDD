@@ -1,22 +1,26 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import '../components/header_bar.dart';
+import '../model/user.dart';
 
 class SinglePlay extends StatefulWidget {
-  SinglePlay({super.key, required this.chapterId, required this.subjectId});
+  SinglePlay(
+      {super.key,
+      required this.chapterId,
+      required this.subjectId,
+      required this.player});
   final int chapterId;
   final int subjectId;
+  Player player;
   @override
   State<SinglePlay> createState() => _SinglePlayState();
 }
 
 class _SinglePlayState extends State<SinglePlay>
     with SingleTickerProviderStateMixin {
-  final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   bool isLock = false;
   int index = 0;
@@ -27,20 +31,11 @@ class _SinglePlayState extends State<SinglePlay>
   void initState() {
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 15));
-    _animation =
-        ColorTween(begin: Colors.blue, end: Colors.red).animate(_controller)
-          ..addListener(() {
-            setState(() {});
-          });
-    _controller.forward();
+    _animation = Tween<double>(begin: 0.05, end: 0.5).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _controller.dispose();
   }
 
   void nextQuest(int p, bool value) {
@@ -51,15 +46,16 @@ class _SinglePlayState extends State<SinglePlay>
       setState(() {
         isLock = true;
       });
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       });
     } else {
       point += value ? p : 0;
       isLock = true;
       setState(() {});
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         setState(() {
+          _controller.reset();
           index++;
           isLock = false;
         });
@@ -91,6 +87,12 @@ class _SinglePlayState extends State<SinglePlay>
           List<Question> questions = snapshot.data!.docs
               .map((e) => Question.fromDocumentSnapshot(e))
               .toList();
+          _controller.addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              nextQuest(0, false);
+            }
+          });
+          _controller.forward();
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
@@ -102,7 +104,9 @@ class _SinglePlayState extends State<SinglePlay>
                 ),
                 padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
                 child: Column(children: [
-                  header_bar(),
+                  header_bar(
+                    player: widget.player,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -115,37 +119,53 @@ class _SinglePlayState extends State<SinglePlay>
                             border: Border.all(width: 1)),
                         child: Column(
                           children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: MediaQuery.of(context).size.height / 7,
-                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                              margin: const EdgeInsets.only(bottom: 8),
-                              decoration: BoxDecoration(
-                                  color: _animation.value,
+                            Stack(children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width *
+                                    _animation.value,
+                                height: MediaQuery.of(context).size.height / 7,
+                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                margin: const EdgeInsets.only(bottom: 8),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
                                   border:
                                       Border.all(width: 0, color: Colors.black),
                                   borderRadius: BorderRadius.circular(18),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color.fromARGB(
-                                              255, 178, 177, 169)
-                                          .withOpacity(0.5),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 8),
-                                    ),
-                                  ]),
-                              child: Text(
-                                questions[index].title,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
                                 ),
-                                softWrap: true,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
                               ),
-                            ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.height / 7,
+                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                margin: const EdgeInsets.only(bottom: 8),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent.withOpacity(0),
+                                    border: Border.all(
+                                        width: 0, color: Colors.black),
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color.fromARGB(
+                                                255, 178, 177, 169)
+                                            .withOpacity(0.5),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 8),
+                                      ),
+                                    ]),
+                                child: Text(
+                                  questions[index].title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ]),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -256,6 +276,12 @@ class _SinglePlayState extends State<SinglePlay>
                 ]),
               ));
         });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 

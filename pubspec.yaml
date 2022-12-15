@@ -44,6 +44,7 @@ dependencies:
   form_field_validator: ^1.1.0
   firebase_database_mocks: ^0.6.0
   audioplayers: ^1.1.1
+  elegant_notification: ^1.6.4
 
 dev_dependencies:
   flutter_native_splash: ^2.2.13

@@ -1,11 +1,10 @@
-import 'dart:io';
+// ignore_for_file: file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/unRememberPass.dart';
-import 'home.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -24,7 +23,9 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -36,17 +37,16 @@ class _CreateAccountState extends State<CreateAccount> {
                 borderRadius: BorderRadius.circular(50.0),
                 color: const Color.fromARGB(208, 255, 255, 255),
                 border: Border.all(width: 0.2)),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width / 0.8,
               child: Row(
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Container(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           width: MediaQuery.of(context).size.width / 4,
                           height: MediaQuery.of(context).size.width / 3.1,
                           child: IconButton(
@@ -58,7 +58,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => login_screen()));
+                                      builder: (context) =>
+                                          const login_screen()));
                             },
                           ),
                         ),
@@ -156,31 +157,58 @@ class _CreateAccountState extends State<CreateAccount> {
                               children: [
                                 TextButton(
                                   onPressed: () async {
+                                    if (txtEmail.text.isEmpty ||
+                                        txtPass.text.isEmpty ||
+                                        txtRePass.text.isEmpty ||
+                                        txtusername.text.isEmpty) {
+                                      ElegantNotification.error(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                              title: const Text("Thông Báo"),
+                                              description: const Text(
+                                                  "Vui Lòng Nhập Đầy Đủ Thông Tin"))
+                                          .show(context);
+                                    }
                                     if (txtPass.text != txtRePass.text ||
-                                        txtPass.text == null) {
-                                      final snackBar = SnackBar(
-                                          content: Text(
-                                              'Vui Lòng Kiểm Tra Lại Mật Khẩu'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                        txtPass.text.isEmpty) {
+                                      ElegantNotification.error(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                              title: const Text("Thông Báo"),
+                                              description: const Text(
+                                                  "Vui Lòng Nhập Lại Mật Khẩu"))
+                                          .show(context);
                                     } else if (txtPass.text.length < 6) {
-                                      final snackBar = SnackBar(
-                                          content:
-                                              Text('Mật Khẩu Ít Nhất 6 Kí Tự'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                      ElegantNotification.error(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                              title: const Text("Thông Báo"),
+                                              description: const Text(
+                                                  "Mật Khẩu Ít Nhất 6 Ký Tự"))
+                                          .show(context);
                                     } else {
                                       try {
-                                        final newUser = _auth
+                                        await _auth
                                             .createUserWithEmailAndPassword(
                                                 email: txtEmail.text,
                                                 password: txtPass.text)
                                             .then((value) {
-                                          final snackBar = SnackBar(
-                                              content:
-                                                  Text("Đăng Ký Thành Công"));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
+                                          ElegantNotification.success(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  title:
+                                                      const Text("Thông báo"),
+                                                  description: const Text(
+                                                      "Đăng Ký Thành Công"))
+                                              .show(context);
                                           _fireStore
                                               .collection("Users")
                                               .add({
@@ -205,33 +233,54 @@ class _CreateAccountState extends State<CreateAccount> {
                                               .then((value) =>
                                                   Navigator.pop(context))
                                               .onError((error, stackTrace) {
-                                                final snackBar = SnackBar(
-                                                    content:
-                                                        Text("Có Lỗi Xảy Ra"));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(snackBar);
+                                                ElegantNotification.error(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        description: const Text(
+                                                            "Có Lỗi Xảy Ra"))
+                                                    .show(context);
                                               });
                                         }).onError((error, stackTrace) {
-                                          final snackBar = SnackBar(
-                                              content: Text(
-                                                  'Tài Khoản Không Hợp Lệ'));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
+                                          ElegantNotification.error(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  title:
+                                                      const Text("Thông báo"),
+                                                  description: const Text(
+                                                      "Tài Khoản Không Hợp Lệ"))
+                                              .show(context);
                                         });
-                                      } catch (e) {}
+                                      } catch (e) {
+                                        ElegantNotification.error(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                title: const Text("Thông báo"),
+                                                description:
+                                                    const Text("Có Lỗi Xảy Ra"))
+                                            .show(context);
+                                      }
                                     }
                                   },
-                                  child: Text(
-                                    'Đăng ký',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
                                   style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
                                           Color.fromARGB(90, 12, 155, 38)),
                                       padding: MaterialStatePropertyAll(
                                           EdgeInsets.all(20))),
+                                  child: const Text(
+                                    'Đăng ký',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),

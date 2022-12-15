@@ -1,60 +1,44 @@
-import 'item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
-  String? username;
+class Player {
+  String email;
+  String username;
   int? coin;
   int? heart;
   int? rank;
   String? avatar;
-  Bag? bag;
-  User(
-      {required this.username,
-      this.coin = 1000,
-      this.heart = 5,
-      this.rank = 0,
-      this.avatar = "Default.png",
-      this.bag});
-  User.fromJson(Map<String, dynamic> json) {
-    username = json['DisplayName'];
-    avatar = json['Avatar'];
-    heart = json['Heart'];
-    rank = json['RankPoint'];
-    bag = json['Bag'] != null ? new Bag.fromJson(json['Bag']) : null;
-  }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['DisplayName'] = username;
-    data['Avatar'] = avatar;
-    data['Heart'] = heart;
-    data['RankPoint'] = rank;
-    if (bag != null) {
-      data['Bag'] = bag!.toJson();
-    }
-    return data;
-  }
-}
-
-class Bag {
-  int? i50;
-  int? heart;
-  int? double;
-  int? skip;
-
-  Bag({this.i50, this.heart, this.double, this.skip});
-
-  Bag.fromJson(Map<String, dynamic> json) {
-    i50 = json['50'];
-    heart = json['heart'];
-    double = json['double'];
-    skip = json['skip'];
+  Player({
+    required this.email,
+    required this.username,
+    this.coin = 1000,
+    this.heart = 5,
+    this.rank = 0,
+    this.avatar = "Default.png",
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': email,
+      'DisplayName': username,
+      'Coin': coin,
+      'Heart': heart,
+      'RankPoint': rank,
+      'Avatar': avatar
+    };
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['50'] = i50;
-    data['heart'] = heart;
-    data['double'] = double;
-    data['skip'] = skip;
-    return data;
-  }
+  Player.fromMap(Map<String, dynamic> map)
+      : email = map["uid"],
+        username = map["DisplayName"],
+        coin = map["Coin"],
+        rank = map["RankPoint"],
+        heart = map["Heart"],
+        avatar = map["Avatar"];
+
+  Player.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+      : email = doc.data()!["uid"],
+        username = doc.data()!["DisplayName"],
+        coin = doc.data()!["Coin"],
+        rank = doc.data()!["RankPoint"],
+        heart = doc.data()!["Heart"],
+        avatar = doc.data()!["Avatar"];
 }

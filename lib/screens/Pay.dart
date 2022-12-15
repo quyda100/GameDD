@@ -1,9 +1,7 @@
-import 'dart:io';
+// ignore_for_file: file_names
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/login.dart';
-import 'package:flutter_application_1/screens/unRememberPass.dart';
 import 'home.dart';
 
 class Pay extends StatefulWidget {
@@ -18,7 +16,6 @@ class _PayState extends State<Pay> {
   TextEditingController txtusername = TextEditingController();
   TextEditingController txtPass = TextEditingController();
   TextEditingController txtRePass = TextEditingController();
-  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +31,7 @@ class _PayState extends State<Pay> {
                 borderRadius: BorderRadius.circular(50.0),
                 color: const Color.fromARGB(208, 255, 255, 255),
                 border: Border.all(width: 0.2)),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width / 0.8,
               child: Row(
                 // ignore: prefer_const_literals_to_create_immutables
@@ -44,7 +41,7 @@ class _PayState extends State<Pay> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           width: MediaQuery.of(context).size.width / 4,
                           height: MediaQuery.of(context).size.width / 3.1,
                           child: IconButton(
@@ -56,7 +53,7 @@ class _PayState extends State<Pay> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => login_screen()));
+                                      builder: (context) => const login_screen()));
                             },
                           ),
                         ),
@@ -68,16 +65,16 @@ class _PayState extends State<Pay> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => (home())));
+                                        builder: (context) => (const home())));
                               },
-                              child: Container(
+                              child: const SizedBox(
                                 width: 50,
                                 child: CircleAvatar(
                                   backgroundImage: AssetImage('assets/bg.png'),
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Admin',
                               style: TextStyle(
                                   color: Colors.amber,
@@ -94,7 +91,7 @@ class _PayState extends State<Pay> {
                       padding: const EdgeInsets.only(top: 10),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             'Nạp cùng bao đậu',
                             style: TextStyle(
                               color: Colors.green,
@@ -145,17 +142,17 @@ class _PayState extends State<Pay> {
                               children: [
                                 TextButton(
                                   onPressed: () async {},
-                                  child: Text(
-                                    'Nạp',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
                                   style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
                                           Color.fromARGB(90, 12, 155, 38)),
                                       padding: MaterialStatePropertyAll(
                                           EdgeInsets.all(20))),
+                                  child: const Text(
+                                    'Nạp',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),
