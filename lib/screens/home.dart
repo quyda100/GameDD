@@ -70,7 +70,7 @@ class _homeState extends State<home> {
       'player2': {
         'Avatar': null,
         'DisplayName': null,
-        'email': '',
+        'email': null,
         'RankPoint': 0,
         'Point': 0,
       }
@@ -176,21 +176,23 @@ class _homeState extends State<home> {
                                 child: IconButton(
                                   icon: Image.asset("assets/img/xephang.png"),
                                   onPressed: () {
-                                    createRoom().then((value) => showDialog(
+                                    createRoom().then(
+                                      (value) => showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      0, 246, 246, 246),
-                                              content: SizedBox(
-                                                height: 280,
-                                                width: 580.0,
-                                                child: room_screen(
-                                                  roomId: roomId,
-                                                  player: player,
-                                                ),
-                                              ),
-                                            )));
+                                          backgroundColor: const Color.fromARGB(
+                                              0, 246, 246, 246),
+                                          content: SizedBox(
+                                            height: 280,
+                                            width: 580.0,
+                                            child: room_screen(
+                                              roomId: roomId,
+                                              player: player,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               ),

@@ -70,7 +70,8 @@ class _SinglePlayState extends State<SinglePlay>
         .collection("Questions")
         .where("Subject.Id", isEqualTo: widget.subjectId)
         .where("Chapter.Id", isEqualTo: widget.chapterId)
-        .snapshots();
+        .snapshots()
+        .take(2);
     return StreamBuilder(
         stream: snapshots,
         builder: (context, snapshot) {
@@ -279,9 +280,9 @@ class _SinglePlayState extends State<SinglePlay>
   }
 
   @override
-  void dispose() {
+  void deactivate() {
     _controller.dispose();
-    super.dispose();
+    super.deactivate();
   }
 }
 

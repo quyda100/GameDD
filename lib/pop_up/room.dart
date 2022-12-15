@@ -1,3 +1,4 @@
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/user.dart';
 import 'package:flutter_application_1/screens/multi_play.dart';
@@ -21,15 +22,46 @@ class _room_screenState extends State<room_screen> {
   final _fireRoom = FirebaseFirestore.instance;
   // test
   var idRoom = TextEditingController();
+
+  Future joinRoom(String id) async {
+    FirebaseFirestore.instance
+        .collection('Rooms')
+        .doc(id)
+        .snapshots()
+        .forEach((element) async {
+      if (element.data()!['player1']['email'] == null) {
+        await _fireRoom.collection("Rooms").doc(id).update({
+          'create_at': DateTime.now(),
+          'player2.Avatar': widget.player.avatar,
+          'player2.DisplayName': widget.player.username,
+          'player2.email': widget.player.email,
+          'player2.rankpoint': widget.player.rank,
+          'player2.Point': 0,
+        });
+        Future.delayed(
+            const Duration(seconds: 1),
+            () => _fireRoom
+                .collection("Rooms")
+                .doc(widget.roomId.toString())
+                .delete());
+        return;
+      }
+    });
+    await _fireRoom.collection("Rooms").doc(id).update({
+      'create_at': DateTime.now(),
+      'player2.Avatar': widget.player.avatar,
+      'player2.DisplayName': widget.player.username,
+      'player2.email': widget.player.email,
+      'player2.rankpoint': widget.player.rank,
+      'player2.Point': 0,
+    }).then((value) =>
+        _fireRoom.collection("Rooms").doc(widget.roomId.toString()).delete());
+  }
+
   @override
   Widget build(BuildContext context) {
     // LAY THONG TIN NGUOI CHOI 2
     final auth = FirebaseAuth.instance;
-    var users = FirebaseFirestore.instance
-        .collection("Users")
-        .where('uid', isEqualTo: auth.currentUser!.email)
-        .snapshots();
-    //
     var collection = FirebaseFirestore.instance.collection('Rooms');
     return StreamBuilder(
       stream: collection.doc(widget.roomId.toString()).snapshots(),
@@ -42,257 +74,258 @@ class _room_screenState extends State<room_screen> {
         }
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
-        if (room['star'] == 1) {
-          Navigator.pop(context);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => multi_play(
-                        chapter: 3,
-                        player: widget.player,
-                      )));
-        }
+        // if (room['star'] == 1) {
+        //   Navigator.pop(context);
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => multi_play(
+        //         player: widget.player,
+        //       ),
+        //     ),
+        //   );
+        // }
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: const Color.fromARGB(0, 255, 193, 7),
-          body: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 1.7,
-                          height: MediaQuery.of(context).size.height / 1.5,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              color: const Color.fromARGB(156, 242, 247, 244)
-                                  .withOpacity(0.8),
-                              border: Border.all(width: 2)),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 10, 0, 15),
-                                height:
-                                    MediaQuery.of(context).size.height / 8.5,
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('ID',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold)),
+          body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.7,
+                        height: MediaQuery.of(context).size.height / 1.5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: const Color.fromARGB(156, 242, 247, 244)
+                                .withOpacity(0.8),
+                            border: Border.all(width: 2)),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                              height: MediaQuery.of(context).size.height / 8.5,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text('ID',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 0.5, color: Colors.black),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('${room['id']}'),
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 0.5,
-                                                color: Colors.black),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('${room['id']}'),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                3,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              8, 8, 10, 5),
-                                          child: TextField(
-                                            controller: idRoom,
-                                            decoration: const InputDecoration(
-                                              hintText: 'ID',
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10)),
-                                              ),
-                                              prefixIcon: Icon(Icons.search),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 10, 5),
+                                        child: TextField(
+                                          controller: idRoom,
+                                          decoration: const InputDecoration(
+                                            hintText: 'ID',
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
                                             ),
+                                            prefixIcon: Icon(Icons.search),
                                           ),
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          minimumSize: const Size(20, 40),
-                                        ),
-                                        onPressed: () {
-                                          String id = idRoom.text;
-                                          debugPrint(id);
-                                          debugPrint(room['id'].toString());
-                                          if (id == room['id'].toString()) {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    const AlertDialog(
-                                                      backgroundColor:
-                                                          Color.fromARGB(
-                                                              255,
-                                                              246,
-                                                              246,
-                                                              246),
-                                                      content: SizedBox(
-                                                        height: 20,
-                                                        width: 300.0,
-                                                        child: Text(
-                                                            'Bạn đang ở trong phòng rồi đó:))'),
-                                                      ),
-                                                    ));
-                                          } else {
-                                            FirebaseFirestore.instance
-                                                .collection('Rooms')
-                                                .doc(id)
-                                                .snapshots()
-                                                .forEach((element) {
-                                              if (element.data()!['player2']
-                                                      ['email'] ==
-                                                  auth.currentUser!.email) {
-                                                showDialog(
-                                                    context: context,
-                                                    // barrierDismissible: false,
-                                                    builder: (context) =>
-                                                        const AlertDialog(
-                                                          backgroundColor:
-                                                              Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  246,
-                                                                  246,
-                                                                  246),
-                                                          content: SizedBox(
-                                                            height: 20,
-                                                            width: 300.0,
-                                                            child: Text(
-                                                                'Phòng đã đủ người:))'),
-                                                          ),
-                                                        ));
-                                              } else {
-                                                Navigator.pop(context);
-                                                _fireRoom
-                                                    .collection("Rooms")
-                                                    .doc(id)
-                                                    .update({
-                                                  'create_at': DateTime.now(),
-                                                  'player2.Avatar':
-                                                      widget.player.avatar,
-                                                  'player2.DisplayName':
-                                                      widget.player.username,
-                                                  'player2.email':
-                                                      widget.player.email,
-                                                  'player2.rankpoint':
-                                                      widget.player.rank,
-                                                  'player2.Point': 0,
-                                                });
-                                                _fireRoom
-                                                    .collection("Rooms")
-                                                    .doc(widget.roomId
-                                                        .toString())
-                                                    .delete();
-
-                                                showDialog(
-                                                    context: context,
-                                                    barrierDismissible: false,
-                                                    builder: (context) =>
-                                                        AlertDialog(
-                                                          backgroundColor:
-                                                              const Color
-                                                                      .fromARGB(
-                                                                  0,
-                                                                  246,
-                                                                  246,
-                                                                  246),
-                                                          content: SizedBox(
-                                                            height: 280,
-                                                            width: 580.0,
-                                                            child: room_screen(
-                                                              roomId:
-                                                                  int.parse(id),
-                                                              player:
-                                                                  widget.player,
-                                                            ),
-                                                          ),
-                                                        ));
-                                              }
-                                            });
-                                          }
-                                        },
-                                        child: const Text(
-                                          'Ok',
-                                          style: TextStyle(fontSize: 15),
-                                        ),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: const Size(20, 40),
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          if (room['player1']['email'] != '' &&
-                                              room['player2']['email'] == '') {
-                                            _fireRoom
-                                                .collection("Rooms")
-                                                .doc(widget.roomId.toString())
-                                                .delete();
+                                      onPressed: () async {
+                                        String id = idRoom.text;
+                                        if (id.isEmpty) {
+                                          ElegantNotification.error(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  title:
+                                                      const Text("Thông báo"),
+                                                  description: const Text(
+                                                      "Vui Lòng Nhập Đủ Thông Tin"))
+                                              .show(context);
+                                          return;
+                                        }
+                                        if (id == room['id'].toString()) {
+                                          ElegantNotification.info(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  title:
+                                                      const Text("Thông báo"),
+                                                  description: const Text(
+                                                      "Bạn Đang Ở Trong Phòng"))
+                                              .show(context);
+                                          return;
+                                        }
+                                        FirebaseFirestore.instance
+                                            .collection('Rooms')
+                                            .doc(id)
+                                            .snapshots()
+                                            .forEach((element) {
+                                          if (element.data()!['player2']
+                                                  ['email'] !=
+                                              null) {
+                                            ElegantNotification.info(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    title:
+                                                        const Text("Thông báo"),
+                                                    description: const Text(
+                                                        "Phòng Đã Đủ Người"))
+                                                .show(context);
+                                            return;
                                           }
-                                          if (room['player1']['email'] ==
-                                              auth.currentUser!.email) {
-                                            _fireRoom
-                                                .collection("Rooms")
-                                                .doc(widget.roomId.toString())
-                                                .update({
-                                              'create_at': DateTime.now(),
-                                              'player1.Avatar': room['player2']
-                                                  ['Avatar'],
-                                              'player1.DisplayName':
-                                                  room['player2']
-                                                      ['DisplayName'],
-                                              'player1.email': room['player2']
-                                                  ['email'],
-                                              'player1.RankPoint':
-                                                  room['player2']['RankPoint'],
-                                              'player2.Avatar': null,
-                                              'player2.DisplayName': null,
-                                              'player2.email': '',
-                                              'player2.RankPoint': 0,
-                                              'player2.Point': 0,
-                                            });
+                                          if (element.data()!['player1']
+                                                  ['email'] ==
+                                              widget.player.email) {
+                                            ElegantNotification.info(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    title:
+                                                        const Text("Thông báo"),
+                                                    description: const Text(
+                                                        "Bạn Đang Trong Phòng"))
+                                                .show(context);
+                                            return;
                                           }
-                                          if (room['player2']['email'] ==
-                                              auth.currentUser!.email) {
-                                            _fireRoom
-                                                .collection("Rooms")
-                                                .doc(widget.roomId.toString())
-                                                .update({
-                                              'create_at': DateTime.now(),
-                                              'player2.Avatar': null,
-                                              'player2.DisplayName': null,
-                                              'player2.email': '',
-                                              'player2.RankPoint': 0,
-                                              'player2.Point': 0,
-                                            });
-                                          }
-                                        },
-                                        icon: Image.asset(
-                                            'assets/icons/exit.png'),
-                                      )
-                                    ]),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30, 2, 0, 10),
-                                        decoration: BoxDecoration(
+                                        });
+                                        await joinRoom(id).then(
+                                          (value) {
+                                            Navigator.pop(context);
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        0, 246, 246, 246),
+                                                content: SizedBox(
+                                                  height: 280,
+                                                  width: 580.0,
+                                                  child: room_screen(
+                                                    roomId: int.parse(id),
+                                                    player: widget.player,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Ok',
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        if (room['player1']['email'] ==
+                                                widget.player.email &&
+                                            room['player2']['email'] == null) {
+                                          _fireRoom
+                                              .collection("Rooms")
+                                              .doc(widget.roomId.toString())
+                                              .delete();
+                                        } else if (room['player2']['email'] ==
+                                            widget.player.email) {
+                                          _fireRoom
+                                              .collection("Rooms")
+                                              .doc(widget.roomId.toString())
+                                              .update({
+                                            'create_at': DateTime.now(),
+                                            'player1.Avatar': room['player2']
+                                                ['Avatar'],
+                                            'player1.DisplayName':
+                                                room['player2']['DisplayName'],
+                                            'player1.email': room['player2']
+                                                ['email'],
+                                            'player1.RankPoint': room['player2']
+                                                ['RankPoint'],
+                                            'player2.Avatar': null,
+                                            'player2.DisplayName': null,
+                                            'player2.email': null,
+                                            'player2.RankPoint': 0,
+                                            'player2.Point': 0,
+                                          });
+                                        }
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context, 'home', (route) => false);
+                                        return;
+                                      },
+                                      icon:
+                                          Image.asset('assets/icons/exit.png'),
+                                    )
+                                  ]),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          30, 2, 0, 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            width: 0.5, color: Colors.black),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color.fromARGB(
+                                                    255, 12, 12, 12)
+                                                .withOpacity(0.5),
+
+                                            blurRadius: 7,
+                                            offset: const Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: User(user: room['player1']),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Image.asset(
+                                      "assets/icons/vs.png",
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          30, 2, 0, 10),
+                                      decoration: BoxDecoration(
                                           color: Colors.white,
                                           border: Border.all(
                                               width: 0.5, color: Colors.black),
@@ -308,90 +341,88 @@ class _room_screenState extends State<room_screen> {
                                             ),
                                           ],
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: User(user: room['player1']),
-                                      ),
+                                              BorderRadius.circular(10.0)),
+                                      child: room['player2']['email'] == null
+                                          ? Image.asset('assets/Loading_2.gif')
+                                          : User(user: room['player2']),
                                     ),
-                                    Expanded(
-                                      child: Image.asset(
-                                        "assets/icons/vs.png",
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30, 2, 0, 10),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            border: Border.all(
-                                                width: 0.5,
-                                                color: Colors.black),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color.fromARGB(
-                                                        255, 12, 12, 12)
-                                                    .withOpacity(0.5),
-
-                                                blurRadius: 7,
-                                                offset: const Offset(0,
-                                                    3), // changes position of shadow
-                                              ),
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        child: room['player2']['email'] == ''
-                                            ? Image.asset(
-                                                'assets/Loading_2.gif')
-                                            : User(user: room['player2']),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (room['player1']['email'] ==
-                                          auth.currentUser!.email &&
-                                      room['player2']['email'] != '') {
-                                    _fireRoom
-                                        .collection("Rooms")
-                                        .doc(widget.roomId.toString())
-                                        .update({
-                                      'create_at': DateTime.now(),
-                                      'star': 1,
-                                    });
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (room['player1']['email'] !=
+                                    widget.player.email) {
+                                  ElegantNotification.info(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
+                                          title: const Text("Thông báo"),
+                                          description: const Text(
+                                              "Chờ Chủ Phòng Bắt Đầu"))
+                                      .show(context);
+                                  return;
+                                }
+                                if (room['player2']['email'] == null) {
+                                  ElegantNotification.info(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
+                                          title: const Text("Thông báo"),
+                                          description: const Text(
+                                              "Chờ Người Chơi Còn Lại"))
+                                      .show(context);
+                                  return;
+                                }
+                                if (room['player1']['email'] ==
+                                        auth.currentUser!.email &&
+                                    room['player2']['email'] != null) {
+                                  _fireRoom
+                                      .collection("Rooms")
+                                      .doc(widget.roomId.toString())
+                                      .update({
+                                    'create_at': DateTime.now(),
+                                    'star': 1,
+                                  });
+                                  if (room['star'] == 1) {
                                     Navigator.pop(context);
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => multi_play(
-                                                  chapter: 3,
-                                                  player: widget.player,
-                                                )));
-                                  }
-                                },
-                                child: room['player1']['email'] ==
-                                            auth.currentUser!.email &&
-                                        room['player2']['email'] != ''
-                                    ? const Text(
-                                        'Bắt đầu',
-                                        style: TextStyle(fontSize: 15),
-                                      )
-                                    : const Text(
-                                        'Đợi đối thủ bắt đầu',
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.amber),
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => multi_play(
+                                          player: widget.player,
+                                        ),
                                       ),
-                              ),
-                            ],
-                          ),
+                                    );
+                                  }
+                                }
+                                return;
+                              },
+                              child: room['player1']['email'] ==
+                                          auth.currentUser!.email &&
+                                      room['player2']['email'] != null
+                                  ? const Text(
+                                      'Bắt đầu',
+                                      style: TextStyle(fontSize: 15),
+                                    )
+                                  : const Text(
+                                      'Đợi đối thủ bắt đầu',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.amber),
+                                    ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  )
-                ],
-              )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
         );
       },
     );
