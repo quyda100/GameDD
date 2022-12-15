@@ -1,17 +1,19 @@
+// ignore_for_file: must_be_immutable, camel_case_types
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
+import 'package:flutter_application_1/model/user.dart';
 import '../components/header_bar.dart';
 
 class multi_play extends StatefulWidget {
-  multi_play({super.key, required int chapter});
+  multi_play({super.key, required int chapter, required this.player});
+  Player player;
   @override
   State<multi_play> createState() => _multi_playState();
 }
 
 class _multi_playState extends State<multi_play> {
-  final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   bool isLock = false;
   int index = 0;
@@ -24,14 +26,14 @@ class _multi_playState extends State<multi_play> {
       setState(() {
         isLock = true;
       });
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       });
     } else {
       point += value ? p : 0;
       isLock = true;
       setState(() {});
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           index++;
           isLock = false;
@@ -76,7 +78,9 @@ class _multi_playState extends State<multi_play> {
                 padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
                 child: SafeArea(
                   child: Column(children: [
-                    header_bar(),
+                    header_bar(
+                      player: widget.player,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -97,8 +101,7 @@ class _multi_playState extends State<multi_play> {
                                     width:
                                         MediaQuery.of(context).size.width / 2,
                                     height:
-                                        MediaQuery.of(context).size.height /
-                                            7,
+                                        MediaQuery.of(context).size.height / 7,
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 8, 0, 8),
                                     margin: const EdgeInsets.only(bottom: 8),
@@ -106,8 +109,7 @@ class _multi_playState extends State<multi_play> {
                                         color: Colors.blue,
                                         border: Border.all(
                                             width: 0, color: Colors.black),
-                                        borderRadius:
-                                            BorderRadius.circular(18),
+                                        borderRadius: BorderRadius.circular(18),
                                         boxShadow: [
                                           BoxShadow(
                                             color: const Color.fromARGB(
@@ -128,7 +130,7 @@ class _multi_playState extends State<multi_play> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  Text("Điểm: ${point}")
+                                  Text("Điểm: $point")
                                 ],
                               ),
                               Column(
@@ -243,7 +245,7 @@ class _multi_playState extends State<multi_play> {
                                             25, 7, 15, 15),
                                         child: Row(
                                           children: [
-                                            CircleAvatar(
+                                            const CircleAvatar(
                                               backgroundImage: AssetImage(
                                                   "assets/img/Default.png"),
                                             ),
@@ -259,7 +261,7 @@ class _multi_playState extends State<multi_play> {
                                                 onPressed: () {},
                                                 icon: Image.asset(
                                                     'assets/icons/100.png')),
-                                            Text("Điểm : ${point}"),
+                                            Text("Điểm : $point"),
                                           ],
                                         ),
                                       ),

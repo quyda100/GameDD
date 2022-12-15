@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class right_button extends StatelessWidget {
   const right_button({
     Key? key,
@@ -22,7 +23,7 @@ class right_button extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    const Text(
                       "Vượt ải",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -36,7 +37,7 @@ class right_button extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width / 5.3,
             child: Padding(
-              padding: EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 15),
               child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
@@ -45,7 +46,7 @@ class right_button extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Xếp hạng",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

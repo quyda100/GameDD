@@ -7,7 +7,6 @@ import 'screens/UpdatePasss.dart';
 import 'screens/login.dart';
 import 'screens/unRememberPass.dart';
 import 'screens/home.dart';
-import 'screens/Pay.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();

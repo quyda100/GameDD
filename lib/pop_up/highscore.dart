@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/header_bar.dart';
 
+// ignore: camel_case_types
 class ingame_screen extends StatefulWidget {
   const ingame_screen({super.key});
 
@@ -8,17 +8,18 @@ class ingame_screen extends StatefulWidget {
   State<ingame_screen> createState() => _ingame_screenState();
 }
 
+// ignore: camel_case_types
 class _ingame_screenState extends State<ingame_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(0, 255, 193, 7),
+      backgroundColor: const Color.fromARGB(0, 255, 193, 7),
       body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width / 1.6,
                 height: MediaQuery.of(context).size.height / 1.5,
                 child: Row(
@@ -27,7 +28,7 @@ class _ingame_screenState extends State<ingame_screen> {
                       margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
-                          color: Color.fromARGB(182, 255, 255, 255),
+                          color: const Color.fromARGB(182, 255, 255, 255),
                           borderRadius: BorderRadius.circular(18.0)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,10 +117,10 @@ class _ingame_screenState extends State<ingame_screen> {
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Column(
-                                  children: [
-                                    single_rank(),
-                                    single_rank(),
-                                    single_rank(),
+                                  children:const [
+                                     single_rank(),
+                                     single_rank(),
+                                     single_rank(),
                                   ],
                                 ),
                               ),
@@ -139,6 +140,7 @@ class _ingame_screenState extends State<ingame_screen> {
   }
 }
 
+// ignore: camel_case_types
 class single_rank extends StatelessWidget {
   const single_rank({
     Key? key,

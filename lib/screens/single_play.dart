@@ -1,20 +1,26 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import '../components/header_bar.dart';
+import '../model/user.dart';
 
 class SinglePlay extends StatefulWidget {
-  SinglePlay({super.key, required this.chapterId, required this.subjectId});
+  SinglePlay(
+      {super.key,
+      required this.chapterId,
+      required this.subjectId,
+      required this.player});
   final int chapterId;
   final int subjectId;
+  Player player;
   @override
   State<SinglePlay> createState() => _SinglePlayState();
 }
 
 class _SinglePlayState extends State<SinglePlay>
     with SingleTickerProviderStateMixin {
-  final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   bool isLock = false;
   int index = 0;
@@ -32,13 +38,6 @@ class _SinglePlayState extends State<SinglePlay>
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _controller.dispose();
-  }
-
   void nextQuest(int p, bool value) {
     if (isLock == true) {
       return;
@@ -47,15 +46,16 @@ class _SinglePlayState extends State<SinglePlay>
       setState(() {
         isLock = true;
       });
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       });
     } else {
       point += value ? p : 0;
       isLock = true;
       setState(() {});
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         setState(() {
+          _controller.reset();
           index++;
           isLock = false;
         });
@@ -87,6 +87,11 @@ class _SinglePlayState extends State<SinglePlay>
           List<Question> questions = snapshot.data!.docs
               .map((e) => Question.fromDocumentSnapshot(e))
               .toList();
+          _controller.addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              nextQuest(0, false);
+            }
+          });
           _controller.forward();
           return Scaffold(
               resizeToAvoidBottomInset: true,
@@ -99,7 +104,9 @@ class _SinglePlayState extends State<SinglePlay>
                 ),
                 padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
                 child: Column(children: [
-                  header_bar(),
+                  header_bar(
+                    player: widget.player,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -269,6 +276,12 @@ class _SinglePlayState extends State<SinglePlay>
                 ]),
               ));
         });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
