@@ -29,7 +29,7 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   Player player = Player(email: '', username: '');
   final _auth = FirebaseAuth.instance;
-  int roomId = Random().nextInt(9999);
+  int roomId = 0;
   Future loadInfo() async {
     var snapshots = await FirebaseFirestore.instance
         .collection("Users")
@@ -43,6 +43,7 @@ class _homeState extends State<home> {
   }
 
   Future createRoom() async {
+    roomId = Random().nextInt(9999);
     var snapshots = await FirebaseFirestore.instance
         .collection("Rooms")
         .doc('$roomId')
@@ -53,7 +54,7 @@ class _homeState extends State<home> {
               title: const Text("Thông Báo"),
               description: const Text("Phòng Đã Tồn Tại"))
           .show(context);
-      return;
+      debugPrint("${roomId}");
     }
     _fireRoom.collection("Rooms").doc('$roomId').set({
       'id': roomId,
@@ -175,28 +176,21 @@ class _homeState extends State<home> {
                                 child: IconButton(
                                   icon: Image.asset("assets/img/xephang.png"),
                                   onPressed: () {
-                                    FutureBuilder(
-                                      future: createRoom(),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasError) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        }
-                                        return AlertDialog(
-                                          backgroundColor: const Color.fromARGB(
-                                              0, 246, 246, 246),
-                                          content: SizedBox(
-                                            height: 280,
-                                            width: 580.0,
-                                            child: room_screen(
-                                              roomId: roomId,
-                                              player: player,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
+                                    createRoom().then((value) => showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      0, 246, 246, 246),
+                                              content: SizedBox(
+                                                height: 280,
+                                                width: 580.0,
+                                                child: room_screen(
+                                                  roomId: roomId,
+                                                  player: player,
+                                                ),
+                                              ),
+                                            )));
                                   },
                                 ),
                               ),
