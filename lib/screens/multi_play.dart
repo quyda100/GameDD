@@ -15,6 +15,7 @@ class multi_play extends StatefulWidget {
 
 class _multi_playState extends State<multi_play> {
   final _fireStore = FirebaseFirestore.instance;
+  final totalQuestion = 15;
   bool isLock = false;
   int index = 0;
   int point = 0;
@@ -45,10 +46,10 @@ class _multi_playState extends State<multi_play> {
 
   @override
   Widget build(BuildContext context) {
+    List<Question> questions = [];
     var snapshots = _fireStore
-        .collection("Questions")
-        .where("Subject.Id", isEqualTo: 1)
-        .where("Chapter.Id", isEqualTo: 1)
+        .collection("SimpleQuestions")
+        .where("type.id", isEqualTo: 2)
         .snapshots();
     return StreamBuilder(
         stream: snapshots,
@@ -63,9 +64,11 @@ class _multi_playState extends State<multi_play> {
               child: CircularProgressIndicator(),
             );
           }
-          List<Question> questions = snapshot.data!.docs
-              .map((e) => Question.fromDocumentSnapshot(e))
-              .toList();
+          snapshot.data!.docs.shuffle();
+          for (var i = 0; i < totalQuestion; i++) {
+            questions
+                .add(Question.fromDocumentSnapshot(snapshot.data!.docs[i]));
+          }
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
