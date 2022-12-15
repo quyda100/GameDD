@@ -64,6 +64,9 @@ class _multi_playState extends State<multi_play> {
               child: CircularProgressIndicator(),
             );
           }
+          List<Question> questions = snapshot.data!.docs
+              .map((e) => Question.fromDocumentSnapshot(e))
+              .toList();
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
