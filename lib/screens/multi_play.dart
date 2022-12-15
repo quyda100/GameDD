@@ -226,7 +226,7 @@ class _multi_playState extends State<multi_play> {
                                     ),
                                   ),
                                   Text(
-                                    "Câu: ${(index + 1)} / $totalQuestion}",
+                                    "Câu: ${(index + 1)} / $totalQuestion",
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold),
