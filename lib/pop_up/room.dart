@@ -74,17 +74,17 @@ class _room_screenState extends State<room_screen> {
         }
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
-        // if (room['star'] == 1) {
-        //   Navigator.pop(context);
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => multi_play(
-        //         player: widget.player,
-        //       ),
-        //     ),
-        //   );
-        // }
+        if (room['star'] == 1) {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => multi_play(
+                player: widget.player,
+              ),
+            ),
+          );
+        }
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: const Color.fromARGB(0, 255, 193, 7),
@@ -387,17 +387,6 @@ class _room_screenState extends State<room_screen> {
                                     'create_at': DateTime.now(),
                                     'star': 1,
                                   });
-                                  if (room['star'] == 1) {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => multi_play(
-                                          player: widget.player,
-                                        ),
-                                      ),
-                                    );
-                                  }
                                 }
                                 return;
                               },
