@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Player {
-  String email;
-  String username;
+  String? email;
+  String? username;
   int? coin;
   int? heart;
   int? rank;

@@ -13,6 +13,7 @@ import 'package:flutter_application_1/screens/vuot_ai.dart';
 import '../components/setting_screenshot.dart';
 import '../components/header_bar.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
+import '../model/room.dart';
 import '../model/user.dart';
 
 final _fireRoom = FirebaseFirestore.instance;
@@ -28,6 +29,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   Player player = Player(email: '', username: '');
+  Room room = Room(id: null, star: null, player1: null, player2: null);
   final _auth = FirebaseAuth.instance;
   int roomId = 0;
   Future loadInfo() async {
@@ -56,22 +58,27 @@ class _homeState extends State<home> {
           .show(context);
       debugPrint("${roomId}");
     }
+    room = Room(
+        id: roomId,
+        star: 0,
+        player1: player,
+        player2: Player(email: null, username: null));
     _fireRoom.collection("Rooms").doc('$roomId').set({
-      'id': roomId,
-      'star': 0,
+      'id': room.id,
+      'star': room.star,
       'create_at': DateTime.now(),
       'player1': {
-        'Avatar': player.avatar,
-        'DisplayName': player.username,
-        'email': player.email,
-        'RankPoint': player.rank,
+        'Avatar': room.player1?.avatar,
+        'DisplayName': room.player1?.username,
+        'email': room.player1?.email,
+        'RankPoint': room.player1?.rank,
         'Point': 0,
       },
       'player2': {
-        'Avatar': null,
-        'DisplayName': null,
-        'email': null,
-        'RankPoint': 0,
+        'Avatar': room.player2?.avatar,
+        'DisplayName': room.player2?.username,
+        'email': room.player2?.email,
+        'RankPoint': room.player2?.rank,
         'Point': 0,
       }
     });
@@ -188,6 +195,7 @@ class _homeState extends State<home> {
                                             child: room_screen(
                                               roomId: roomId,
                                               player: player,
+                                              room: room,
                                             ),
                                           ),
                                         ),

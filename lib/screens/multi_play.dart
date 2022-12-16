@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import 'package:flutter_application_1/model/user.dart';
 import '../components/header_bar.dart';
+import '../model/room.dart';
 
 class multi_play extends StatefulWidget {
-  multi_play({super.key, required this.player});
+  multi_play({super.key, required this.player, required this.room});
   Player player;
+  Room room;
   @override
   State<multi_play> createState() => _multi_playState();
 }
@@ -46,6 +48,10 @@ class _multi_playState extends State<multi_play> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.room.id.toString());
+    if(widget.room.star==0){
+      
+    }
     List<Question> questions = [];
     var snapshots = _fireStore
         .collection("SimpleQuestions")
@@ -131,7 +137,6 @@ class _multi_playState extends State<multi_play> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  Text("Điểm: $point")
                                 ],
                               ),
                               Column(
@@ -194,6 +199,7 @@ class _multi_playState extends State<multi_play> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
+                                    width: 200,
                                     margin: const EdgeInsets.only(top: 10),
                                     padding: const EdgeInsets.all(8.0),
                                     decoration: BoxDecoration(
@@ -202,76 +208,126 @@ class _multi_playState extends State<multi_play> {
                                             BorderRadius.circular(15.0),
                                         color: Colors.grey.shade300
                                             .withOpacity(0.6)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      AlertDialog(
-                                                        title: Text('hi'),
-                                                      ));
-                                            },
-                                            icon: Image.asset(
-                                                'assets/icons/camera.png')),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Image.asset(
-                                                'assets/icons/heart.png')),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Image.asset(
-                                                'assets/icons/100.png')),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Image.asset(
-                                                'assets/icons/50.png'))
-                                      ],
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: <Widget>[
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/camera.png')),
+                                          IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    // barrierDismissible: false,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                          title: Text(
+                                                              'Xác nhận thoát khỏi trận đấu'),
+                                                          backgroundColor:
+                                                              Color.fromARGB(
+                                                                  255,
+                                                                  246,
+                                                                  246,
+                                                                  246),
+                                                          content: Container(
+                                                            height: 50,
+                                                            width: 300.0,
+                                                            child: Column(
+                                                                children: [
+                                                                  Text(
+                                                                      'Bạn sẽ bị xử thua với hành vi của mình'),
+                                                                  Text(
+                                                                      'Bạn vẫn muốn thoát trận.                        '),
+                                                                ]),
+                                                          ),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'Cancel'),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'OK');
+                                                                  Navigator.pushNamedAndRemoveUntil(
+                                                                      context,
+                                                                      'home',
+                                                                      (route) =>
+                                                                          false);
+                                                                },
+                                                                child:
+                                                                    Text('OK'))
+                                                          ],
+                                                        ));
+                                              },
+                                              icon: Image.asset(
+                                                  'assets/icons/logout.png')),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/heart.png')),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/100.png')),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/50.png'))
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Text(
-                                    "Câu: ${(index + 1)} / $totalQuestion",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 8, 20, 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 2),
-                                        color: Colors.grey,
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
+                                  Column(
+                                    children: [
+                                      Text("Điểm: ${point}"),
+                                      Text(
+                                        "Câu: ${(index + 1)} / $totalQuestion",
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            25, 7, 15, 15),
-                                        child: Row(
-                                          children: [
-                                            const CircleAvatar(
-                                              backgroundImage: AssetImage(
-                                                  "assets/img/Default.png"),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Image.asset(
-                                                    'assets/icons/heart.png')),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Image.asset(
-                                                    'assets/icons/50.png')),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Image.asset(
-                                                    'assets/icons/100.png')),
-                                            Text("Điểm : $point"),
-                                          ],
-                                        ),
+                                    ],
+                                  ),
+                                  Container(
+                                    width: 200,
+                                    margin: const EdgeInsets.only(top: 10),
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(width: 1),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        color: Colors.grey.shade300
+                                            .withOpacity(0.6)),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                "assets/img/Default.png"),
+                                          ),
+                                          Text("Điểm : ${point}"),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/heart.png')),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/100.png')),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Image.asset(
+                                                  'assets/icons/50.png'))
+                                        ],
                                       ),
                                     ),
                                   ),
