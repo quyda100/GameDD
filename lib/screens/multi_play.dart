@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable, camel_case_types
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import 'package:flutter_application_1/model/user.dart';
 import '../components/header_bar.dart';
 import '../model/room.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class multi_play extends StatefulWidget {
   multi_play({super.key, required this.player, required this.room});
@@ -17,10 +19,37 @@ class multi_play extends StatefulWidget {
 
 class _multi_playState extends State<multi_play> {
   final _fireStore = FirebaseFirestore.instance;
+  final _fireRoom = FirebaseFirestore.instance;
   final totalQuestion = 15;
   bool isLock = false;
   int index = 0;
   int point = 0;
+  // update diem
+  void update() {
+    debugPrint(widget.room.id.toString());
+    if (widget.player.email == widget.room.player1?.email && point != 0) {
+      _fireRoom.collection("Rooms").doc(widget.room.id.toString()).update({
+        'player1': {
+          'Point': point,
+          'Avatar': widget.player.avatar,
+          'DisplayName': widget.player.username,
+          'email': widget.player.email,
+        }
+      });
+    }
+    if (widget.player.email == widget.room.player2?.email && point != 0) {
+      _fireRoom.collection("Rooms").doc(widget.room.id.toString()).update({
+        'player2': {
+          'Point': point,
+          'Avatar': widget.player.avatar,
+          'DisplayName': widget.player.username,
+          'email': widget.player.email,
+        }
+      });
+    }
+  }
+
+  @override
   void nextQuest(int p, bool value) {
     if (isLock == true) {
       return;
@@ -44,14 +73,12 @@ class _multi_playState extends State<multi_play> {
       });
       //
     }
+    update();
   }
+  // read time
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(widget.room.id.toString());
-    if(widget.room.star==0){
-      
-    }
     List<Question> questions = [];
     var snapshots = _fireStore
         .collection("SimpleQuestions")
@@ -312,9 +339,10 @@ class _multi_playState extends State<multi_play> {
                                         children: <Widget>[
                                           CircleAvatar(
                                             backgroundImage: AssetImage(
-                                                "assets/img/Default.png"),
+                                                "assets/img/${widget.room.player2?.avatar}"),
                                           ),
-                                          Text("Điểm : ${point}"),
+                                          Text(
+                                              "Điểm :${widget.room.player2?.coin}"),
                                           IconButton(
                                               onPressed: () {},
                                               icon: Image.asset(

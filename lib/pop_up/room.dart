@@ -59,7 +59,7 @@ class _room_screenState extends State<room_screen> {
       'player2.Avatar': widget.player.avatar,
       'player2.DisplayName': widget.player.username,
       'player2.email': widget.player.email,
-      'player2.rankpoint': widget.player.rank,
+      'player2.RankPoint': widget.player.rank,
       'player2.Point': 0,
     }).then((value) =>
         _fireRoom.collection("Rooms").doc(widget.roomId.toString()).delete());
@@ -81,7 +81,14 @@ class _room_screenState extends State<room_screen> {
         }
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
+
         if (room['star'] == 1) {
+          widget.room.id = widget.roomId;
+          widget.room.player2?.email = room['player2']['email'];
+          widget.room.player2?.avatar = room['player2']['Avatar'];
+          widget.room.player2?.coin = room['player2']['Point'];
+          widget.room.player2?.rank = room['player2']['RankPoint'];
+          widget.room.star = room['star'];
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacement(
                 context,

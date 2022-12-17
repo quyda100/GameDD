@@ -322,7 +322,7 @@ packages:
     source: hosted
     version: "2.0.2"
   firebase_database:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_database
       sha256: "4f6d8167a9ba60878949e79c46e9ff8b2e3a96aa685bd4e666002d585860afbe"
@@ -512,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.2"
+  multiple_stream_builder:
+    dependency: "direct main"
+    description:
+      name: multiple_stream_builder
+      sha256: fec7a8909d0942d1a8d726b7e3057bd73e2ab64a5ae2da6b7b44a959f17f09fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   package_config:
     dependency: transitive
     description:

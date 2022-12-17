@@ -29,7 +29,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   Player player = Player(email: '', username: '');
-  Room room = Room(id: null, star: null, player1: null, player2: null);
+  Room room = Room(id: null, star: 0, player1: null, player2: null);
   final _auth = FirebaseAuth.instance;
   int roomId = 0;
   Future loadInfo() async {
@@ -43,6 +43,7 @@ class _homeState extends State<home> {
       });
     });
   }
+ 
 
   Future createRoom() async {
     roomId = Random().nextInt(9999);
