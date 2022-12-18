@@ -4,6 +4,7 @@ class Player {
   String? email;
   String? username;
   int? coin;
+  int? point;
   int? heart;
   int? rank;
   String? avatar;
@@ -14,6 +15,7 @@ class Player {
     this.heart = 5,
     this.rank = 0,
     this.avatar = "Default.png",
+    this.point = 0,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -22,7 +24,8 @@ class Player {
       'Coin': coin,
       'Heart': heart,
       'RankPoint': rank,
-      'Avatar': avatar
+      'Avatar': avatar,
+      'Point': point
     };
   }
 
@@ -32,7 +35,8 @@ class Player {
         coin = map["Coin"],
         rank = map["RankPoint"],
         heart = map["Heart"],
-        avatar = map["Avatar"];
+        avatar = map["Avatar"],
+        point = map["Point"];
 
   Player.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : email = doc.data()!["uid"],
@@ -40,5 +44,6 @@ class Player {
         coin = doc.data()!["Coin"],
         rank = doc.data()!["RankPoint"],
         heart = doc.data()!["Heart"],
-        avatar = doc.data()!["Avatar"];
+        avatar = doc.data()!["Avatar"],
+        point = doc.data()!["Point"];
 }

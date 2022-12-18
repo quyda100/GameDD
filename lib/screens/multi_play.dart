@@ -88,15 +88,15 @@ class _multi_playState extends State<multi_play> {
     int? pointuser = 0;
     if (widget.player.email == widget.room.player1?.email) {
       image = widget.room.player2?.avatar;
-      pointuser = widget.room.player2?.coin;
+      pointuser = widget.room.player2?.point;
     } else {
       image = widget.room.player1?.avatar;
-      pointuser = widget.room.player1?.coin;
+      pointuser = widget.room.player1?.point;
     }
-    
-    // debugPrint(widget.room.player1?.email);
-    // debugPrint(widget.room.player2?.email);
-    // debugPrint(widget.player.email);
+
+    debugPrint(widget.room.player1?.email);
+    debugPrint(widget.room.player2?.email);
+    debugPrint(widget.player.email);
     List<Question> questions = [];
     var snapshots = _fireStore
         .collection("SimpleQuestions")

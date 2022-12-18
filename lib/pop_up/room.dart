@@ -87,12 +87,12 @@ class _room_screenState extends State<room_screen> {
           widget.room.star = room['star'];
           widget.room.player1?.avatar = room['player1']['Avatar'];
           widget.room.player1?.username = room['player1']['DisplayName'];
-          widget.room.player1?.coin = room['player1']['Point'];
+          widget.room.player1?.point = room['player1']['Point'];
           widget.room.player1?.rank = room['player1']['RankPoint'];
           widget.room.player1?.email = room['player1']['email'];
           widget.room.player2?.avatar = room['player2']['Avatar'];
           widget.room.player2?.username = room['player2']['DisplayName'];
-          widget.room.player2?.coin = room['player2']['Point'];
+          widget.room.player2?.point = room['player2']['Point'];
           widget.room.player2?.rank = room['player2']['RankPoint'];
           widget.room.player2?.email = room['player2']['email'];
 
