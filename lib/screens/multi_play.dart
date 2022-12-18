@@ -26,28 +26,33 @@ class _multi_playState extends State<multi_play> {
   int point = 0;
   // update diem
   void update() {
-    debugPrint(widget.room.id.toString());
-    if (widget.player.email == widget.room.player1?.email && point != 0) {
+    var user1 = widget.room.player1?.email.toString();
+    var user2 = widget.room.player2?.email.toString();
+
+    if (widget.player.email == user1) {
+      debugPrint('user1');
       _fireRoom.collection("Rooms").doc(widget.room.id.toString()).update({
         'player1': {
           'Point': point,
-          'Avatar': widget.player.avatar,
-          'DisplayName': widget.player.username,
-          'email': widget.player.email,
+          'Avatar': widget.room.player1?.avatar,
+          'DisplayName': widget.room.player1?.username,
+          'email': widget.room.player1?.email,
         }
       });
-    }
-    if (widget.player.email == widget.room.player2?.email && point != 0) {
+    } else {
+      debugPrint('user2');
       _fireRoom.collection("Rooms").doc(widget.room.id.toString()).update({
         'player2': {
           'Point': point,
-          'Avatar': widget.player.avatar,
-          'DisplayName': widget.player.username,
-          'email': widget.player.email,
+          'Avatar': widget.room.player2?.avatar,
+          'DisplayName': widget.room.player2?.username,
+          'email': widget.room.player2?.email,
         }
       });
     }
   }
+
+// check avatar poin
 
   @override
   void nextQuest(int p, bool value) {
@@ -79,6 +84,19 @@ class _multi_playState extends State<multi_play> {
 
   @override
   Widget build(BuildContext context) {
+    String? image = "";
+    int? pointuser = 0;
+    if (widget.player.email == widget.room.player1?.email) {
+      image = widget.room.player2?.avatar;
+      pointuser = widget.room.player2?.coin;
+    } else {
+      image = widget.room.player1?.avatar;
+      pointuser = widget.room.player1?.coin;
+    }
+    
+    // debugPrint(widget.room.player1?.email);
+    // debugPrint(widget.room.player2?.email);
+    // debugPrint(widget.player.email);
     List<Question> questions = [];
     var snapshots = _fireStore
         .collection("SimpleQuestions")
@@ -339,10 +357,9 @@ class _multi_playState extends State<multi_play> {
                                         children: <Widget>[
                                           CircleAvatar(
                                             backgroundImage: AssetImage(
-                                                "assets/img/${widget.room.player2?.avatar}"),
+                                                "assets/img/${image}"),
                                           ),
-                                          Text(
-                                              "Điểm :${widget.room.player2?.coin}"),
+                                          Text("Điểm :${pointuser}"),
                                           IconButton(
                                               onPressed: () {},
                                               icon: Image.asset(
