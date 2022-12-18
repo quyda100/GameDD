@@ -45,6 +45,8 @@ dependencies:
   firebase_database_mocks: ^0.6.0
   audioplayers: ^1.1.1
   elegant_notification: ^1.6.4
+  firebase_database: ^10.0.7
+  multiple_stream_builder: ^3.0.2
 
 dev_dependencies:
   flutter_native_splash: ^2.2.13

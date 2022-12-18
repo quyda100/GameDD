@@ -5,13 +5,20 @@ import 'package:flutter_application_1/screens/multi_play.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../model/room.dart';
+
 // for the utf8.encode method
 
 // ignore: camel_case_types, must_be_immutable
 class room_screen extends StatefulWidget {
-  room_screen({super.key, required this.roomId, required this.player});
+  room_screen(
+      {super.key,
+      required this.roomId,
+      required this.player,
+      required this.room});
   final int roomId;
   Player player;
+  Room room;
   // final String email;
   @override
   State<room_screen> createState() => _room_screenState();
@@ -52,7 +59,7 @@ class _room_screenState extends State<room_screen> {
       'player2.Avatar': widget.player.avatar,
       'player2.DisplayName': widget.player.username,
       'player2.email': widget.player.email,
-      'player2.rankpoint': widget.player.rank,
+      'player2.RankPoint': widget.player.rank,
       'player2.Point': 0,
     }).then((value) =>
         _fireRoom.collection("Rooms").doc(widget.roomId.toString()).delete());
@@ -74,13 +81,28 @@ class _room_screenState extends State<room_screen> {
         }
         Map<String, dynamic> room =
             snapshot.data!.data() as Map<String, dynamic>;
+
         if (room['star'] == 1) {
+          widget.room.id = widget.roomId;
+          widget.room.star = room['star'];
+          widget.room.player1?.avatar = room['player1']['Avatar'];
+          widget.room.player1?.username = room['player1']['DisplayName'];
+          widget.room.player1?.point = room['player1']['Point'];
+          widget.room.player1?.rank = room['player1']['RankPoint'];
+          widget.room.player1?.email = room['player1']['email'];
+          widget.room.player2?.avatar = room['player2']['Avatar'];
+          widget.room.player2?.username = room['player2']['DisplayName'];
+          widget.room.player2?.point = room['player2']['Point'];
+          widget.room.player2?.rank = room['player2']['RankPoint'];
+          widget.room.player2?.email = room['player2']['email'];
+
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (_) => multi_play(
                     player: widget.player,
+                    room: widget.room,
                   ),
                 ));
           });
@@ -235,6 +257,7 @@ class _room_screenState extends State<room_screen> {
                                                   child: room_screen(
                                                     roomId: int.parse(id),
                                                     player: widget.player,
+                                                    room: widget.room,
                                                   ),
                                                 ),
                                               ),
@@ -430,32 +453,6 @@ String CheckRank(int p) {
     return "Bạch Kim";
   }
   return "kim cương";
-}
-
-int checkRooms(String rooms) {
-  var room = FirebaseFirestore.instance.collection('Rooms');
-  var resulf = "ok";
-  FutureBuilder<DocumentSnapshot>(
-    future: room.doc(rooms).get(),
-    builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-      if (snapshot.hasError) {
-        resulf = "no";
-      }
-      if (snapshot.hasData && !snapshot.data!.exists) {
-        resulf = "no";
-      }
-      if (snapshot.connectionState == ConnectionState.done) {
-        Map<String, dynamic> data =
-            snapshot.data!.data() as Map<String, dynamic>;
-        if (data['layer2']['email'] != null) {
-          resulf = "no";
-        }
-      }
-      return const Text('');
-    },
-  );
-  if (resulf == "ok") return 1;
-  return -1;
 }
 
 class User extends StatelessWidget {
