@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elegant_notification/elegant_notification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/question.dart';
 import 'package:flutter_application_1/model/user.dart';
@@ -18,18 +19,34 @@ class multi_play extends StatefulWidget {
 }
 
 class _multi_playState extends State<multi_play> {
+  final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   final _fireRoom = FirebaseFirestore.instance;
   final totalQuestion = 15;
   bool isLock = false;
   int index = 0;
   int point = 0;
+
+  //
+  String? image = "";
+  int? pointuser = 0;
+
+  void checkuser() {
+    if (_auth.currentUser!.email == widget.room.player1?.email) {
+      image = widget.room.player2?.avatar;
+      pointuser = widget.room.player2?.point;
+    } else {
+      image = widget.room.player1?.avatar;
+      pointuser = widget.room.player1?.point;
+    }
+  }
+
   // update diem
   void update() {
     var user1 = widget.room.player1?.email.toString();
     var user2 = widget.room.player2?.email.toString();
 
-    if (widget.player.email == user1) {
+    if (_auth.currentUser!.email == user1) {
       debugPrint('user1');
       _fireRoom.collection("Rooms").doc(widget.room.id.toString()).update({
         'player1': {
@@ -63,9 +80,11 @@ class _multi_playState extends State<multi_play> {
       setState(() {
         isLock = true;
       });
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-      });
+      if (point > pointuser!) {
+        Future.delayed(const Duration(seconds: 1), () {
+          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        });
+      }
     } else {
       point += value ? p : 0;
       isLock = true;
@@ -78,22 +97,15 @@ class _multi_playState extends State<multi_play> {
       });
       //
     }
+
     update();
   }
+
   // read time
 
   @override
   Widget build(BuildContext context) {
-    String? image = "";
-    int? pointuser = 0;
-    if (widget.player.email == widget.room.player1?.email) {
-      image = widget.room.player2?.avatar;
-      pointuser = widget.room.player2?.point;
-    } else {
-      image = widget.room.player1?.avatar;
-      pointuser = widget.room.player1?.point;
-    }
-
+    checkuser();
     debugPrint(widget.room.player1?.email);
     debugPrint(widget.room.player2?.email);
     debugPrint(widget.player.email);
@@ -361,7 +373,51 @@ class _multi_playState extends State<multi_play> {
                                           ),
                                           Text("Điểm :${pointuser}"),
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    // barrierDismissible: false,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                          backgroundColor:
+                                                              Color.fromARGB(
+                                                                  172,
+                                                                  22,
+                                                                  25,
+                                                                  241),
+                                                          content: Container(
+                                                              height: 250,
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/vitory/thatbai.png',
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              )),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'Cancel'),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'OK');
+                                                                  Navigator.pushNamedAndRemoveUntil(
+                                                                      context,
+                                                                      'home',
+                                                                      (route) =>
+                                                                          false);
+                                                                },
+                                                                child:
+                                                                    Text('OK'))
+                                                          ],
+                                                        ));
+                                              },
                                               icon: Image.asset(
                                                   'assets/icons/heart.png')),
                                           IconButton(
