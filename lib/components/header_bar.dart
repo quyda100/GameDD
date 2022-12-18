@@ -7,6 +7,7 @@ import 'package:flutter_application_1/pop_up/profile.dart';
 
 import '../model/user.dart';
 import '../pop_up/paydiscount.dart';
+import '../screens/tableRank.dart';
 // import 'icon_button.dart';
 
 // ignore: must_be_immutable, camel_case_types
@@ -133,7 +134,7 @@ class _header_barState extends State<header_bar> {
                               content: SizedBox(
                                 height: 280,
                                 width: 700.0,
-                                child: Text(''),
+                                child: TableRank(),
                               ),
                             ));
                   },
