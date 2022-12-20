@@ -250,7 +250,6 @@ class _login_screenState extends State<login_screen> {
                         ))
                   ])),
                 ))));
-
     // This trailing comma makes auto-formatting nicer for build methods.
   }
 }

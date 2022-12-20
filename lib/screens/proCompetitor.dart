@@ -10,8 +10,9 @@ import '../components/right_button.dart';
 import '../components/header_bar.dart';
 
 class profile_com extends StatefulWidget {
-  profile_com({super.key, required this.user});
+  profile_com({super.key, required this.user, required this.top});
   Player user;
+  int top;
 
   @override
   State<profile_com> createState() => _profile_comState();
@@ -45,7 +46,7 @@ class _profile_comState extends State<profile_com> {
                 Expanded(
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.7,
-                    height: MediaQuery.of(context).size.height / 1.5,
+                    height: MediaQuery.of(context).size.height / 2,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         color:
@@ -123,7 +124,7 @@ class _profile_comState extends State<profile_com> {
                                     'assets/icons/medal.png',
                                   ),
                                   Text(
-                                    "2" + "/100",
+                                    widget.top.toString() + "/100",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -134,7 +135,7 @@ class _profile_comState extends State<profile_com> {
                                   Image.asset(
                                     'assets/icons/trophy.png',
                                   ),
-                                  Text("2" + "/100",
+                                  Text(widget.top.toString() + "/100",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 ],
