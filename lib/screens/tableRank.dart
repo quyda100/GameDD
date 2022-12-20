@@ -254,6 +254,6 @@ Color checktop(int p) {
     colorb = Color.fromARGB(174, 149, 138, 248);
   else if (p <= 1000)
     colorb = Color.fromARGB(209, 248, 66, 66);
-  else if (p > 1000) colorb = Color.fromARGB(214, 255, 1, 1);
+  else if (p > 1000) colorb = Color.fromARGB(199, 250, 3, 3);
   return colorb;
 }
