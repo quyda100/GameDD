@@ -1,13 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/user.dart';
 
-import '../screens/history_screen.dart';
-import '../components/setting_screenshot.dart';
-import '../components/right_button.dart';
-import '../components/header_bar.dart';
 
 class profile_com extends StatefulWidget {
   profile_com({super.key, required this.user, required this.top});

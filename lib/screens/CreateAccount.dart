@@ -230,8 +230,9 @@ class _CreateAccountState extends State<CreateAccount> {
                                                   'Third': 0
                                                 }
                                               })
-                                              .then((value) =>
-                                                  Navigator.pop(context))
+                                              .then((value) => Navigator
+                                                  .pushReplacementNamed(
+                                                      context, 'login'))
                                               .onError((error, stackTrace) {
                                                 ElegantNotification.error(
                                                         width: MediaQuery.of(

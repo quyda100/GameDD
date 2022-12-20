@@ -194,6 +194,10 @@ class _multi_playState extends State<multi_play>
               child: CircularProgressIndicator(),
             );
           }
+          var data = snapshot.data!.docs;
+          _auth.currentUser!.email == widget.room.player1?.email
+              ? pointuser = data[0]['player2.Point']
+              : pointuser = data[0]['player1.Point'];
           _controller.addStatusListener((status) {
             if (status == AnimationStatus.completed) {
               nextQuest(0, false);
