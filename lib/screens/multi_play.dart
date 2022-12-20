@@ -135,6 +135,7 @@ class _multi_playState extends State<multi_play>
       setState(() {});
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
+          _controller.reset();
           index++;
           isLock = false;
         });
@@ -155,6 +156,7 @@ class _multi_playState extends State<multi_play>
         questions.add(Question.fromDocumentSnapshot(docs));
       }
     });
+    questions.shuffle();
   }
 
   late Animation _animation;
@@ -175,10 +177,6 @@ class _multi_playState extends State<multi_play>
   Widget build(BuildContext context) {
     loadQuestion();
     checkuser();
-    debugPrint(widget.room.player1?.email);
-    debugPrint(widget.room.player2?.email);
-    debugPrint(widget.player.email);
-    debugPrint(widget.room.id.toString());
     var snapshots = _fireStore
         .collection("Rooms")
         .where("id", isEqualTo: widget.room.id)
@@ -196,9 +194,12 @@ class _multi_playState extends State<multi_play>
               child: CircularProgressIndicator(),
             );
           }
-          List<Question> questions = snapshot.data!.docs
-              .map((e) => Question.fromDocumentSnapshot(e))
-              .toList();
+          _controller.addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              nextQuest(0, false);
+            }
+          });
+          _controller.forward();
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
@@ -229,40 +230,62 @@ class _multi_playState extends State<multi_play>
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: MediaQuery.of(context).size.width *
-                                        _animation.value,
-                                    height:
-                                        MediaQuery.of(context).size.height / 7,
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                    margin: const EdgeInsets.only(bottom: 8),
-                                    decoration: BoxDecoration(
+                                  Stack(children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width *
+                                          _animation.value,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              7,
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      decoration: BoxDecoration(
                                         color: Colors.blue,
                                         border: Border.all(
                                             width: 0, color: Colors.black),
                                         borderRadius: BorderRadius.circular(18),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: const Color.fromARGB(
-                                                    255, 178, 177, 169)
-                                                .withOpacity(0.5),
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 8),
-                                          ),
-                                        ]),
-                                    child: Text(
-                                      questions[index].title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
                                       ),
-                                      softWrap: true,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
                                     ),
-                                  ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              7,
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Colors.transparent.withOpacity(0),
+                                          border: Border.all(
+                                              width: 0, color: Colors.black),
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color.fromARGB(
+                                                      255, 178, 177, 169)
+                                                  .withOpacity(0.5),
+                                              blurRadius: 8,
+                                              offset: const Offset(0, 8),
+                                            ),
+                                          ]),
+                                      child: Text(
+                                        questions[index].title,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                        softWrap: true,
+                                        maxLines: 2,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ]),
                                 ],
                               ),
                               Column(
