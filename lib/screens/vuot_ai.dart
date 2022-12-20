@@ -217,7 +217,7 @@ class _VuotAiState extends State<VuotAi> {
                                                 fontWeight: FontWeight.bold)),
                                         Row(
                                           children: [
-                                            Text("${6}/${chap.point ~/ 200}",
+                                            Text("${24}/${24}",
                                                 style: const TextStyle(
                                                     fontSize: 19,
                                                     color:
@@ -348,7 +348,7 @@ class Ai extends StatelessWidget {
                 ),
                 Icon(
                   Icons.star,
-                  color: Colors.grey,
+                  color: Colors.yellow,
                 ),
               ],
             ),
