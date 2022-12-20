@@ -56,8 +56,8 @@ class _history_screenState extends State<history_screen> {
                                   Expanded(
                                     flex: 5,
                                     child: Container(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 15),
                                       decoration: BoxDecoration(
                                           //color: Colors.blue,
                                           borderRadius:
@@ -75,29 +75,28 @@ class _history_screenState extends State<history_screen> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    icon:
-                                        Image.asset('assets/icons/exit.png'),
+                                    icon: Image.asset('assets/icons/exit.png'),
                                     iconSize: 30,
                                   )
                                 ],
                               ),
                               Expanded(
                                 child: ListView.builder(
-                                    itemCount: snapshot.data!.docs.length,
+                                    itemCount: snapshot.data!.docs.length - 1,
                                     itemBuilder: (context, index) => Column(
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        20.0),
+                                                    BorderRadius.circular(20.0),
                                                 color: check(user[index]
                                                             ['result']
                                                         .toString())
                                                     ? Colors.green.shade600
                                                     : Colors.red.shade500,
                                               ),
-                                              padding: const EdgeInsets.all(15.0),
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
                                               margin: const EdgeInsets.fromLTRB(
                                                   15, 8, 15, 3),
                                               child: Row(

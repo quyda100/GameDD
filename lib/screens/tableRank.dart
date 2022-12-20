@@ -37,7 +37,7 @@ class _TableRankState extends State<TableRank> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         color:
-                            Color.fromARGB(255, 115, 40, 244).withOpacity(0.8),
+                            Color.fromARGB(230, 233, 233, 233).withOpacity(0.8),
                         border: Border.all(width: 2)),
                     child: Column(
                       children: [
@@ -45,17 +45,20 @@ class _TableRankState extends State<TableRank> {
                           children: [
                             Expanded(
                               flex: 5,
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                decoration: BoxDecoration(
-                                    //color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: const Text(
-                                  "Xếp Hạng",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                              child: Center(
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                  decoration: BoxDecoration(
+                                      //color: Colors.blue,
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: const Text(
+                                    "Bảng Xếp Hạng Máy Chủ Việt Nam",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
                                 ),
                               ),
                             ),
@@ -84,21 +87,28 @@ class _TableRankState extends State<TableRank> {
                               child: ListView.builder(
                                 itemCount: users.length,
                                 itemBuilder: (context, index) {
+                                  CheckRank(
+                                      int.parse(users[index].rank.toString()));
+
                                   return GestureDetector(
                                     onTap: () {
                                       showDialog(
                                           context: context,
                                           builder: (context) => AlertDialog(
-                                                content: Container(
-                                                  height: 500,
-                                                  width: 600.0,
+                                                backgroundColor: Color.fromARGB(
+                                                    0, 246, 246, 246),
+                                                content: SizedBox(
+                                                  height: 200,
+                                                  width: 550.0,
                                                   child: profile_com(
                                                     user: users[index],
+                                                    top: index + 1,
                                                   ),
                                                 ),
                                               ));
                                     },
                                     child: Container(
+                                      margin: EdgeInsets.only(bottom: 5),
                                       child: Expanded(
                                         child: Container(
                                             width: MediaQuery.of(context)
@@ -106,7 +116,19 @@ class _TableRankState extends State<TableRank> {
                                                     .width /
                                                 1.5,
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                    blurRadius: 4,
+                                                    offset: Offset(4,
+                                                        8), // Shadow position
+                                                  ),
+                                                ],
+                                                color: checktop(int.parse(
+                                                    users[index]
+                                                        .rank
+                                                        .toString())),
                                                 border: Border.all(
                                                   width: 1,
                                                 ),
@@ -120,7 +142,7 @@ class _TableRankState extends State<TableRank> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Padding(
+                                                    Container(
                                                       padding:
                                                           const EdgeInsets.all(
                                                               8.0),
@@ -129,37 +151,43 @@ class _TableRankState extends State<TableRank> {
                                                             'assets/img/${users[index].avatar}'),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                        users[index]
-                                                            .username
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18),
+                                                    Container(
+                                                      width: 120,
+                                                      child: Center(
+                                                        child: Text(
+                                                          users[index]
+                                                              .username
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                        CheckRank(int.parse(
-                                                            users[index]
-                                                                .rank
-                                                                .toString())),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18),
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2,
+                                                      child: Center(
+                                                        child: Text(
+                                                          CheckRank(int.parse(
+                                                              users[index]
+                                                                  .rank
+                                                                  .toString())),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 18),
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
@@ -201,13 +229,31 @@ class _TableRankState extends State<TableRank> {
 
 String CheckRank(int p) {
   if (p <= 1)
-    return "Đồng";
+    return "Đồng Đoàn";
   else if (p <= 50)
-    return "Bạc";
+    return "Bạc Rách";
   else if (p <= 100)
-    return "Vàng";
+    return "Vàng nước";
   else if (p <= 150)
     return "Bạch Kim";
-  else if (p > 150) return "Kim Cương";
+  else if (p <= 1000)
+    return "Kim Cương";
+  else if (p > 1000) return "Đại Cao thủ";
   return "Không";
+}
+
+Color checktop(int p) {
+  Color colorb = Colors.white;
+  if (p <= 1) {
+    colorb = Color.fromARGB(176, 255, 255, 255);
+  } else if (p <= 50)
+    colorb = Color.fromARGB(185, 164, 238, 248);
+  else if (p <= 100)
+    colorb = Color.fromARGB(197, 212, 243, 76);
+  else if (p <= 150)
+    colorb = Color.fromARGB(174, 149, 138, 248);
+  else if (p <= 1000)
+    colorb = Color.fromARGB(209, 248, 66, 66);
+  else if (p > 1000) colorb = Color.fromARGB(199, 250, 3, 3);
+  return colorb;
 }

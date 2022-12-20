@@ -70,9 +70,7 @@ class _VuotAiState extends State<VuotAi> {
                                 child: Container(
                                     margin: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15),
-                                        border: Border.all(width: 0),
+                                        borderRadius: BorderRadius.circular(15),
                                         color: Colors.white.withOpacity(0.3)),
                                     child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
@@ -93,14 +91,14 @@ class _VuotAiState extends State<VuotAi> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      icon: Image.asset(
-                                          'assets/icons/exit.png'),
+                                      icon:
+                                          Image.asset('assets/icons/exit.png'),
                                     ),
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          8, 0, 8, 8),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(8, 0, 8, 8),
                                       child: Column(
                                         children: [
                                           ElevatedButton(
@@ -108,9 +106,8 @@ class _VuotAiState extends State<VuotAi> {
                                               minimumSize:
                                                   MaterialStateProperty.all(
                                                       const Size(120, 35)),
-                                              shape:
-                                                  MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -129,18 +126,16 @@ class _VuotAiState extends State<VuotAi> {
                                                   builder: (context) =>
                                                       AlertDialog(
                                                         backgroundColor:
-                                                            const Color.fromARGB(
-                                                                0,
-                                                                246,
-                                                                246,
-                                                                246),
+                                                            const Color
+                                                                    .fromARGB(0,
+                                                                246, 246, 246),
                                                         content: SizedBox(
                                                           height: 280,
                                                           width: 700.0,
                                                           // ignore: unnecessary_new
                                                           child: VuotAi(
-                                                            chapter: widget
-                                                                .chapter,
+                                                            chapter:
+                                                                widget.chapter,
                                                             player:
                                                                 widget.player,
                                                           ),
@@ -178,7 +173,8 @@ class _VuotAiState extends State<VuotAi> {
                                                     builder: (context) =>
                                                         AlertDialog(
                                                           backgroundColor:
-                                                              const Color.fromARGB(
+                                                              const Color
+                                                                      .fromARGB(
                                                                   0,
                                                                   246,
                                                                   246,
@@ -190,14 +186,13 @@ class _VuotAiState extends State<VuotAi> {
                                                             child: VuotAi(
                                                               chapter: widget
                                                                   .chapter,
-                                                              player: widget
-                                                                  .player,
+                                                              player:
+                                                                  widget.player,
                                                             ),
                                                           ),
                                                         ));
                                               },
-                                              child:
-                                                  const Text("Chương trước"))
+                                              child: const Text("Chương trước"))
                                         ],
                                       ),
                                     ),
@@ -218,16 +213,15 @@ class _VuotAiState extends State<VuotAi> {
                                         Text(chap.title,
                                             style: const TextStyle(
                                                 fontSize: 19,
-                                                color:
-                                                    Colors.lightGreenAccent,
+                                                color: Colors.lightGreenAccent,
                                                 fontWeight: FontWeight.bold)),
                                         Row(
                                           children: [
                                             Text("${6}/${chap.point ~/ 200}",
                                                 style: const TextStyle(
                                                     fontSize: 19,
-                                                    color: Colors
-                                                        .lightGreenAccent,
+                                                    color:
+                                                        Colors.lightGreenAccent,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             const Icon(
@@ -265,6 +259,19 @@ class Ai extends StatelessWidget {
   Player player;
   @override
   Widget build(BuildContext context) {
+    String image = "";
+    Color color = Color.fromARGB(178, 187, 200, 243);
+    if (ChapterId == 1) {
+      image = sub.image1;
+    }
+    if (ChapterId == 2) {
+      image = sub.image2;
+      color = Color.fromARGB(177, 101, 134, 245);
+    }
+    if (ChapterId == 3) {
+      image = sub.image3;
+      color = Color.fromARGB(177, 12, 67, 245);
+    }
     return MaterialButton(
       onPressed: () {
         Navigator.pushAndRemoveUntil(
@@ -279,16 +286,26 @@ class Ai extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-        margin: const EdgeInsets.fromLTRB(0, 10, 15, 0),
+        margin: const EdgeInsets.fromLTRB(0, 5, 5, 5),
         decoration: BoxDecoration(
-            border: Border.all(width: 0),
             borderRadius: BorderRadius.circular(18.0),
-            color: Colors.white),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.red,
+                blurRadius: 4,
+                offset: Offset(4, 8), // Shadow position
+              ),
+            ],
+            color: color),
         child: Column(
           children: [
             Row(
               children: [
-                Image.asset("assets/subjects/${sub.image}"),
+                Image.asset(
+                  "assets/subjects/${image}",
+                  width: 120,
+                  fit: BoxFit.fill,
+                ),
               ],
             ),
             Padding(

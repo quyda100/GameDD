@@ -8,7 +8,6 @@ import 'package:flutter_application_1/model/question.dart';
 import 'package:flutter_application_1/model/user.dart';
 import '../components/header_bar.dart';
 import '../model/room.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class multi_play extends StatefulWidget {
   multi_play({super.key, required this.player, required this.room});
@@ -69,10 +68,51 @@ class _multi_playState extends State<multi_play>
       });
     }
   }
+// lich su
+
+  Future save() async {
+    await _fireRoom
+        .collection('History')
+        .doc(widget.room.id.toString())
+        .get()
+        .then((value) async {
+      if (!value.exists) {
+        if (widget.player.email == widget.room.player1?.email) {
+          String valueuser1 = "thắng";
+          String valueuser2 = "thua";
+          String? username = widget.room.player1?.username;
+          String? usernamek = widget.room.player2?.username;
+          if (point < pointuser!) {
+            valueuser1 = "thua";
+            valueuser2 = "thắng";
+          }
+          if (_auth.currentUser!.email != widget.room.player1?.email) {
+            username = widget.room.player2?.username;
+            usernamek = widget.room.player1?.username;
+          }
+          // máy minh
+          await _fireRoom.collection('history').doc().set({
+            'competitor': usernamek,
+            'result': valueuser1,
+            'uid': _auth.currentUser!.email,
+            'time': DateTime.now(),
+          });
+          // may khach
+          await _fireRoom.collection('history').doc().set({
+            'competitor': username,
+            'result': valueuser2,
+            'uid': widget.player.email == widget.room.player1?.email
+                ? widget.room.player2?.email
+                : widget.room.player1?.email,
+            'time': DateTime.now(),
+          });
+        }
+      }
+    });
+  }
 
 // check avatar poin
 
-  @override
   void nextQuest(int p, bool value) {
     if (isLock == true) {
       return;
@@ -81,11 +121,14 @@ class _multi_playState extends State<multi_play>
       setState(() {
         isLock = true;
       });
-      if (point > pointuser!) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-        });
-      }
+      save().then((value) => ElegantNotification.info(
+              width: MediaQuery.of(context).size.width / 4,
+              title: const Text("Thông báo"),
+              description: const Text("Đang lưu..."))
+          .show(context));
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+      });
     } else {
       point += value ? p : 0;
       isLock = true;
@@ -98,8 +141,20 @@ class _multi_playState extends State<multi_play>
       });
       //
     }
-
     update();
+  }
+
+  List<Question> questions = [];
+  Future loadQuestion() async {
+    await _fireStore
+        .collection("SimpleQuestions")
+        .where("type.id", isEqualTo: 2)
+        .snapshots()
+        .forEach((element) {
+      for (var docs in element.docs) {
+        questions.add(Question.fromDocumentSnapshot(docs));
+      }
+    });
   }
 
   late Animation _animation;
@@ -118,14 +173,15 @@ class _multi_playState extends State<multi_play>
 
   @override
   Widget build(BuildContext context) {
+    loadQuestion();
     checkuser();
     debugPrint(widget.room.player1?.email);
     debugPrint(widget.room.player2?.email);
     debugPrint(widget.player.email);
-    List<Question> questions = [];
+
     var snapshots = _fireStore
-        .collection("SimpleQuestions")
-        .where("type.id", isEqualTo: 2)
+        .collection("Rooms")
+        .where("id", isEqualTo: widget.room.id)
         .snapshots();
     return StreamBuilder(
         stream: snapshots,
@@ -143,12 +199,6 @@ class _multi_playState extends State<multi_play>
           List<Question> questions = snapshot.data!.docs
               .map((e) => Question.fromDocumentSnapshot(e))
               .toList();
-          _controller.addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              nextQuest(0, false);
-            }
-          });
-          _controller.forward();
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
@@ -297,51 +347,71 @@ class _multi_playState extends State<multi_play>
                                                 showDialog(
                                                     context: context,
                                                     // barrierDismissible: false,
-                                                    builder: (context) =>
-                                                        AlertDialog(
-                                                          title: Text(
-                                                              'Xác nhận thoát khỏi trận đấu'),
-                                                          backgroundColor:
-                                                              Color.fromARGB(
-                                                                  255,
-                                                                  246,
-                                                                  246,
-                                                                  246),
-                                                          content: Container(
-                                                            height: 50,
-                                                            width: 300.0,
-                                                            child: Column(
-                                                                children: [
-                                                                  Text(
-                                                                      'Bạn sẽ bị xử thua với hành vi của mình'),
-                                                                  Text(
-                                                                      'Bạn vẫn muốn thoát trận.                        '),
-                                                                ]),
-                                                          ),
-                                                          actions: <Widget>[
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      context,
+                                                    builder:
+                                                        (context) =>
+                                                            AlertDialog(
+                                                              title: Text(
+                                                                  'Xác nhận thoát khỏi trận đấu'),
+                                                              backgroundColor:
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          246,
+                                                                          246,
+                                                                          246),
+                                                              content:
+                                                                  Container(
+                                                                height: 50,
+                                                                width: 300.0,
+                                                                child: Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          'Bạn sẽ bị xử thua với hành vi của mình'),
+                                                                      Text(
+                                                                          'Bạn vẫn muốn thoát trận.                        '),
+                                                                    ]),
+                                                              ),
+                                                              actions: <Widget>[
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          context,
+                                                                          'Cancel'),
+                                                                  child: const Text(
                                                                       'Cancel'),
-                                                              child: const Text(
-                                                                  'Cancel'),
-                                                            ),
-                                                            TextButton(
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context,
-                                                                      'OK');
-                                                                  Navigator.pushNamedAndRemoveUntil(
-                                                                      context,
-                                                                      'home',
-                                                                      (route) =>
-                                                                          false);
-                                                                },
-                                                                child:
-                                                                    Text('OK'))
-                                                          ],
-                                                        ));
+                                                                ),
+                                                                TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      save().then((value) => ElegantNotification.info(
+                                                                              width: MediaQuery.of(context).size.width / 4,
+                                                                              title: const Text("Thông báo"),
+                                                                              description: const Text("Đang lưu..."))
+                                                                          .show(context));
+                                                                      Future.delayed(
+                                                                          const Duration(
+                                                                              seconds: 2),
+                                                                          () {
+                                                                        Navigator.pushNamedAndRemoveUntil(
+                                                                            context,
+                                                                            'home',
+                                                                            (route) =>
+                                                                                false);
+                                                                      });
+
+                                                                      Navigator.pop(
+                                                                          context,
+                                                                          'OK');
+                                                                      Navigator.pushNamedAndRemoveUntil(
+                                                                          context,
+                                                                          'home',
+                                                                          (route) =>
+                                                                              false);
+                                                                    },
+                                                                    child: Text(
+                                                                        'OK'))
+                                                              ],
+                                                            ));
                                               },
                                               icon: Image.asset(
                                                   'assets/icons/logout.png')),

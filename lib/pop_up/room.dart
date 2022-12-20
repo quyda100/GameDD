@@ -120,6 +120,7 @@ class _room_screenState extends State<room_screen> {
                   children: [
                     Expanded(
                       child: Container(
+                        padding: EdgeInsets.only(left: 10, right: 10),
                         width: MediaQuery.of(context).size.width / 1.7,
                         height: MediaQuery.of(context).size.height / 1.5,
                         decoration: BoxDecoration(
@@ -137,7 +138,7 @@ class _room_screenState extends State<room_screen> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     const Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: Text('ID',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
@@ -157,8 +158,7 @@ class _room_screenState extends State<room_screen> {
                                       width:
                                           MediaQuery.of(context).size.width / 3,
                                       child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            8, 8, 10, 5),
+                                        padding: EdgeInsets.only(bottom: 5),
                                         child: TextField(
                                           controller: idRoom,
                                           decoration: const InputDecoration(
@@ -347,7 +347,7 @@ class _room_screenState extends State<room_screen> {
                                   Expanded(
                                     child: Container(
                                       padding: const EdgeInsets.fromLTRB(
-                                          30, 2, 0, 10),
+                                          10, 2, 0, 10),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           border: Border.all(
@@ -366,7 +366,9 @@ class _room_screenState extends State<room_screen> {
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
                                       child: room['player2']['email'] == null
-                                          ? Image.asset('assets/Loading_2.gif')
+                                          ? Image.asset(
+                                              'assets/Loading_2.gif',
+                                            )
                                           : User(user: room['player2']),
                                     ),
                                   ),
