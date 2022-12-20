@@ -178,7 +178,7 @@ class _multi_playState extends State<multi_play>
     debugPrint(widget.room.player1?.email);
     debugPrint(widget.room.player2?.email);
     debugPrint(widget.player.email);
-
+    debugPrint(widget.room.id.toString());
     var snapshots = _fireStore
         .collection("Rooms")
         .where("id", isEqualTo: widget.room.id)
