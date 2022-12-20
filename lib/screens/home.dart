@@ -57,7 +57,6 @@ class _homeState extends State<home> {
               title: const Text("Thông Báo"),
               description: const Text("Phòng Đã Tồn Tại"))
           .show(context);
-      debugPrint("${roomId}");
     }
     room = Room(
         id: roomId,

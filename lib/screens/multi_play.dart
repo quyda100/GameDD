@@ -18,7 +18,8 @@ class multi_play extends StatefulWidget {
   State<multi_play> createState() => _multi_playState();
 }
 
-class _multi_playState extends State<multi_play> {
+class _multi_playState extends State<multi_play>
+    with SingleTickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
   final _fireStore = FirebaseFirestore.instance;
   final _fireRoom = FirebaseFirestore.instance;
@@ -101,6 +102,18 @@ class _multi_playState extends State<multi_play> {
     update();
   }
 
+  late Animation _animation;
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 15));
+    _animation = Tween<double>(begin: 0.05, end: 0.5).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+    super.initState();
+  }
   // read time
 
   @override
@@ -130,6 +143,12 @@ class _multi_playState extends State<multi_play> {
           List<Question> questions = snapshot.data!.docs
               .map((e) => Question.fromDocumentSnapshot(e))
               .toList();
+          _controller.addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              nextQuest(0, false);
+            }
+          });
+          _controller.forward();
           return Scaffold(
               resizeToAvoidBottomInset: true,
               body: Container(
@@ -162,8 +181,8 @@ class _multi_playState extends State<multi_play> {
                                 children: [
                                   Container(
                                     alignment: Alignment.center,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
+                                    width: MediaQuery.of(context).size.width *
+                                        _animation.value,
                                     height:
                                         MediaQuery.of(context).size.height / 7,
                                     padding:

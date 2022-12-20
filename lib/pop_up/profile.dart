@@ -35,7 +35,6 @@ class _profile_screenState extends State<profile_screen> {
   Widget build(BuildContext context) {
     final pro = FirebaseFirestore.instance
         .collection("Users")
-        
         .where('uid', isEqualTo: _auth.currentUser!.email)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(
