@@ -227,7 +227,7 @@ class _VuotAiState extends State<VuotAi> {
                                                         FontWeight.bold)),
                                             const Icon(
                                               Icons.star,
-                                              color: Color.fromARGB(255, 56, 89, 116),
+                                              color: Colors.yellow,
                                             )
                                           ],
                                         )
