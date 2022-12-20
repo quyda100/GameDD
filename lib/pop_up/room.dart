@@ -472,20 +472,22 @@ class User extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 15,
-                  offset: Offset(-5, 5),
-                )
-              ]),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/img/${user['Avatar']}'),
+        Expanded(
+          child: Container(
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 15,
+                    offset: Offset(-5, 5),
+                  )
+                ]),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/img/${user['Avatar']}'),
+              ),
             ),
           ),
         ),

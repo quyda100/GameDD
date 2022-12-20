@@ -164,7 +164,7 @@ class _settingState extends State<setting> {
                                         const Text("Đăng Xuất Thành Công"))
                                 .show(context));
                         Future.delayed(
-                            const Duration(seconds: 2),
+                            const Duration(seconds: 1),
                             () => Navigator.pushNamedAndRemoveUntil(
                                 context, 'login', (route) => false));
                       } catch (e) {
