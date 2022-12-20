@@ -216,9 +216,10 @@ class _VuotAiState extends State<VuotAi> {
                                                 color: Colors.lightGreenAccent,
                                                 fontWeight: FontWeight.bold)),
                                         Row(
+                                          // ignore: prefer_const_literals_to_create_immutables
                                           children: [
-                                            Text("${6}/${chap.point ~/ 200}",
-                                                style: const TextStyle(
+                                            const Text("${24}/${24}",
+                                                style: TextStyle(
                                                     fontSize: 19,
                                                     color:
                                                         Colors.lightGreenAccent,
@@ -260,17 +261,17 @@ class Ai extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String image = "";
-    Color color = Color.fromARGB(178, 187, 200, 243);
+    Color color = const Color.fromARGB(178, 187, 200, 243);
     if (ChapterId == 1) {
       image = sub.image1;
     }
     if (ChapterId == 2) {
       image = sub.image2;
-      color = Color.fromARGB(177, 101, 134, 245);
+      color = const Color.fromARGB(177, 101, 134, 245);
     }
     if (ChapterId == 3) {
       image = sub.image3;
-      color = Color.fromARGB(177, 12, 67, 245);
+      color = const Color.fromARGB(177, 12, 67, 245);
     }
     return MaterialButton(
       onPressed: () {
@@ -290,7 +291,7 @@ class Ai extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18.0),
             boxShadow: [
-              BoxShadow(
+              const BoxShadow(
                 color: Colors.red,
                 blurRadius: 4,
                 offset: Offset(4, 8), // Shadow position
@@ -348,7 +349,7 @@ class Ai extends StatelessWidget {
                 ),
                 Icon(
                   Icons.star,
-                  color: Colors.grey,
+                  color: Colors.yellow,
                 ),
               ],
             ),
